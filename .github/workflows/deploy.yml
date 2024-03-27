@@ -27,8 +27,8 @@ jobs:
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@v2
         with:
-          server: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }} # Or use SSH private key
-          local: dist
-          remote: /var/www/app1
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Use SSH private key for authentication
+          REMOTE_HOST: ${{ secrets.SERVER_IP }} # Remote server's IP address
+          REMOTE_USER: ${{ secrets.SERVER_USERNAME }} # Remote server's username
+          SOURCE: dist # Path to the build directory
+          TARGET: /var/www/app1 # Remote deployment directory
