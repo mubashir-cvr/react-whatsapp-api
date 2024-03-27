@@ -32,5 +32,6 @@ jobs:
           REMOTE_USER: ${{ secrets.SERVER_USERNAME }} # Remote server's username
           SOURCE: dist/ # Path to the build directory
           TARGET: /var/www/app1/ # Remote deployment directory
-      - name: Restart nginx
-        run: sudo systemctl reload nginx
+      - name: Verify nginx configuration and reload
+        run: |
+            ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'sudo nginx -t && sudo systemctl reload nginx'
