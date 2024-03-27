@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@v2
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Use SSH private key for authentication
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_PASSWORD }} # Use SSH private key for authentication
           REMOTE_HOST: ${{ secrets.SERVER_IP }} # Remote server's IP address
           REMOTE_USER: ${{ secrets.SERVER_USERNAME }} # Remote server's username
           SOURCE: dist # Path to the build directory
