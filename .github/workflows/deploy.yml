@@ -25,13 +25,10 @@ jobs:
         run: npm run build
 
       - name: Deploy to server
-        uses: appleboy/ssh-action@master
+        uses: easingthemes/ssh-deploy@v2
         with:
-          host: ${{ secrets.SERVER_IP }} # Remote server's IP address
-          username: ${{ secrets.SERVER_USERNAME }} # Remote server's username
-          key: ${{ secrets.SERVER_PASSWORD }} # Use SSH private key for authentication
-          script: |
-            # Create directory if not exists
-            mkdir -p /var/www/app1
-            # Copy contents of 'dist' folder to '/var/www/app1/'
-            rsync -avz --delete dist/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/app1/
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_PASSWORD }} # Use SSH private key for authentication
+          REMOTE_HOST: ${{ secrets.SERVER_IP }} # Remote server's IP address
+          REMOTE_USER: ${{ secrets.SERVER_USERNAME }} # Remote server's username
+          SOURCE: dist/ # Path to the build directory
+          TARGET: var/www/app1/ # Remote deployment directory
