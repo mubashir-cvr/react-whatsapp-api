@@ -1,35 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
+import "./App.css";
+import RootLayout from "./layouts/RootLayout";
+import { DASHBOARD_SIDEBAR,DASHBOARD_SIDEBAR_SEC } from "./routes/nav";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const routes = DASHBOARD_SIDEBAR.concat(DASHBOARD_SIDEBAR_SEC);
+  const routAndElement = routes.map((route) => ({
+    path: route.to || "/",
+    element: route.element || <div></div>,
+  }));
+  const router = createHashRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: routAndElement,
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
