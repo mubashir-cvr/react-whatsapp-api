@@ -1,6 +1,6 @@
 import React from "react";
 import { HiOutlineSearch } from "react-icons/hi";
-import { FcBearish } from "react-icons/fc";
+import { SiPrintables } from "react-icons/si";
 import { useState, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect } from "react";
@@ -39,13 +39,13 @@ function Header() {
               <GiHamburgerMenu />
             </button>
           </div>
-          <div className="flex flex-1 gap-2 justify-center">
-            <FcBearish fontSize={24} />
-            <p className="quantico-regular">RECSPERT</p>
+          <div className="flex flex-1 gap-2 justify-center text-pink-900">
+            <SiPrintables fontSize={24} />
+            <p className="quantico-regular">PRESS MASTER</p>
           </div>
         </div>
         <div className="hidden md:flex px-4 flex-1">
-          <h2 className="outfit-bold fo">Good Morning, <span className="font-light text-gray-600">Klara</span></h2>
+          <h2 className="outfit-bold fo">Hi, <span className="font-light text-gray-600">User</span></h2>
         </div>
         <div className="relative hidden md:flex">
           <HiOutlineSearch
@@ -92,8 +92,12 @@ function Header() {
         }`}
       >
         <div className="flex items-center justify-end w-full h-12 border-b-2 gap-2 px-3 py-4">
-          <div>
-            <button onClick={() => setSidebarOpen(!isOpen)}>
+          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-1 gap-2 justify-center text-pink-900">
+            <SiPrintables fontSize={24} />
+            <p className="quantico-regular">PRESS MASTER</p>
+          </div>
+            <button className="flex items-end" onClick={() => setSidebarOpen(!isOpen)}>
               <GiHamburgerMenu />
             </button>
           </div>

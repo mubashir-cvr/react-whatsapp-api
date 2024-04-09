@@ -1,5 +1,5 @@
 import React from "react";
-import { FcBearish } from "react-icons/fc";
+import { SiPrintables } from "react-icons/si";
 import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { NavLink } from "react-router-dom";
 
@@ -8,9 +8,9 @@ const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";
 function SideBar() {
   return (
     <div className="hidden md:flex flex-col w-64 bg-white border-r-2">
-      <div className="flex items-center border-b-2 h-16 gap-2 px-3 py-4">
-        <FcBearish fontSize={24} />
-        <p className="quantico-regular">RECSPERT</p>
+      <div className="flex items-center border-b-2 h-16 gap-2 px-3 py-4 text-pink-900">
+        <SiPrintables fontSize={24}/>
+        <p className="quantico-regular  border-l-2 px-3">PRESS MASTER</p>
       </div>
       <div className="overflow-auto no-scrollbar flex-1 flex flex-col">
         <div className="gap-2 pb-3">
