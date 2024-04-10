@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 function AddUser() {
   return (
-    <>
-      <div>AddUser</div>
-      <div>
-        <Link to={"/users"}>List User</Link>
-        <Link to={"/adduser"}>Add User</Link>
-      </div>
+<>
+    <div className="flex flex-row w-full h-10 md:h-14 justify-between items-center">
+        <Link to={"/users"}><div className="flex">List User</div></Link>
+        <Link to={"/adduser"}><div className="flex">Add User</div></Link>
+    </div> 
+    <div>Add User</div>
     </>
   );
 }
