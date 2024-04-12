@@ -35,7 +35,7 @@ function UserLayout({ pageName, contentComponent }) {
           <p className="text-s hidden md:flex">Permissions</p>
         </NavLink>
       </div>
-      <div className="flex flex-1 p-4 overflow-scroll flex-col gap-2 pb-14">
+      <div className="flex flex-1 p-4 overflow-scroll no-scrollbar flex-col gap-2 pb-14">
         {contentComponent}
       </div>
     </div>
