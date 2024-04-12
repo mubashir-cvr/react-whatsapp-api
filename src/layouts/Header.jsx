@@ -93,7 +93,7 @@ function Header() {
       >
         <div className="flex items-center justify-end w-full h-12 border-b-2 gap-2 px-3 py-4">
           <div className="flex flex-row items-center gap-2">
-          <div className="flex flex-1 gap-2 justify-center text-pink-900">
+          <div className="flex flex-1 gap-2 justify-center .">
             <SiPrintables fontSize={24} />
             <p className="quantico-regular">PRESS MASTER</p>
           </div>
