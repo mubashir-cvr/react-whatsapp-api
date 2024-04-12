@@ -9,7 +9,7 @@ const itemActiveClass =
 function UserLayout({ pageName, contentComponent }) {
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="h-10 md:h-14 flex w-full flex-row items-center  text-pink-900 bg-white border-b-2">
+      <div className="h-10 md:h-14 flex w-full flex-row items-center  text-pink-900 bg-white border-b-2 sticky top-14">
         <NavLink
           to="/users"
           className={pageName === "listUser" ? itemActiveClass : itemClass}
