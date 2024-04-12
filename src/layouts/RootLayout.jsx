@@ -10,7 +10,7 @@ function RootLayout() {
         <SideBar />
         <div className="flex flex-col flex-1 bg-gray-400">
           <Header />
-          <div className="flex flex-1 justify-center items-center bg-gray-400 mt-16">
+          <div className="flex flex-1 justify-center items-center bg-gray-400 pt-14">
             <Outlet />
           </div>
           <div className="fixed bottom-0 w-full bg-white h-14">
