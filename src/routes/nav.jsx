@@ -63,7 +63,7 @@ export const DASHBOARD_SIDEBAR_SEC =[
         to:"users",
         icon:<FaUserCog color="rgb(80 7 36)"/>,
         sidebar:true,
-        element:<UserLayout  pageName={'listUser'} contentComponent={<div>List User</div>}/>
+        element:<UserLayout  pageName={'listUser'} contentComponent={<ListUser/>}/>
 
     },
     {

@@ -1,14 +1,48 @@
 import React from "react";
-import { Link } from 'react-router-dom'
 
 function ListUser() {
   return (
     <>
-    <div className="flex flex-row w-full h-10 md:h-14 justify-between items-center">
-        <Link to={"/users"}><div className="flex">List User</div></Link>
-        <Link to={"/adduser"}><div className="flex">Add User</div></Link>
-    </div> 
-    <div>List Users</div>
+      <div className="flex w-full gap-2 flex-col md:flex-row">
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+      </div>
+      <div className="flex w-full gap-2 flex-col md:flex-row">
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+      </div>
+
+      <div className="flex w-full gap-2 flex-col md:flex-row">
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+      </div><div className="flex w-full gap-2 flex-col md:flex-row">
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details
+        </div>
+      </div>
+      <div className="flex w-full gap-2 flex-col md:flex-row">
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details 2
+        </div>
+        <div className="flex w-full md:w-1/2 items-center justify-center border-2 bg-slate-300 rounded-xl h-24">
+          User Details 1
+        </div>
+      </div>
     </>
   );
 }
