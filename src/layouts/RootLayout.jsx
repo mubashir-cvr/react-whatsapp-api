@@ -13,7 +13,7 @@ function RootLayout() {
           <div className="flex flex-1 justify-center items-center bg-gray-400 pt-14">
             <Outlet />
           </div>
-          <div className="fixed bottom-0 w-full bg-white h-14">
+          <div className="flex fixed justify-center items-center bottom-0  w-full bg-white h-14">
             Footer
           </div>
         </div>
