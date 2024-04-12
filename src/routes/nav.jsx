@@ -8,6 +8,7 @@ import { BiSupport } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
 import ListUser from "../pages/ListUser";
 import AddUser from "../pages/AddUser";
+import UserLayout from "../layouts/UserLayout";
 export const DASHBOARD_SIDEBAR =[
     {
         key:1,
@@ -62,7 +63,7 @@ export const DASHBOARD_SIDEBAR_SEC =[
         to:"users",
         icon:<FaUserCog color="rgb(80 7 36)"/>,
         sidebar:true,
-        element:<ListUser/>
+        element:<UserLayout  pageName={'listUser'} contentComponent={<div>List User</div>}/>
 
     },
     {
@@ -71,7 +72,16 @@ export const DASHBOARD_SIDEBAR_SEC =[
         to:"adduser",
         icon:<FaUserCog color="rgb(80 7 36)"/>,
         sidebar:false,
-        element:<AddUser/>
+        element:<UserLayout  pageName={'addUser'} contentComponent={<div>Add User</div>}/>
+
+    },
+    {
+        key:1,
+        title:"Add User",
+        to:"roles",
+        icon:<FaUserCog color="rgb(80 7 36)"/>,
+        sidebar:false,
+        element:<UserLayout  pageName={'roles'} contentComponent={<div>Roles</div>}/>
 
     },
     {
