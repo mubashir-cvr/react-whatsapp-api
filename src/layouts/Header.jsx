@@ -79,7 +79,7 @@ function Header() {
       <div
         ref={sidebarRef}
         className={`fixed flex flex-col md:hidden border-x-2 shadow-gray-700 top-0 left-0 h-full bg-white z-40 transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0 text-pink-950" : "-translate-x-full"
         }`}
       >
         <div className="flex items-center justify-end w-full h-12 border-b-2 gap-2 px-3 py-4">
