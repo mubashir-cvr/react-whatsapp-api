@@ -32,7 +32,7 @@ function Header() {
   }, [isOpen]);
   return (
     <>
-      <div className="fixed top-15 bg-white md:h-18 flex flex-row w-full items-center gap-3 border-b-2">
+      <div className="fixed top-15 bg-white md:h-18 flex phone-header flex-row md:right-0 md:left-64 items-center gap-3 border-b-2">
         <div className="md:hidden flex flex-row items-center w-full  h-14 gap-2 px-3 py-4">
           <div className="justify-start">
             <button onClick={() => setSidebarOpen(!isOpen)}>
@@ -57,15 +57,6 @@ function Header() {
             placeholder="Search.."
             className="tet-sm focus:outline-none active:outline-none h-10 w-[25rem] border pl-11 border-gray-300 rounded-full px-4"
           />
-        </div>
-        <div className="hidden md:flex h-full">
-          <div className="flex flex-row w-full py-3 px-3">
-            <div className="flex text-sm items-center rounded-lg px-3 gap-2 text-white bg-pink-950 w-full h-full">
-                <p>+</p>
-                <p>Post a Need</p>
-            </div>
-
-          </div>
         </div>
         <div className="flex md:px-4">
         <VscBellDot className="text-lg  text-pink-950"/>

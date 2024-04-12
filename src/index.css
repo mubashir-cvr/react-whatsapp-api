@@ -94,3 +94,8 @@ body{
   font-weight: 500;
   font-style: normal;
 }
+@media (max-width: 640px) {
+  .phone-header {
+    width: 100%;
+  }
+}
