@@ -7,12 +7,12 @@ const itemClass = "flex gap-3 px-8 py-4 hover:bg-gray-100";
 const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";
 function SideBar() {
   return (
-    <div className="hidden md:flex flex-col w-64 bg-white border-r-2">
+    <div className="hidden md:flex flex-col w-64  bg-white border-r-2">
       <div className="flex items-center border-b-2 h-16 gap-2 px-3 py-4 text-pink-900">
         <SiPrintables fontSize={24}/>
         <p className="quantico-regular  border-l-2 px-3">PRESS MASTER</p>
       </div>
-      <div className="overflow-auto no-scrollbar flex-1 flex flex-col">
+      <div className="overflow-auto no-scrollbar  flex-1 flex flex-col">
         <div className="gap-2 pb-3">
           {DASHBOARD_SIDEBAR.filter(item => item.sidebar).map((item) => (
             <DashBoadrdLink key={item.key} item={item} />
