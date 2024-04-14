@@ -9,7 +9,7 @@ const itemActiveClass =
 function UserLayout({ pageName, contentComponent }) {
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="h-10 md:h-14 flex w-full flex-row items-center  text-pink-900 bg-white border-b-2 sticky top-14">
+      <div className="h-10 md:h-14 flex w-full flex-row items-center  text-pink-900 bg-white border-b-2">
         <NavLink
           to="/users"
           className={pageName === "listUser" ? itemActiveClass : itemClass}
@@ -35,7 +35,7 @@ function UserLayout({ pageName, contentComponent }) {
           <p className="text-s hidden md:flex">Permissions</p>
         </NavLink>
       </div>
-      <div className="flex h-full p-4 overflow-scroll no-scrollbar flex-col gap-2 pb-14 items-center">
+      <div className="flex h-full p-4 overflow-scroll no-scrollbar flex-col gap-2 items-center">
         {contentComponent}
       </div>
     </div>

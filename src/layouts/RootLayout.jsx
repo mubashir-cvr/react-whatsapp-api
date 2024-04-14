@@ -8,12 +8,12 @@ function RootLayout() {
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1 bg-white">
         <SideBar />
-        <div className="flex flex-col flex-1 bg-gray-400">
+        <div className="flex flex-col flex-1">
           <Header />
-          <div className="flex flex-1 max-h-screen justify-center items-center bg-gray-400 mt-14 pb-2 mb-8 md:mb-10">
+          <div className="flex fixed left-0  right-0 md:left-64 top-0 bottom-0 flex-1 max-h-screen justify-center items-center bg-white mt-16 pb-2 mb-8 md:mb-10">
             <Outlet />
           </div>
-          <div className="flex fixed justify-center items-center bottom-0  w-full bg-white h-8 md:h-10">
+          <div className="flex fixed justify-center items-center bottom-0 border-2 w-full bg-white h-10 md:h-14">
             Footer
           </div>
         </div>
