@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import Header from "./Header";
 import FooterBar from "./FooterBar";
+import withAuth from "../Auth/withAuth";
 
 function RootLayout() {
   return (
@@ -23,4 +24,4 @@ function RootLayout() {
   );
 }
 
-export default RootLayout;
+export default withAuth(RootLayout);

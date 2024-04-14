@@ -37,9 +37,9 @@ function ListUser() {
         User Details
       </div>
       <div className="flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center  text-xl shadow-xl hover:bg-pink-900 hover:text-3xl">
-        <buttom>
+        <button>
           <p className="text-zinc-50">+</p>
-        </buttom>
+        </button>
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ import { RxCalendar } from "react-icons/rx";
 import { BiSupport } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
 import ListUser from "../pages/ListUser";
-import AddUser from "../pages/AddUser";
 import UserLayout from "../layouts/UserLayout";
 export const DASHBOARD_SIDEBAR =[
     {
