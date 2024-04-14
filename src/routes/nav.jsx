@@ -101,5 +101,32 @@ export const DASHBOARD_SIDEBAR_SEC =[
         sidebar:true,
         element:<h3>Support</h3>
 
+    },
+    {
+        key:4,
+        title:"test",
+        to:"test",
+        icon:<BiSupport color="rgb(80 7 36)"/>,
+        sidebar:false,
+        element:<h3>Development in Progress</h3>
+
+    },
+    {
+        key:4,
+        title:"test",
+        to:"test1",
+        icon:<BiSupport color="rgb(80 7 36)"/>,
+        sidebar:false,
+        element:<h3>Development in Progress</h3>
+
+    },
+    {
+        key:4,
+        title:"test",
+        to:"test2",
+        icon:<BiSupport color="rgb(80 7 36)"/>,
+        sidebar:false,
+        element:<h3>Development in Progress</h3>
+
     }
 ]
