@@ -13,7 +13,7 @@ function SideBar() {
         <SiPrintables fontSize={24}/>
         <p className="quantico-regular  border-l-2 px-3">PRESS MASTER</p>
       </div>
-      <div className="overflow-scroll max-h-svh  flex flex-col">
+      <div className="overflow-scroll no-scrollbar  flex flex-col">
         <div className="gap-2 pb-3">
           {DASHBOARD_SIDEBAR.filter(item => item.sidebar).map((item) => (
             <DashBoadrdLink key={item.key} item={item} />

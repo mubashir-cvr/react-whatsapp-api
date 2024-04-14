@@ -59,10 +59,10 @@ function Header() {
           />
         </div>
         <div className="flex md:px-4">
-        <VscBellDot className="text-lg  text-pink-950"/>
+        <VscBellDot className="text-lg  text-pink-900"/>
         </div>
         <div className="flex md:px-4">
-        <RiWallet3Line className="text-lg text-pink-950"/>
+        <RiWallet3Line className="text-lg text-pink-900"/>
         </div>
         <div className="flex p-2 md:px-4">
         <img className="flex bg-white w-12 rounded-full md:h-12 border-2" alt="avatar"/>
@@ -79,7 +79,7 @@ function Header() {
       <div
         ref={sidebarRef}
         className={`fixed flex flex-col md:hidden border-x-2 shadow-gray-700 top-0 left-0 h-full bg-white z-40 transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0 text-pink-950" : "-translate-x-full"
+          isOpen ? "translate-x-0 text-pink-900" : "-translate-x-full"
         }`}
       >
         <div className="flex items-center justify-end w-full h-12 border-b-2 gap-2 px-3 py-4">

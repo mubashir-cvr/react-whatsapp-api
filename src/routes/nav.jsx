@@ -50,7 +50,7 @@ export const DASHBOARD_SIDEBAR =[
         to:"classes",
         icon:<RiRadioLine color="rgb(80 7 36)"/>,
         sidebar:true,
-        element:<h3>Find</h3>
+        element:<h3>Classes</h3>
 
     },
     
