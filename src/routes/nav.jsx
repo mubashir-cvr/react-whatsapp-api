@@ -6,8 +6,10 @@ import { RiRadioLine } from "react-icons/ri";
 import { RxCalendar } from "react-icons/rx";
 import { BiSupport } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
+import { IoLogOutOutline } from "react-icons/io5";
 import ListUser from "../pages/ListUser";
 import UserLayout from "../layouts/UserLayout";
+import LogOut from "../Auth/LogOut";
 export const DASHBOARD_SIDEBAR =[
     {
         key:1,
@@ -99,6 +101,15 @@ export const DASHBOARD_SIDEBAR_SEC =[
         icon:<BiSupport color="rgb(80 7 36)"/>,
         sidebar:true,
         element:<h3>Support</h3>
+
+    },
+    {
+        key:3,
+        title:"Log out",
+        to:"logout",
+        icon:<IoLogOutOutline  color="rgb(80 7 36)"/>,
+        sidebar:true,
+        element:<LogOut/>
 
     },
     {

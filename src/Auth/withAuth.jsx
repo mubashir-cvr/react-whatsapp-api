@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../const/constant';
 
 const withAuth = (WrappedComponent) => {
-  console.log("Authentication Called")
   const AuthComponent = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
