@@ -95,9 +95,9 @@ function Header() {
         </div>
         <div className="overflow-auto no-scrollbar flex-1 flex flex-col">
           <div className="gap-2 flex-1 pb-3">
-            {DASHBOARD_SIDEBAR.filter(item => item.sidebar).map((item) => (
+            {DASHBOARD_SIDEBAR.filter(item => item.sidebar).map((item,index) => (
               <DashBoadrdLink
-                key={item.key}
+                key={index}
                 item={item}
                 closeSidebar={closeSidebar}
               />
@@ -107,9 +107,9 @@ function Header() {
             <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
           </div>
           <div className="gap-2 mb-10">
-            {DASHBOARD_SIDEBAR_SEC.filter(item => item.sidebar).map((item) => (
+            {DASHBOARD_SIDEBAR_SEC.filter(item => item.sidebar).map((item,index) => (
               <DashBoadrdLink
-                key={item.key}
+                key={index}
                 item={item}
                 closeSidebar={closeSidebar}
               />

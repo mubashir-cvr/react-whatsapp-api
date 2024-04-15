@@ -10,6 +10,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import ListUser from "../pages/ListUser";
 import UserLayout from "../layouts/UserLayout";
 import LogOut from "../Auth/LogOut";
+import ListPermissions from "../pages/ListPermissions";
 export const DASHBOARD_SIDEBAR =[
     {
         key:1,
@@ -137,6 +138,16 @@ export const DASHBOARD_SIDEBAR_SEC =[
         icon:<BiSupport color="rgb(80 7 36)"/>,
         sidebar:false,
         element:<h3>Development in Progress</h3>
+
+    }
+    ,
+    {
+        key:4,
+        title:"permissions",
+        to:"permissions",
+        icon:<BiSupport color="rgb(80 7 36)"/>,
+        sidebar:false,
+        element:<ListPermissions/>
 
     }
 ]

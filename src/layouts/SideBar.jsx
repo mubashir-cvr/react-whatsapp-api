@@ -15,8 +15,8 @@ function SideBar() {
       </div>
       <div className="overflow-scroll no-scrollbar  flex flex-col">
         <div className="gap-2 pb-3">
-          {DASHBOARD_SIDEBAR.filter(item => item.sidebar).map((item) => (
-            <DashBoadrdLink key={item.key} item={item} />
+          {DASHBOARD_SIDEBAR.filter(item => item.sidebar).map((item,index) => (
+            <DashBoadrdLink key={index} item={item} />
           ))}
         </div>
         <div className="flex justify-center py-2">
@@ -24,8 +24,8 @@ function SideBar() {
         </div>
         <div className=""></div>
         <div className="gap-2 pb-3">
-          {DASHBOARD_SIDEBAR_SEC.filter(item => item.sidebar).map((item) => (
-            <DashBoadrdLink key={item.key} item={item} />
+          {DASHBOARD_SIDEBAR_SEC.filter(item => item.sidebar).map((item,index) => (
+            <DashBoadrdLink key={index} item={item} />
           ))}
         </div>
       </div>
