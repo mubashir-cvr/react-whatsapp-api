@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../const/constant';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_URL } from "../const/constant";
+import Loading from "../utils/Loading";
 
 const withAuth = (WrappedComponent) => {
   const AuthComponent = () => {
@@ -10,30 +11,44 @@ const withAuth = (WrappedComponent) => {
     useEffect(() => {
       const checkAuth = async () => {
         try {
-          const response = await fetch(API_URL + 'auth/checkauth/', {
-            method: 'GET',
+          const response = await fetch(API_URL + "auth/checkauth/", {
+            method: "GET",
             headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           });
-      
+
           if (!response.ok) {
+            
             const responseData = await response.json();
-            const errorMessage = responseData.data.usermessage || "Not authenticated";
-            throw new Error(errorMessage);
+            const errorMessage = responseData.message || "Not authenticated";
+            let error = new Error(errorMessage);
+            error.statusCode=responseData.statusCode
+            throw error
           }
-      
+
           setIsLoading(false);
         } catch (error) {
-          console.error('Authentication failed:', error.message);
-          navigate('/login'); // Redirect to the login page if not authenticated
+          console.error("Authentication failed:"+error.message);
+          if(error.statusCode){
+          navigate("/login"); 
+          }
+          else{
+            navigate("/error");
+          }
         }
       };
-      
+
       checkAuth();
     }, [navigate]);
 
-    return isLoading ? <div>Loading...</div> : <WrappedComponent />;
+    return isLoading ? (
+      <div className="w-screen h-screen">
+        <Loading />
+      </div>
+    ) : (
+      <WrappedComponent />
+    );
   };
 
   return AuthComponent;

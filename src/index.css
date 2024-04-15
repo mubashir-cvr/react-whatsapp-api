@@ -99,3 +99,41 @@ body{
     width: 100%;
   }
 }
+
+
+.loading-icon-container {
+  position: relative;
+}
+
+.loading-icon {
+  font-size: 3rem; /* Adjust the size of the icon as needed */
+  animation: rotate 1s linear infinite; /* Define rotation animation */
+}
+
+.blinking-line {
+  /* Adjust the position of the line */
+  width: 150px; /* Adjust the width of the line */
+  height: 3px; /* Adjust the height of the line */
+  animation: blink 3s infinite; /* Define blinking animation */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg); /* Rotate from 0 degrees */
+  }
+  100% {
+    transform: rotate(360deg); /* Rotate to 360 degrees */
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

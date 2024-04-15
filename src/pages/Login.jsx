@@ -11,7 +11,6 @@ function Login() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     const errorMessageElement = document.getElementById("errorMessage");
     errorMessageElement.innerHTML = "";
@@ -24,50 +23,32 @@ function Login() {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("token", data.token); 
-        window.location.href = '/'; 
-        // Log the response from the backend
-        // Handle successful login, e.g., redirect to dashboard
+        localStorage.setItem("token", data.data[0].token);
+        window.location.href = "/";
       } else {
         let error;
         try {
           const responseData = await response.json();
-          console.log("Response Status:", response.status);
-          error = new Error(responseData.error || "Login failed");
-          error.data = responseData; // Attach the response data to the error
+          error = new Error(responseData.message || "Login failed");
+          error.data = responseData.data; // Attach the response data to the error
         } catch (parseError) {
-          // If parsing JSON fails, use the response status text as the error message
           error = new Error(response.statusText || "Login failed");
         }
         throw error;
       }
     } catch (error) {
-      let errorMessage = JSON.parse(JSON.stringify(error)).data.data
-        .usermessage;
+      let errorMessage = error.message || "Unknown error occurred.";
       errorMessageElement.innerHTML = errorMessage;
-      // Check if there's error data and handle accordingly
+  
+      
       if (error.data) {
-        // Handle specific error codes
-        if (error.data.errorCode === 401) {
-          console.log("Unauthorized: ", error.data.errorMessage);
-          // Handle unauthorized access
-        } else if (error.data.errorCode === 404) {
-          console.log("Not found: ", error.data.errorMessage);
-          // Handle resource not found
-        } else {
-          console.log("Other error: ", error.data.errorMessage);
-          // Handle other errors
-        }
-      } else {
-        // Handle other errors
-        console.log("Unknown error occurred.");
+        console.log(error.data)
       }
     }
   };
-
   return (
     <div className="flex flex-col bg-white h-screen w-screen items-center justify-center">
       <div className="flex flex-col gap-2 md:w-4/12 w-10/12 border-2 rounded-lg justify-center bg-slate-100">
