@@ -11,6 +11,8 @@ import ListUser from "../pages/ListUser";
 import UserLayout from "../layouts/UserLayout";
 import LogOut from "../Auth/LogOut";
 import ListPermissions from "../pages/ListPermissions";
+import SearchSelect from "../form/SearchSelect";
+import ListRoles from "../pages/ListRoles";
 export const DASHBOARD_SIDEBAR =[
     {
         key:1,
@@ -83,7 +85,7 @@ export const DASHBOARD_SIDEBAR_SEC =[
         to:"roles",
         icon:<FaUserCog color="rgb(80 7 36)"/>,
         sidebar:false,
-        element:<UserLayout  pageName={'roles'} contentComponent={<div>Roles</div>}/>
+        element:<UserLayout  pageName={'roles'} contentComponent={<ListRoles/>}/>
 
     },
     {
@@ -111,6 +113,15 @@ export const DASHBOARD_SIDEBAR_SEC =[
         icon:<IoLogOutOutline  color="rgb(80 7 36)"/>,
         sidebar:true,
         element:<LogOut/>
+
+    },
+    {
+        key:3,
+        title:"Form",
+        to:"forms",
+        icon:<IoLogOutOutline  color="rgb(80 7 36)"/>,
+        sidebar:true,
+        element:<SearchSelect/>
 
     },
     {

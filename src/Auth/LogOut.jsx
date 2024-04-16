@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Loading from '../utils/Loading';
 
 function LogOut() {
     useEffect(() => {
@@ -12,7 +13,7 @@ function LogOut() {
         return () => clearTimeout(logoutTimeout);
       }, []);
   return (
-    <div>Logging Out ... </div>
+    <div className='h-screen w-screen'><Loading/></div>
   )
 }
 

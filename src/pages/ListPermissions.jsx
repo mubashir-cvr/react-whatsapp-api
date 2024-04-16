@@ -11,19 +11,17 @@ function ListPermissions() {
     objectname: "",
   });
 
+  const fetchPermissions = async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(API_URL + "auth/permissions", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const jsonResponse = await response.json();
+    setPermissions(jsonResponse.data);
+  };
   useEffect(() => {
-    const fetchPermissions = async () => {
-      const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + "auth/permissions", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const jsonResponse = await response.json();
-      console.log(jsonResponse);
-      setPermissions(jsonResponse.data);
-    };
-
     fetchPermissions();
   }, []);
 
@@ -53,8 +51,11 @@ function ListPermissions() {
     if (response.ok) {
       // Refresh permissions list
       const updatedPermissions = await response.json();
-      console.log(updatedPermissions)
-      setPermissions(permissions=>[...permissions,updatedPermissions.permission]);
+      console.log(updatedPermissions);
+      setPermissions((permissions) => [
+        ...permissions,
+        updatedPermissions.permission,
+      ]);
       // Close modal
       setShowModal(false);
       // Clear new permission state
@@ -68,13 +69,16 @@ function ListPermissions() {
   const deletePermission = async (permissionId) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(API_URL + `auth/permissions/${permissionId}`, {
-        method: 'DELETE',
-        headers: {
+      const response = await fetch(
+        API_URL + `auth/permissions/${permissionId}`,
+        {
+          method: "DELETE",
+          headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-        },
-      });
+          },
+        }
+      );
 
       if (!response.ok) {
         const errorMessage = await response.text();
@@ -82,12 +86,13 @@ function ListPermissions() {
       }
 
       const deletedData = await response.json();
-     let deleted_id =deletedData.deletedPermission._id
-      setPermissions(prevPermissions => prevPermissions.filter(item => item._id !== deleted_id));
+      let deleted_id = deletedData.deletedPermission._id;
+      setPermissions((prevPermissions) =>
+        prevPermissions.filter((item) => item._id !== deleted_id)
+      );
 
       setDeletedPermission(deletedData);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleDelete = (permissionId) => {
@@ -97,41 +102,34 @@ function ListPermissions() {
   return (
     <div className="flex h-full p-4 w-full md:w-10/12 overflow-scroll no-scrollbar flex-col gap-2 items-center">
       <div className="flex w-full gap-2 flex-col">
-        <div
-          className="flex w-full flex-row text-sm font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-slate-300 rounded-xl h-10"
-        >
-          <p className="flex w-full border-r-2 px-4 justify-center">
-            Name
-          </p>
-          <p className="flex w-full border-r-2 px-4 justify-center">
-            Desc
-          </p>
-          <p className="flex w-full justify-center">
-            Object
-          </p>
-          <p className="flex w-full justify-center">
-            Action
-          </p>
+        <div className="flex w-full flex-row text-sm font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-slate-300 rounded-xl h-10">
+          <p className="flex w-full border-r-2 px-4 justify-center">Name</p>
+          <p className="flex w-full border-r-2 px-4 justify-center">Desc</p>
+          <p className="flex w-full justify-center">Object</p>
+          <p className="flex w-full justify-center">Action</p>
         </div>
-        { permissions && 
-        permissions.map((permission, data) => (
+
+        {permissions.map((permission, index) => (
           <div
-            key={data}
+            key={index}
             className="flex w-full flex-row text-xs justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-slate-300 rounded-xl h-10"
           >
             <p className="flex w-1/5 border-r-2 px-4 justify-center">
-             {permission.name}
+              {permission.name ? permission.name : "N/A"}
             </p>
             <p className="flex w-2/5 border-r-2 px-4 justify-center">
-
-             {permission.description || "NA"}
+              {permission.description ? permission.description : "N/A"}
             </p>
             <p className="flex w-1/5 justify-center">
-
-             {permission.objectname || "All"}
+              {permission.objectname ? permission.objectname : "All"}
             </p>
             <div className="flex w-1/5 justify-center">
-                <button onClick={() => handleDelete(permission._id)} className=" bg-red-500 text-white text-xs p-1 rounded-lg">Delete</button>
+              <button
+                onClick={() => handleDelete(permission._id)}
+                className=" bg-red-500 text-white text-xs p-1 rounded-lg"
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
