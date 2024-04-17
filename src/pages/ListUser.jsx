@@ -36,7 +36,7 @@ function ListUser() {
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + "/auth/users", {
+      const response = await fetch(API_URL + "auth/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +78,7 @@ function ListUser() {
       formData.append(key, newUser[key]);
     });
 
-    const response = await fetch(API_URL + "/auth/users", {
+    const response = await fetch(API_URL + "auth/users", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
