@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import UserCard from "../components/UserCard";
 import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/constants";
+import LoadingUserCard from "../components/LoadingUserCard";
 function ListUser() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -41,8 +43,11 @@ function ListUser() {
         },
       });
       const jsonResponse = await response.json();
-      setUsers(jsonResponse.data);
-      console.log(jsonResponse.data)
+      const logoutTimeout = setTimeout(() => {
+        setUsers(jsonResponse.data);
+        setLoading(false);
+      }, 2000);
+      return () => clearTimeout(logoutTimeout);
     };
 
     fetchUsers();
@@ -80,13 +85,13 @@ function ListUser() {
     const response = await fetch(API_URL + "auth/users", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
     if (response.ok) {
       const updatedUser = await response.json();
-      console.log(updatedUser.data)
+      console.log(updatedUser.data);
       setUsers([...users, updatedUser.data]);
       setShowCreateModal(false);
       setNewUser({
@@ -165,13 +170,34 @@ function ListUser() {
   return (
     <div className="flex h-full md:p-4 w-full md:w-5/12 overflow-scroll no-scrollbar flex-col items-center">
       <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full h-12 border-2 mb-2">
-      <SiPrintables fontSize={24}/>
+        <SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">USERS</p>
       </div>
-      <div className="flex w-full flex-col">
-        {users.map((user, index) => (
-          <UserCard key={index} user={user} handleDelete={handleDelete} index={index} handleEdit={handleEdit}/>
-        ))}
+      <div className="flex w-full flex-col gap-2">
+        {loading ? (
+          <div className="flex w-full flex-col gap-2">
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+            <LoadingUserCard />
+          
+          </div>
+        ) : (
+          users.map((user, index) => (
+            <UserCard
+              key={index}
+              user={user}
+              handleDelete={handleDelete}
+              index={index}
+              handleEdit={handleEdit}
+            />
+          ))
+        )}
         <div
           className="flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
           onClick={handleAddUser}

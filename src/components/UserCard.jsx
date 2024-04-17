@@ -12,7 +12,7 @@ function UserCard({ handleEdit, handleDelete, user, index }) {
       className="flex w-full flex-row justify-betwee items-center border-2 p-4 bg-white h-24 shadow-md"
     >
       <div className="flex  h-full items-center justify-center">
-        <div className="border-2 rounded-full">
+        <div className="border-2 w-16 h-16 rounded-full">
           <img
             className="rounded-full w-16"
             src={
