@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../const/constant";
+
 import Loading from "../utils/Loading";
 
 const withAuth = (WrappedComponent) => {
+  const API_URL = import.meta.env.REACT_APP_API_URL;
   const AuthComponent = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);

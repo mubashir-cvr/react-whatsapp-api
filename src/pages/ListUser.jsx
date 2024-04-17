@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { API_URL } from "../const/constant";
 import UserCard from "../components/UserCard";
 import { SiPrintables } from "react-icons/si";
 
 function ListUser() {
+  const API_URL = import.meta.env.REACT_APP_API_URL;
   const [users, setUsers] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);

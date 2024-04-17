@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { API_URL } from "../const/constant";
+
 
 function ListRoles() {
+  const API_URL = import.meta.env.REACT_APP_API_URL;
   const [roles, setRoles] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [deletedRole, setDeletedRole] = useState(null);

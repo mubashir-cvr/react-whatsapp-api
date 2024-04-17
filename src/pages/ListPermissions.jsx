@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { API_URL } from "../const/constant";
 
 function ListPermissions() {
+  const API_URL = import.meta.env.REACT_APP_API_URL;
+
   const [permissions, setPermissions] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [deletedPermission, setDeletedPermission] = useState(null);
