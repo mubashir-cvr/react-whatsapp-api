@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from "../const/constant";
+import UserCard from "../components/UserCard";
+import { SiPrintables } from "react-icons/si";
 
 function ListUser() {
   const [users, setUsers] = useState([]);
@@ -41,6 +43,7 @@ function ListUser() {
       });
       const jsonResponse = await response.json();
       setUsers(jsonResponse.data);
+      console.log(jsonResponse.data)
     };
 
     fetchUsers();
@@ -84,7 +87,8 @@ function ListUser() {
     });
     if (response.ok) {
       const updatedUser = await response.json();
-      setUsers([...users, updatedUser]);
+      console.log(updatedUser.data)
+      setUsers([...users, updatedUser.data]);
       setShowCreateModal(false);
       setNewUser({
         email: "",
@@ -160,29 +164,14 @@ function ListUser() {
   };
 
   return (
-    <div className="flex h-full p-4 w-full md:w-10/12 overflow-scroll no-scrollbar flex-col gap-2 items-center">
-      <div className="flex w-full gap-2 flex-col">
+    <div className="flex h-full md:p-4 w-full md:w-5/12 overflow-scroll no-scrollbar flex-col items-center">
+      <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full h-12 border-2 mb-2">
+      <SiPrintables fontSize={24}/>
+        <p className="quantico-regular  px-3">USERS</p>
+      </div>
+      <div className="flex w-full flex-col">
         {users.map((user, index) => (
-          <div
-            key={index}
-            className="flex w-full flex-row text-xs justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-slate-300 rounded-xl h-24"
-          >
-            <p className="flex w-full justify-center">{user.name}</p>
-            <div className="flex w-1/5 justify-center">
-              <button
-                onClick={() => handleEdit(user._id)}
-                className="bg-blue-500 text-white text-xs p-1 rounded-lg"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(user._id)}
-                className="bg-red-500 text-white text-xs p-1 rounded-lg ml-2"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+          <UserCard key={index} user={user} handleDelete={handleDelete} index={index} handleEdit={handleEdit}/>
         ))}
         <div
           className="flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
