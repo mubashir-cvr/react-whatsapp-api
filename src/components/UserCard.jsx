@@ -3,9 +3,9 @@ import { MdOutlinePhoneIphone } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { API_URL } from "../const/constants";
 
 function UserCard({ handleEdit, handleDelete, user, index }) {
-  const API_URL = import.meta.env.REACT_APP_API_URL;
   return (
     <div
       key={index}
