@@ -81,8 +81,7 @@ function ListUser() {
     const response = await fetch(API_URL + "auth/users", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data"
+        Authorization: `Bearer ${token}`
       },
       body: formData,
     });
