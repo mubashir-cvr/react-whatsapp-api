@@ -1,9 +1,9 @@
-
 import { API_URL } from "../const/constants";
 import RoleCard from "../components/RoleCard";
 import React, { useState, useEffect } from "react";
 import RoleEdit from "../components/RoleEdit";
 import RoleAdd from "../components/RoleAdd";
+import LoadingRoleCard from "../components/LoadingRoleCard";
 
 function ListRoles() {
   const [roles, setRoles] = useState([]);
@@ -11,7 +11,7 @@ function ListRoles() {
   const [deletedRole, setDeletedRole] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [permissions, setPermissions] = useState([]);
-  
+  const [isLoading, setLoading] = useState(true);
   const [editRole, setEditRole] = useState(null);
 
   // State to hold the role being edited
@@ -41,6 +41,10 @@ function ListRoles() {
       const jsonResponse = await response.json();
       console.log(jsonResponse);
       setPermissions(jsonResponse.data);
+      const logoutTimeout = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      return () => clearTimeout(logoutTimeout);
     };
 
     fetchPermissions();
@@ -54,10 +58,6 @@ function ListRoles() {
     setShowModal(false);
     setEditRole(null); // Reset editRole state when modal is closed
   };
-
- 
-
- 
 
   const deleteRole = async (roleId) => {
     const token = localStorage.getItem("token");
@@ -102,7 +102,19 @@ function ListRoles() {
           <p className="flex w-full justify-center">Permissions</p>
           <p className="flex w-full justify-center">Actions</p>
         </div>
-        {roles &&
+        {isLoading ? (
+          <>
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+            <LoadingRoleCard />
+          </>
+        ) : (
           roles.map((role, index) => (
             <RoleCard
               key={index}
@@ -110,7 +122,8 @@ function ListRoles() {
               handleDelete={handleDelete}
               handleEdit={handleEdit}
             />
-          ))}
+          ))
+        )}
         <div
           className="flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
           onClick={handleAddRole}
@@ -122,7 +135,13 @@ function ListRoles() {
       </div>
 
       {showModal && (
-       <RoleAdd permissions={permissions} handleModalClose={handleModalClose} roles={roles} setRoles={setRoles} setShowModal={setShowModal}/>
+        <RoleAdd
+          permissions={permissions}
+          handleModalClose={handleModalClose}
+          roles={roles}
+          setRoles={setRoles}
+          setShowModal={setShowModal}
+        />
       )}
 
       {/* Edit form */}

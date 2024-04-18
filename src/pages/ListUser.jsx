@@ -3,6 +3,7 @@ import UserCard from "../components/UserCard";
 import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/constants";
 import LoadingUserCard from "../components/LoadingUserCard";
+import UserAdd from "../components/UserAdd";
 function ListUser() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,8 +44,8 @@ function ListUser() {
         },
       });
       const jsonResponse = await response.json();
+      setUsers(jsonResponse.data);
       const logoutTimeout = setTimeout(() => {
-        setUsers(jsonResponse.data);
         setLoading(false);
       }, 1000);
       return () => clearTimeout(logoutTimeout);
@@ -63,52 +64,12 @@ function ListUser() {
     setSelectedUserId(null);
   };
 
-  const handleInputChange = (event) => {
-    const { name, value, files } = event.target;
-    const updatedValue = name === "profilePicture" ? files[0] : value;
-    setNewUser({ ...newUser, [name]: updatedValue });
-  };
+
 
   const handleEditInputChange = (event) => {
     const { name, value, files } = event.target;
     const updatedValue = name === "profilePicture" ? files[0] : value;
     setEditUser({ ...editUser, [name]: updatedValue });
-  };
-
-  const handleSubmit = async () => {
-    const token = localStorage.getItem("token");
-    const formData = new FormData();
-    Object.keys(newUser).forEach((key) => {
-      formData.append(key, newUser[key]);
-    });
-
-    const response = await fetch(API_URL + "auth/users", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    if (response.ok) {
-      const updatedUser = await response.json();
-      console.log(updatedUser.data);
-      setUsers([...users, updatedUser.data]);
-      setShowCreateModal(false);
-      setNewUser({
-        email: "",
-        password: "",
-        name: "",
-        department: "",
-        address: "",
-        phoneNumber: "",
-        status: "",
-        profilePicture: null,
-        user_type: "",
-        role: "",
-      });
-    } else {
-      console.error("Failed to add user");
-    }
   };
 
   const deleteUser = async (userId) => {
@@ -209,106 +170,7 @@ function ListUser() {
       </div>
 
       {showCreateModal && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-lg">
-            <h2 className="text-xl font-bold mb-4">Add User</h2>
-            <input
-              type="email"
-              placeholder="Email"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="email"
-              value={newUser.email}
-              onChange={handleInputChange}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="password"
-              value={newUser.password}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Name"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="name"
-              value={newUser.name}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Department"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="department"
-              value={newUser.department}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Address"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="address"
-              value={newUser.address}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Phone Number"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="phoneNumber"
-              value={newUser.phoneNumber}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Status"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="status"
-              value={newUser.status}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              placeholder="User Type"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="user_type"
-              value={newUser.user_type}
-              onChange={handleInputChange}
-            />
-            {/* Assuming role is selected from a dropdown */}
-            <select
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="role"
-              value={newUser.role}
-              onChange={handleInputChange}
-            >
-              <option value="">Select Role</option>
-              {/* Map over roles if available */}
-            </select>
-            <input
-              type="file"
-              accept="image/*"
-              className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-              name="profilePicture"
-              onChange={handleInputChange}
-            />
-            <div className="flex justify-end">
-              <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
-                onClick={handleSubmit}
-              >
-                Add
-              </button>
-              <button
-                className="px-4 py-2 bg-gray-300 rounded-md"
-                onClick={handleModalClose}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <UserAdd users={users} handleModalClose={handleModalClose} setShowCreateModal={setShowCreateModal} setUsers={setUsers}/>
       )}
 
       {showEditModal && (
