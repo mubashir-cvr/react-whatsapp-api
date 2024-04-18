@@ -122,7 +122,7 @@ function ListRoles() {
       </div>
 
       {showModal && (
-       <RoleAdd permissions={permissions} handleModalClose={handleModalClose}/>
+       <RoleAdd permissions={permissions} handleModalClose={handleModalClose} roles={roles} setRoles={setRoles} setShowModal={setShowModal}/>
       )}
 
       {/* Edit form */}

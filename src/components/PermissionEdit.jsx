@@ -99,18 +99,18 @@ function PermissionEdit({ setPermissions, handleModalClose }) {
           onKeyDown={handleKeyDown}
         />
         <div className="flex justify-center">
-          <button
+          <div
             className="px-4 py-2 text-pink-900 border-2 rounded-md mr-2"
             onClick={handleSubmit}
           >
             <BiSave className="text-lg" />
-          </button>
-          <button
+          </div>
+          <div
             className="px-4 py-2  text-pink-900 border-2 rounded-md"
             onClick={handleModalClose}
           >
             <MdCancel className="text-lg" />
-          </button>
+          </div>
         </div>
         </form>
       </div>

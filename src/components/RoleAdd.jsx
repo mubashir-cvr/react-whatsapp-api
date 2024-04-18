@@ -3,7 +3,8 @@ import Select from "react-select";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import { SiPrintables } from "react-icons/si";
-function RoleAdd({ permissions, handleModalClose }) {
+import { API_URL } from "../const/constants";
+function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) {
   const [newRole, setNewRole] = useState({
     name: "",
     permissions: [],
@@ -15,8 +16,7 @@ function RoleAdd({ permissions, handleModalClose }) {
   const handlePermissionSelect = (selectedOptions) => {
     const selectedPermissions = selectedOptions.map((option) => option);
     setNewRole({ ...newRole, permissions: selectedPermissions });
-    lastInputRef.current.focus();
-
+    firstInputRef.current.focus();
   };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -70,17 +70,8 @@ function RoleAdd({ permissions, handleModalClose }) {
           <p className="quantico-regular text-sm   px-3">Create Role</p>
         </h2>
         <form onSubmit={(e) => e.preventDefault()}>
-          <input
-            type="text"
-            placeholder="Enter role name"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-            name="name"
-            value={newRole.name}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            ref={firstInputRef}
-          />
-          <Select
+
+        <Select
             options={permissions}
             isMulti
             placeholder="Select permissions"
@@ -88,21 +79,35 @@ function RoleAdd({ permissions, handleModalClose }) {
             getOptionValue={(option) => option._id}
             onChange={handlePermissionSelect}
             onKeyDown={handleKeyDown}
-            ref={lastInputRef}
+            
+            ref={firstInputRef}
+
           />
+          <input
+            type="text"
+            placeholder="Enter role name"
+            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            name="name"
+            value={newRole.name}
+            ref={lastInputRef}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            
+          />
+          
           <div className="flex justify-center p-4">
-            <button
+            <div
               className="px-4 py-2 text-pink-900 border-2 rounded-md mr-2"
               onClick={handleSubmit}
             >
               <BiSave className="text-lg" />
-            </button>
-            <button
+            </div>
+            <div
               className="px-4 py-2  text-pink-900 border-2 rounded-md"
               onClick={handleModalClose}
             >
               <MdCancel className="text-lg" />
-            </button>
+            </div>
           </div>
         </form>
       </div>

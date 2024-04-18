@@ -47,7 +47,7 @@ function RoleEdit({
       ...prevEditRole,
       permissions: selectedOption,
     }));
-    lastInputRef.current.focus();
+    firstInputRef.current.focus();
   };
 
   const handleKeyDown = (event) => {
@@ -71,40 +71,42 @@ function RoleEdit({
           Edit Role
         </h2>
         <form onSubmit={(e) => e.preventDefault()}>
-          <input
-            type="text"
-            placeholder="Enter role name"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-            name="name"
-            value={editRole.name}
-            ref={firstInputRef}
-            onChange={(e) => setEditRole({ ...editRole, name: e.target.value })}
-            onKeyDown={handleKeyDown}
-          />
-          <Select
+        <Select
             options={permissions}
             isMulti
+            ref={firstInputRef}
             getOptionLabel={(option) => option.name}
             getOptionValue={(option) => option._id}
             placeholder="Select permissions"
             value={editRole.permissions}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            ref={lastInputRef}
+            
           />
+          <input
+            type="text"
+            placeholder="Enter role name"
+            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            name="name"
+            value={editRole.name}
+            ref={lastInputRef}
+            onChange={(e) => setEditRole({ ...editRole, name: e.target.value })}
+            onKeyDown={handleKeyDown}
+          />
+          
           <div className="flex justify-center p-4">
-            <button
+            <div
               className="px-4 py-2 text-pink-900 border-2 rounded-md mr-2"
               onClick={handleEditSubmit}
             >
               <BiSave className="text-lg" />
-            </button>
-            <button
+            </div>
+            <div
               className="px-4 py-2  text-pink-900 border-2 rounded-md"
               onClick={handleModalClose}
             >
               <MdCancel className="text-lg" />
-            </button>
+            </div>
           </div>
         </form>
       </div>
