@@ -3,6 +3,7 @@ import Select from "react-select";
 import { API_URL } from "../const/constants";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
+import ModalHead from "./ModalHead";
 function RoleEdit({
   setEditRole,
   editRole,
@@ -67,9 +68,7 @@ function RoleEdit({
   return (
     <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-4 border-2 shadow-md w-96">
-        <h2 className="flex justify-center text-lg quantico-regular text-pink-900 font-bold mb-4">
-          Edit Role
-        </h2>
+        <ModalHead heading={"Edit Role"}/>
         <form onSubmit={(e) => e.preventDefault()}>
         <Select
             options={permissions}
@@ -86,7 +85,7 @@ function RoleEdit({
           <input
             type="text"
             placeholder="Enter role name"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border border-gray-300 rounded-md p-2 mt-2 w-full"
             name="name"
             value={editRole.name}
             ref={lastInputRef}

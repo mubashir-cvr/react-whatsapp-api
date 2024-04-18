@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import { API_URL } from "../const/constants";
+import ModalHead from "./ModalHead";
 
 function PermissionEdit({ setPermissions, handleModalClose }) {
   const [newPermission, setNewPermission] = useState({
@@ -65,9 +66,7 @@ function PermissionEdit({ setPermissions, handleModalClose }) {
   return (
     <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center flex-col">
       <div className="bg-white p-8  shadow-md border-2">
-        <h2 className="flex w-full text-lg justify-center font-bold quantico-regular text-pink-900 mb-4">
-          Add Permission
-        </h2>
+        <ModalHead heading={"Add Permission"} />
         <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"

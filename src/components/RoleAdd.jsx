@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
-import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/constants";
+import ModalHead from "./ModalHead";
 function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) {
   const [newRole, setNewRole] = useState({
     name: "",
@@ -65,10 +65,7 @@ function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) 
   return (
     <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-4  border-2 shadow-md w-6/12">
-        <h2 className="text-lg flex justify-center font-bold text-pink-900 mb-4">
-          <SiPrintables fontSize={16} />
-          <p className="quantico-regular text-sm   px-3">Create Role</p>
-        </h2>
+      <ModalHead heading={'Create Role'}/>
         <form onSubmit={(e) => e.preventDefault()}>
 
         <Select
