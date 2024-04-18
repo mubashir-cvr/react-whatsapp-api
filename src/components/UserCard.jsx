@@ -2,7 +2,7 @@ import React from "react";
 import { MdOutlinePhoneIphone } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md"; 
 import { API_URL } from "../const/constants";
 
 function UserCard({ handleEdit, handleDelete, user, index }) {
