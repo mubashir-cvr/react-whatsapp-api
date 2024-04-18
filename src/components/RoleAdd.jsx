@@ -63,12 +63,13 @@ function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) 
     }
   };
   return (
-    <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-4  border-2 shadow-md w-6/12">
+    <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center px-2">
+      <div className="bg-white p-4  border-2 shadow-md w-full px- h-1/2 md:w-6/12">
       <ModalHead heading={'Create Role'}/>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center h-full">
 
         <Select
+            className="w-full mb-4"
             options={permissions}
             isMulti
             placeholder="Select permissions"
