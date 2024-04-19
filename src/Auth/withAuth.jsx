@@ -9,6 +9,7 @@ const withAuth = (WrappedComponent) => {
   const AuthComponent = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
+    const [user, setuser] = useState({});
 
     useEffect(() => {
       const checkAuth = async () => {
@@ -28,6 +29,8 @@ const withAuth = (WrappedComponent) => {
             error.statusCode=responseData.statusCode
             throw error
           }
+          const responseData = await response.json();
+          setuser(responseData.data.user)
 
           setIsLoading(false);
         } catch (error) {
@@ -49,7 +52,7 @@ const withAuth = (WrappedComponent) => {
         <Loading />
       </div>
     ) : (
-      <WrappedComponent />
+      <WrappedComponent user={user}/>
     );
   };
 

@@ -3,8 +3,8 @@ import { SiPrintables } from "react-icons/si";
 import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { NavLink } from "react-router-dom";
 
-const itemClass = "flex gap-3 px-8 py-4 hover:bg-gray-100";
-const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";
+const itemClass = "flex gap-3 px-8 py-4 text-pink-900 hover:bg-gray-100";
+const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100 text-pink-900";
 function SideBar() {
   return (
     <div className="hidden  fixed md:flex bottom-14 top-0 left-0 flex-col w-64 bg-white border-r-2">
@@ -41,7 +41,7 @@ function DashBoadrdLink({ item }) {
       to={item.to}
       className={({ isActive }) => (isActive ? itemActiveClass : itemClass)}
     >
-      <span className="text-xl">{item.icon}</span>
+      <span className="text-xl text-pink-900">{item.icon}</span>
       {item.title}
     </NavLink>
   );

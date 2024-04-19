@@ -23,6 +23,18 @@ function EditUser({
     user_type: "",
     role: "",
   });
+
+  const [formMesssage, setformMesssage] = useState({
+    email: "",
+    password: "",
+    name: "",
+    department: "",
+    address: "",
+    phoneNumber: "",
+    status: "",
+    user_type: "",
+    role: "",
+  });
   const [roles, setRoles] = useState([]);
   const firstInputRef = useRef(null);
   const lastInputRef = useRef(null);
@@ -62,6 +74,17 @@ function EditUser({
   };
 
   const handleEditSubmit = async () => {
+    setformMesssage({
+      email: "",
+      password: "",
+      name: "",
+      department: "",
+      address: "",
+      phoneNumber: "",
+      status: "",
+      user_type: "",
+      role: "",
+    });
     const token = localStorage.getItem("token");
     const formData = new FormData();
     Object.keys(editUser).forEach((key) => {
@@ -86,7 +109,15 @@ function EditUser({
       setUsers(updatedUsers);
       setShowEditModal(false);
     } else {
-      console.error("Failed to update user");
+      const errorResponse = await response.json();
+      if (errorResponse.statusCode == 422) {
+        errorResponse.data.map((error) => {
+          setformMesssage((prevaMessage) => ({
+            ...prevaMessage,
+            [error.path]: error.msg,
+          }));
+        });
+      }
     }
   };
   const user_types = [
@@ -122,6 +153,10 @@ function EditUser({
             onChange={handleEditInputChange}
             onKeyDown={handleKeyDown}
           />
+          <p id="name" className="text-xs p-1 text-red-600">
+            {formMesssage.name}
+          </p>
+
           <input
             type="text"
             placeholder="Name"
@@ -132,6 +167,10 @@ function EditUser({
             onChange={handleEditInputChange}
             ref={firstInputRef}
           />
+          <p id="department" className="text-xs p-1 text-red-600">
+            {formMesssage.department}
+          </p>
+
           <input
             type="text"
             placeholder="Department"
@@ -141,6 +180,10 @@ function EditUser({
             onKeyDown={handleKeyDown}
             onChange={handleEditInputChange}
           />
+          <p id="address" className="text-xs p-1 text-red-600">
+            {formMesssage.address}
+          </p>
+
           <input
             type="text"
             placeholder="Address"
@@ -150,6 +193,10 @@ function EditUser({
             onKeyDown={handleKeyDown}
             onChange={handleEditInputChange}
           />
+          <p id="phoneNumber" className="text-xs p-1 text-red-600">
+            {formMesssage.phoneNumber}
+          </p>
+
           <input
             type="text"
             placeholder="Phone Number"
@@ -159,6 +206,10 @@ function EditUser({
             onKeyDown={handleKeyDown}
             onChange={handleEditInputChange}
           />
+          <p id="user_type" className="text-xs p-1 text-red-600">
+            {formMesssage.user_type}
+          </p>
+
           <Select
             options={user_types}
             getOptionLabel={(option) => option.name}
@@ -168,7 +219,9 @@ function EditUser({
             onChange={handleUserTypeChange}
             onKeyDown={handleKeyDown}
           />
-          <div className="p-1"></div>
+          <p id="role" className="text-xs p-1 text-red-600">
+            {formMesssage.role}
+          </p>
           <Select
             options={roles}
             getOptionLabel={(option) => option.name}
@@ -178,17 +231,21 @@ function EditUser({
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
+          <p id="status" className="text-xs mt-2 text-red-600">
+            {formMesssage.status}
+          </p>
 
           <input
             type="text"
             placeholder="Status"
-            className="border mt-2 border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border  border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="status"
             value={editUser.status}
             onKeyDown={handleKeyDown}
             onChange={handleEditInputChange}
             ref={lastInputRef}
           />
+
           <div className="flex  mt-4 justify-center">
             <div
               className="px-4 py-2 text-pink-900 border-2 rounded-md mr-2"

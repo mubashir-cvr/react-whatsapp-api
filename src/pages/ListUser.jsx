@@ -5,6 +5,9 @@ import { API_URL } from "../const/constants";
 import LoadingUserCard from "../components/LoadingUserCard";
 import UserAdd from "../components/UserAdd";
 import EditUser from "../components/EditUser";
+import SearchItems from "../components/SearchItems";
+
+
 function ListUser() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,6 +58,22 @@ function ListUser() {
     fetchUsers();
   }, []);
 
+
+  const fetchSearchUsers = async (search) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(API_URL + "auth/users?search="+search, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const jsonResponse = await response.json();
+    setUsers(jsonResponse.data);
+    const logoutTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(logoutTimeout);
+  };
+
   const handleAddUser = () => {
     setShowCreateModal(true);
   };
@@ -97,10 +116,17 @@ function ListUser() {
 
   return (
     <div className="flex h-full md:p-4 w-full md:w-5/12 overflow-scroll no-scrollbar flex-col items-center">
-      <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full h-12 border-2 mb-2">
+       
+
+      <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-12 border-2">
         <SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">USERS</p>
       </div>
+      <div className="flex w-full min-h-14 items-center justify-center border-2 mb-2">
+        <div className="relative w-10/12 flex">
+          <SearchItems fetcher={fetchSearchUsers}/>
+         </div>
+        </div>
       <div className="flex w-full flex-col gap-2">
         {loading ? (
           <div className="flex w-full flex-col gap-2">
@@ -120,7 +146,6 @@ function ListUser() {
               key={index}
               user={user}
               handleDelete={handleDelete}
-              index={index}
               handleEdit={handleEdit}
             />
           ))
