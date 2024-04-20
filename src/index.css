@@ -137,3 +137,46 @@ body{
     opacity: 1;
   }
 }
+
+.profile-update-form {
+  /* Style your form container */
+}
+
+.image-container {
+  position: relative;
+ 
+}
+
+.rounded-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #ffffff; /* Placeholder color */
+}
+
+.image-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-label {
+  position: absolute;
+  bottom: 5px;
+  left: 60%;
+  transform: translateX(-20%);
+  padding: 5px 10px;
+  cursor: pointer;
+}
+

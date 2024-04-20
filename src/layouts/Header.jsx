@@ -9,9 +9,12 @@ import { RiWallet3Line } from "react-icons/ri";
 import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { NavLink } from "react-router-dom";
 import { API_URL } from "../const/constants";
+import { useAuth } from "../Auth/AuthProvider";
+
 const itemClass = "flex gap-3 px-8 py-4 hover:bg-gray-100";
 const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";
-function Header({ user }) {
+function Header() {
+  const { user } = useAuth();
   const [isOpen, setSidebarOpen] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
   const sidebarRef = useRef();

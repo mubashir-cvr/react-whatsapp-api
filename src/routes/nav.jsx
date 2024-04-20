@@ -13,6 +13,8 @@ import LogOut from "../Auth/LogOut";
 import ListPermissions from "../pages/ListPermissions";
 import SearchSelect from "../form/SearchSelect";
 import ListRoles from "../pages/ListRoles";
+import { ImProfile } from "react-icons/im";
+import Profile from "../pages/Profile";
 export const DASHBOARD_SIDEBAR =[
     {
         key:1,
@@ -113,6 +115,15 @@ export const DASHBOARD_SIDEBAR_SEC =[
         icon:<IoLogOutOutline  color="rgb(80 7 36)"/>,
         sidebar:true,
         element:<LogOut/>
+
+    },
+    {
+        key:3,
+        title:"Profile",
+        to:"profile",
+        icon:<ImProfile  color="rgb(80 7 36)"/>,
+        sidebar:true,
+        element:<Profile />
 
     },
     {
