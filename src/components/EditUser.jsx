@@ -147,7 +147,7 @@ function EditUser({
             disabled
             type="email"
             placeholder="Email"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border-b border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="email"
             value={editUser.email}
             onChange={handleEditInputChange}
@@ -160,7 +160,7 @@ function EditUser({
           <input
             type="text"
             placeholder="Name"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border-b border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="name"
             value={editUser.name}
             onKeyDown={handleKeyDown}
@@ -174,7 +174,7 @@ function EditUser({
           <input
             type="text"
             placeholder="Department"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border-b border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="department"
             value={editUser.department}
             onKeyDown={handleKeyDown}
@@ -187,7 +187,7 @@ function EditUser({
           <input
             type="text"
             placeholder="Address"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border-b border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="address"
             value={editUser.address}
             onKeyDown={handleKeyDown}
@@ -200,7 +200,7 @@ function EditUser({
           <input
             type="text"
             placeholder="Phone Number"
-            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            className="border-b border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="phoneNumber"
             value={editUser.phoneNumber}
             onKeyDown={handleKeyDown}
