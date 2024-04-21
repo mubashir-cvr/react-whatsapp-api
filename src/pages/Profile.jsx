@@ -153,7 +153,8 @@ function Profile() {
         <SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">Profile</p>
       </div>
-      <div className="flex w-full border-2 h-full overflow-scroll no-scrollbar shadow-md flex-col gap-2">
+      <div className="w-full p-4 border-2 shadow-md">
+      <div className="flex w-full border border-pink-900 h-full overflow-scroll no-scrollbar flex-col gap-2 ">
         <div className="flex items-center justify-center w-full pt-4">
           <div className="image-container border border-pink-900 rounded-full h-24 w-24">
             {renderImagePreview()}
@@ -345,6 +346,7 @@ function Profile() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
