@@ -5,9 +5,10 @@ import { API_URL } from "../const/constants";
 import { useAuth } from "../Auth/AuthProvider";
 import { MdCancel } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
+import { Link } from "react-router-dom";
 function Profile() {
   const { user } = useAuth();
-  const [image, setImage] = useState(user.profilePicture);
+  const [image, setImage] = useState(API_URL+user.profilePicture);
   const [profile, setProfile] = useState(user);
   useEffect(() => {}, []);
   const [formMesssage, setformMesssage] = useState({
@@ -76,13 +77,11 @@ function Profile() {
     const token = localStorage.getItem("token");
     const formData = new FormData();
     Object.keys(profile).forEach((key) => {
-      if (key === "role") {
-        formData.append(key, profile[key]._id);
-      } else {
+      if(key!=='role')
         formData.append(key, profile[key]);
-      }
+      
     });
-    const response = await fetch(API_URL + `auth/users/${selectedUserId}`, {
+    const response = await fetch(API_URL + `auth/users/${profile._id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -90,12 +89,21 @@ function Profile() {
       body: formData,
     });
     if (response.ok) {
+      setformMesssage({
+        email: "",
+        password: "",
+        name: "",
+        department: "",
+        address: "",
+        phoneNumber: "",
+        status: "",
+        user_type: "",
+        role: "",
+      });
+    
       const updatedUser = await response.json();
-      const updatedUsers = users.map((user) =>
-        user._id === selectedUserId ? updatedUser.data : user
-      );
-      setUsers(updatedUsers);
-      setShowEditModal(false);
+      setProfile(updatedUser.data)
+      HandleAllCancel();
     } else {
       const errorResponse = await response.json();
       if (errorResponse.statusCode == 422) {
@@ -140,12 +148,12 @@ function Profile() {
   ];
 
   return (
-    <div className="flex h-full p-4 w-full md:w-5/12 overflow-scroll no-scrollbar flex-col items-center">
+    <div className="flex h-full p-4 w-full md:w-5/12 flex-col items-center">
       <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-12 border-2">
         <SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">Profile</p>
       </div>
-      <div className="flex w-full border-2 h-full shadow-md flex-col gap-2">
+      <div className="flex w-full border-2 h-full overflow-scroll no-scrollbar shadow-md flex-col gap-2">
         <div className="flex items-center justify-center w-full pt-4">
           <div className="image-container h-24 w-24">
             {renderImagePreview()}
@@ -166,13 +174,13 @@ function Profile() {
           </div>
         </div>
         <div className="flex items-center justify-center w-full ">
-          <p>
+          <div>
             <div className="flex flex-row gap-3 items-center justify-center border-b-2 h-8 px-3 py-2 w-full mr-2">
               <p className="text-pink-900 text-sm font-medium quantico-regular">
                 {profile.email || "email"}
               </p>
             </div>
-          </p>
+          </div>
         </div>
 
         <div className="flex flex-col gap-3 p-4 md:p-8 h-full">
@@ -315,12 +323,14 @@ function Profile() {
           )}
 
           <div className="flex w-full items-center justify-center">
-            <p className="text-pink-900 text-sm font-medium quantico-regular">
+            <Link to={'/reset-password'}><p className="text-pink-900 text-sm font-medium quantico-regular">
               Change Password
             </p>
+
+            </Link>
           </div>
 
-          <div className="flex  mt-4 justify-center">
+          <div className="flex  mt-4 justify-center mb-4">
             <div
               className="px-4 py-2 text-pink-900 border rounded-md mr-2"
               onClick={handleEditSubmit}
