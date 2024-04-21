@@ -20,6 +20,7 @@ function ResetPassword() {
       newPassword: "",
       rePassword: "",
     });
+    console.log(JSON.stringify({ oldPassword, newPassword, rePassword }))
     // Reset error state
     setError("");
     const token = localStorage.getItem("token");
@@ -27,6 +28,7 @@ function ResetPassword() {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ oldPassword, newPassword, rePassword }),
     })
