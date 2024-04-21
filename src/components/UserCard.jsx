@@ -15,9 +15,9 @@ function UserCard({ handleEdit, handleDelete, user }) {
       </div>
       <div className="flex w-full flex-row justify-betwee items-center h-full">
         <div className="flex  h-full items-center justify-center">
-          <div className="border-2 w-16 h-16 rounded-full">
+          <div className="w-16 h-16  rounded-full">
             <img
-              className="rounded-full w-16"
+              className="rounded-full border-2 border-pink-900 w-16 h-16"
               src={
                 user.profilePicture
                   ? API_URL + user.profilePicture
