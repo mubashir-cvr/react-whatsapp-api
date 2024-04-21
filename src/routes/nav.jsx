@@ -16,6 +16,7 @@ import ListRoles from "../pages/ListRoles";
 import { ImProfile } from "react-icons/im";
 import Profile from "../pages/Profile";
 import ResetPassword from "../pages/ResetPassword";
+import { GrDocumentUser } from "react-icons/gr";
 export const DASHBOARD_SIDEBAR = [
   {
     key: 1,
@@ -116,7 +117,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     key: 3,
     title: "Profile",
     to: "profile",
-    icon: <ImProfile color="rgb(80 7 36)" />,
+    icon: <GrDocumentUser color="rgb(80 7 36)" />,
     sidebar: true,
     element: <Profile />,
   },
