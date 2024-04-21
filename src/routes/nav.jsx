@@ -16,6 +16,7 @@ import ListRoles from "../pages/ListRoles";
 import { ImProfile } from "react-icons/im";
 import Profile from "../pages/Profile";
 import ResetPassword from "../pages/ResetPassword";
+import { FaListCheck } from "react-icons/fa6";
 import { GrDocumentUser } from "react-icons/gr";
 export const DASHBOARD_SIDEBAR = [
   {
@@ -90,18 +91,10 @@ export const DASHBOARD_SIDEBAR_SEC = [
     element: <UserLayout pageName={"roles"} contentComponent={<ListRoles />} />,
   },
   {
-    key: 2,
-    title: "My Calandar",
-    to: "calandar",
-    icon: <RxCalendar color="rgb(80 7 36)" />,
-    sidebar: true,
-    element: <h3>Calandar</h3>,
-  },
-  {
     key: 3,
-    title: "Support",
-    to: "support",
-    icon: <BiSupport color="rgb(80 7 36)" />,
+    title: "Stocks",
+    to: "stocks",
+    icon: <FaListCheck color="rgb(80 7 36)" />,
     sidebar: true,
     element: <h3>Support</h3>,
   },
@@ -126,7 +119,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     title: "Form",
     to: "forms",
     icon: <IoLogOutOutline color="rgb(80 7 36)" />,
-    sidebar: true,
+    sidebar: false,
     element: <SearchSelect />,
   },
   {
