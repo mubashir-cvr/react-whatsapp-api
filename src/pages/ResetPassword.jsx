@@ -3,7 +3,7 @@ import { SiPrintables } from "react-icons/si";
 import { MdCancel } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
 import { API_URL } from "../const/constants";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 function ResetPassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -22,7 +22,7 @@ function ResetPassword() {
       newPassword: "",
       rePassword: "",
     });
-    console.log(JSON.stringify({ oldPassword, newPassword, rePassword }))
+    console.log(JSON.stringify({ oldPassword, newPassword, rePassword }));
     // Reset error state
     setError("");
     const token = localStorage.getItem("token");
@@ -47,13 +47,11 @@ function ResetPassword() {
             }
             console.log(errorResponse);
           });
+        } else {
+          response.json().then((errorResponse) => {
+            navigate("/profile");
+          });
         }
-        else{
-            response.json().then((errorResponse) => {
-                navigate("/profile")
-            })
-        }
-        
       })
       .then((data) => {
         // Handle successful password reset
@@ -65,7 +63,9 @@ function ResetPassword() {
       });
   };
 
-  const HandleAllCancel = () => {};
+  const HandleAllCancel = () => {
+    navigate("/profile");
+  };
 
   return (
     <div className="flex h-full p-4 w-full md:w-5/12 flex-col items-center">
