@@ -70,9 +70,9 @@ function Header() {
         <div className="flex md:px-4">
           <RiWallet3Line className="text-lg text-pink-900" />
         </div>
-        <div className="flex p-2 md:px-4">
+        <div className="flex p-2 image-container md:px-4">
           <img
-            className="flex bg-white min-w-10 max-w-10 rounded-full min-h-10 max-h-10 border-2"
+            className="flex bg-white min-w-10 max-w-10 rounded-full min-h-10 max-h-10 border border-pink-900"
             src={
               user.profilePicture
                 ? API_URL + user.profilePicture

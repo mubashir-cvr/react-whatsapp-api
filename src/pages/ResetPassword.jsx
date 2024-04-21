@@ -3,11 +3,13 @@ import { SiPrintables } from "react-icons/si";
 import { MdCancel } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
 import { API_URL } from "../const/constants";
+import { useNavigate } from 'react-router-dom';
 function ResetPassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [formMesssage, setformMesssage] = useState({
     oldPassword: "",
     newPassword: "",
@@ -48,11 +50,10 @@ function ResetPassword() {
         }
         else{
             response.json().then((errorResponse) => {
-                console.log(errorResponse)
+                navigate("/profile")
             })
         }
         
-        // window.location.href = "/profile";
       })
       .then((data) => {
         // Handle successful password reset

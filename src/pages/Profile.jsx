@@ -155,7 +155,7 @@ function Profile() {
       </div>
       <div className="flex w-full border-2 h-full overflow-scroll no-scrollbar shadow-md flex-col gap-2">
         <div className="flex items-center justify-center w-full pt-4">
-          <div className="image-container h-24 w-24">
+          <div className="image-container border border-pink-900 rounded-full h-24 w-24">
             {renderImagePreview()}
             <input
               type="file"
