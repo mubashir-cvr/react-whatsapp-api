@@ -8,7 +8,7 @@ import { BiSave } from "react-icons/bi";
 import { Link } from "react-router-dom";
 function Profile() {
   const { user } = useAuth();
-  const [image, setImage] = useState(API_URL+user.profilePicture);
+  const [image, setImage] = useState(user.profilePicture ? API_URL+user.profilePicture : "https://gravatar.com/avatar/76553f3d42ace4850e8a0da3408ef808?s=400&d=mp&r=x");
   const [profile, setProfile] = useState(user);
   useEffect(() => {}, []);
   const [formMesssage, setformMesssage] = useState({
