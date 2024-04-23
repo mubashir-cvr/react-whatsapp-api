@@ -27,6 +27,7 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.data[0].token);
+        localStorage.removeItem('user');
         window.location.href = "/";
       } else {
         let error;

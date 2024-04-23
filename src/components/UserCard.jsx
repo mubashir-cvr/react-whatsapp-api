@@ -5,7 +5,8 @@ import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { API_URL } from "../const/constants";
 
-function UserCard({ handleEdit, handleDelete, user }) {
+function UserCard({ handleEdit, handleDelete, user,updatePermission,deletePermission }) {
+  
   return (
     <div className="flex-col border-2 p-4 bg-white h-32 shadow-md items-center justify-center">
       <div className="flex h-2">
@@ -53,12 +54,14 @@ function UserCard({ handleEdit, handleDelete, user }) {
         <div className="flex flex-col md:flex-row gap-2 md:w-1/5 justify-center">
           <button
             onClick={() => handleEdit(user._id)}
+            disabled={!updatePermission}
             className=" text-pink-900 border-2 p-2 text-xs rounded-lg"
           >
             <FaEdit />
           </button>
           <button
             onClick={() => handleDelete(user._id)}
+            disabled={!deletePermission}
             className="text-pink-900 border-2 p-2 text-xs rounded-lg"
           >
             <MdDeleteForever />

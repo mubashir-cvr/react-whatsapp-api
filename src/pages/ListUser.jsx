@@ -13,6 +13,7 @@ function ListUser() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [userPermissions, setUserPermissions] = useState([]);
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -37,8 +38,20 @@ function ListUser() {
     user_type: "",
     role: "",
   });
+  let updatePermission = userPermissions.some((permission) =>
+    ["updateUser", "allAccess", "allAccessToUser"].some(
+      (reqAccess) => reqAccess === permission
+    )
+  );
 
+  let deletePermission = userPermissions.some((permission) =>
+  ["deleteUser", "allAccess", "allAccessToUser"].some(
+    (reqAccess) => reqAccess === permission
+  )
+);
   useEffect(() => {
+    const userPermission = localStorage.getItem("userPermissions");
+    setUserPermissions(JSON.parse(userPermission).permissions);
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
       const response = await fetch(API_URL + "auth/users", {
@@ -56,7 +69,13 @@ function ListUser() {
 
     fetchUsers();
   }, []);
-
+  let add_button = userPermissions.some((permission) =>
+    ["createUser", "allAccess", "allAccessToUser"].some(
+      (reqAccess) => reqAccess === permission
+    )
+  )
+    ? "flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
+    : "hidden";
   const fetchSearchUsers = async (search) => {
     const token = localStorage.getItem("token");
     const response = await fetch(API_URL + "auth/users?search=" + search, {
@@ -143,13 +162,12 @@ function ListUser() {
               user={user}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
+              deletePermission={deletePermission}
+              updatePermission={updatePermission}
             />
           ))
         )}
-        <div
-          className="flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
-          onClick={handleAddUser}
-        >
+        <div className={add_button} onClick={handleAddUser}>
           <button>
             <p className="text-zinc-50">+</p>
           </button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md"; 
-function RoleCard({ handleEdit, handleDelete, role }) {
+function RoleCard({ handleEdit, handleDelete, role,updatePermission,deletePermission }) {
   return (
     <div
       className="flex w-full min-h-16  shadow-md max-h-32 flex-row text-xs justify-between text-pink-900 px-2 gap-4 items-center border-2 bg-white "
@@ -13,12 +13,14 @@ function RoleCard({ handleEdit, handleDelete, role }) {
       <div className="flex gap-3 justify-center">
       <button
           onClick={() => handleEdit(role)}
+          disabled={!updatePermission}
           className=" text-pink-900 border-2 p-2 text-xs rounded-lg"
         >
           <FaEdit />
         </button>
         <button
           onClick={() => handleDelete(role._id)}
+          disabled={!deletePermission}
           className="text-pink-900 border-2 p-2 text-xs rounded-lg"
         >
           <MdDeleteForever />

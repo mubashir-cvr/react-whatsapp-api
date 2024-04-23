@@ -9,17 +9,22 @@ import { RiWallet3Line } from "react-icons/ri";
 import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { Link, NavLink } from "react-router-dom";
 import { API_URL } from "../const/constants";
-import { useAuth } from "../Auth/AuthProvider";
 
 const itemClass = "flex gap-3 px-8 py-4 hover:bg-gray-100";
 const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";
 function Header() {
-  const { user } = useAuth();
   const [isOpen, setSidebarOpen] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
   const sidebarRef = useRef();
+  const [userObjectPermissions, setUserObjectPermission] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const userPermission = localStorage.getItem("userPermissions");
+    setUserObjectPermission(JSON.parse(userPermission).objects);
+
+    const user = localStorage.getItem("user");
+    setUser(JSON.parse(user));
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
         setSidebarOpen(false);
@@ -50,7 +55,10 @@ function Header() {
         </div>
         <div className="hidden md:flex px-4 flex-1">
           <h2 className="outfit-bold fo">
-            Hi, <span className="font-light text-gray-600">{user && user.name}</span>
+            Hi,{" "}
+            <span className="font-light text-gray-600">
+              {user && user.name}
+            </span>
           </h2>
         </div>
         <div className="relative hidden md:flex">
@@ -75,8 +83,8 @@ function Header() {
           <div className="flex p-2 image-container md:px-4">
             <img
               className="flex bg-white min-w-10 max-w-10 rounded-full min-h-10 max-h-10 border border-pink-900"
-              src={ user &&
-                user.profilePicture
+              src={
+                user && user.profilePicture
                   ? API_URL + user.profilePicture
                   : "https://gravatar.com/avatar/76553f3d42ace4850e8a0da3408ef808?s=400&d=mp&r=x"
               }
@@ -115,29 +123,45 @@ function Header() {
         </div>
         <div className="overflow-auto no-scrollbar flex-1 flex flex-col">
           <div className="gap-2 flex-1 pb-3">
-            {DASHBOARD_SIDEBAR.filter((item) => item.sidebar).map(
-              (item, index) => (
-                <DashBoadrdLink
-                  key={index}
-                  item={item}
-                  closeSidebar={closeSidebar}
-                />
-              )
-            )}
+            {DASHBOARD_SIDEBAR.filter(
+              (item) =>
+                item.sidebar &&
+                (userObjectPermissions.some(
+                  (permission) => permission === "All"
+                ) ||
+                  userObjectPermissions.some(
+                    (permission) => permission === item.object
+                  ) ||
+                  item.object === "")
+            ).map((item, index) => (
+              <DashBoadrdLink
+                key={index}
+                item={item}
+                closeSidebar={closeSidebar}
+              />
+            ))}
           </div>
           <div className="flex justify-center py-2">
             <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
           </div>
           <div className="gap-2 mb-10">
-            {DASHBOARD_SIDEBAR_SEC.filter((item) => item.sidebar).map(
-              (item, index) => (
-                <DashBoadrdLink
-                  key={index}
-                  item={item}
-                  closeSidebar={closeSidebar}
-                />
-              )
-            )}
+            {DASHBOARD_SIDEBAR_SEC.filter(
+              (item) =>
+                item.sidebar &&
+                (userObjectPermissions.some(
+                  (permission) => permission === "All"
+                ) ||
+                  userObjectPermissions.some(
+                    (permission) => permission === item.object
+                  ) ||
+                  item.object === "")
+            ).map((item, index) => (
+              <DashBoadrdLink
+                key={index}
+                item={item}
+                closeSidebar={closeSidebar}
+              />
+            ))}
           </div>
         </div>
       </div>

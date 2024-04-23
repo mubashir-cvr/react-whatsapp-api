@@ -15,8 +15,31 @@ function ListRoles() {
   const [editRole, setEditRole] = useState(null);
 
   // State to hold the role being edited
+  const [userPermissions, setUserPermissions] = useState([]);
+  let createPermission = userPermissions.some((permission) =>
+    ["createRole", "allAccess", "allAccessToRole"].some(
+      (reqAccess) => reqAccess === permission
+    )
+  );
+  let updatePermission = userPermissions.some((permission) =>
+    ["updateRole", "allAccess", "allAccessToRole"].some(
+      (reqAccess) => reqAccess === permission
+    )
+  );
+
+  let deletePermission = userPermissions.some((permission) =>
+    ["deleteRole", "allAccess", "allAccessToRole"].some(
+      (reqAccess) => reqAccess === permission
+    )
+  );
+  let add_button = createPermission
+    ? "flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
+    : "hidden";
+
 
   useEffect(() => {
+    const userPermission = localStorage.getItem("userPermissions");
+    setUserPermissions(JSON.parse(userPermission).permissions);
     const fetchRoles = async () => {
       const token = localStorage.getItem("token");
       const response = await fetch(API_URL + "auth/roles", {
@@ -121,13 +144,12 @@ function ListRoles() {
               role={role}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
+              updatePermission={updatePermission}
+              deletePermission={deletePermission}
             />
           ))
         )}
-        <div
-          className="flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
-          onClick={handleAddRole}
-        >
+        <div className={add_button} onClick={handleAddRole}>
           <button>
             <p className="text-zinc-50">+</p>
           </button>
@@ -141,6 +163,7 @@ function ListRoles() {
           roles={roles}
           setRoles={setRoles}
           setShowModal={setShowModal}
+         
         />
       )}
 

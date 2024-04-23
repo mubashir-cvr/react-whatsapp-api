@@ -6,6 +6,8 @@ function LogOut() {
         const logoutTimeout = setTimeout(() => {
           // Logic to handle logout after 3 seconds
           localStorage.removeItem('token'); // Remove token from local storage
+          localStorage.removeItem('user'); // Remove token from local storage
+          localStorage.removeItem('userPermissions'); // Remove token from local storage
           window.location.href = '/';  // Redirect to login page after logout
         }, 3000); // Timeout set to 3 seconds (3000 milliseconds)
     
