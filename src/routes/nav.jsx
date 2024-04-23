@@ -18,6 +18,7 @@ import Profile from "../pages/Profile";
 import ResetPassword from "../pages/ResetPassword";
 import { FaListCheck } from "react-icons/fa6";
 import { GrDocumentUser } from "react-icons/gr";
+import ListStocks from "../pages/ListStocks";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -86,7 +87,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     icon: <FaListCheck color="rgb(80 7 36)" />,
     sidebar: true,
     object:'Stock',
-    element: <h3>Support</h3>,
+    element: <ListStocks/>,
   },
   {
     title: "Log out",
