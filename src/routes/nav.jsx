@@ -1,9 +1,7 @@
 import React from "react";
 import { BiMessageDetail, BiHomeSmile } from "react-icons/bi";
-import { RiUserSearchLine } from "react-icons/ri";
 import { CgNotes } from "react-icons/cg";
 import { RiRadioLine } from "react-icons/ri";
-import { RxCalendar } from "react-icons/rx";
 import { BiSupport } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -19,6 +17,8 @@ import ResetPassword from "../pages/ResetPassword";
 import { FaListCheck } from "react-icons/fa6";
 import { GrDocumentUser } from "react-icons/gr";
 import ListStocks from "../pages/ListStocks";
+import StockLayout from "../layouts/StockLayout";
+import ListStockItems from "../pages/ListStockItems";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -87,7 +87,15 @@ export const DASHBOARD_SIDEBAR_SEC = [
     icon: <FaListCheck color="rgb(80 7 36)" />,
     sidebar: true,
     object:'Stock',
-    element: <ListStocks/>,
+    element: <StockLayout pageName={"stock"} contentComponent={<ListStocks/>}/>,
+  },
+  {
+    title: "Stocks Items",
+    to: "stocksitems",
+    icon: <FaListCheck color="rgb(80 7 36)" />,
+    sidebar: false,
+    object:'StockItem',
+    element: <StockLayout pageName={"stockItems"} contentComponent={<ListStockItems/>}/>,
   },
   {
     title: "Log out",

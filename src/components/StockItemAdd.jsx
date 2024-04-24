@@ -5,12 +5,14 @@ import { MdCancel } from "react-icons/md";
 import { API_URL } from "../const/constants";
 import ModalHead from "./ModalHead";
 
-function StockAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
+function StockItemAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
   const [newStock, setNewStock] = useState({
-    materialType: "",
-    quantity: "",
-    unit: "",
-    as_on_date: "",
+    item: "",
+    item_type: "",
+    gsm: "",
+    dimention_length: "",
+    dimention_breadth: "",
+    unit_of_measurement: ""
   });
 
   const firstInputRef = useRef(null);
@@ -28,7 +30,7 @@ function StockAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
 
   const handleSubmit = async () => {
     const token = localStorage.getItem("token");
-    const response = await fetch(API_URL + "stocks", {
+    const response = await fetch(API_URL + "stockitems", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +43,14 @@ function StockAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
       console.log(createdStock);
       setStocks([...stocks, createdStock.data]);
       setShowModal(false);
-      setNewStock({ materialType: "", quantity: "", unit: "", as_on_date: "" });
+      setNewStock({
+        item: "",
+        item_type: "",
+        gsm: "",
+        dimention_length: "",
+        dimention_breadth: "",
+        unit_of_measurement: ""
+      });
     } else {
       console.error("Failed to add stock");
     }
@@ -63,15 +72,15 @@ function StockAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
 
   return (
     <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center px-2">
-      <div className="bg-white p-4 border-2 shadow-md w-full px- h-1/2 md:w-6/12">
-        <ModalHead heading={"Create Stock"} />
+      <div className="bg-white p-4 border-2 shadow-md w-full px-3 md:w-6/12">
+        <ModalHead heading={"Create Stock Item"} />
         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center h-full">
           <input
             type="text"
-            placeholder="Enter material type"
+            placeholder="Item Name"
             className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-            name="materialType"
-            value={newStock.materialType}
+            name="item"
+            value={newStock.item}
             ref={firstInputRef}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
@@ -79,19 +88,46 @@ function StockAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
        
           <input
             type="text"
-            placeholder="Enter unit"
+            placeholder="Item Type (Paper/Plate e..))"
             className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-            name="unit"
-            value={newStock.unit}
+            name="item_type"
+            value={newStock.item_type}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
           />
           <input
-            type="date"
-            placeholder="Select date"
+            type="text"
+            placeholder="gsm"
             className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
-            name="as_on_date"
-            value={newStock.as_on_date}
+            name="gsm"
+            value={newStock.gsm}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+            <input
+            type="text"
+            placeholder="Length"
+            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            name="dimention_length"
+            value={newStock.dimention_length}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+           <input
+            type="text"
+            placeholder="Breadth"
+            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            name="dimention_breadth"
+            value={newStock.dimention_breadth}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+           <input
+            type="text"
+            placeholder="Measurment unit 'KG', 'METER', 'NUMBER'"
+            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            name="unit_of_measurement"
+            value={newStock.unit_of_measurement}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             ref={lastInputRef}
@@ -110,4 +146,4 @@ function StockAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
   );
 }
 
-export default StockAdd;
+export default StockItemAdd;

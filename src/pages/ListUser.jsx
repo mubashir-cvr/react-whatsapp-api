@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import UserCard from "../components/UserCard";
 import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/constants";
@@ -14,18 +14,7 @@ function ListUser() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [userPermissions, setUserPermissions] = useState([]);
-  const [newUser, setNewUser] = useState({
-    email: "",
-    password: "",
-    name: "",
-    department: "",
-    address: "",
-    phoneNumber: "",
-    status: "",
-    profilePicture: null,
-    user_type: "",
-    role: "",
-  });
+  const [isSearched, setIsSearched] = useState(false);
   const [editUser, setEditUser] = useState({
     email: "",
     password: "",
@@ -38,6 +27,21 @@ function ListUser() {
     user_type: "",
     role: "",
   });
+  //Pagination
+  const [currPage, setCurrPage] = useState(1);
+  const [isNextPage, setIsNextPage] = useState(true);
+  const listInnerRef = useRef();
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight && isNextPage && !isSearched) {
+        fetchUsers(currPage);
+      }
+    }
+  };
+  // Pagination
+
   let updatePermission = userPermissions.some((permission) =>
     ["updateUser", "allAccess", "allAccessToUser"].some(
       (reqAccess) => reqAccess === permission
@@ -45,16 +49,42 @@ function ListUser() {
   );
 
   let deletePermission = userPermissions.some((permission) =>
-  ["deleteUser", "allAccess", "allAccessToUser"].some(
-    (reqAccess) => reqAccess === permission
-  )
-);
-  useEffect(() => {
-    const userPermission = localStorage.getItem("userPermissions");
-    setUserPermissions(JSON.parse(userPermission).permissions);
-    const fetchUsers = async () => {
+    ["deleteUser", "allAccess", "allAccessToUser"].some(
+      (reqAccess) => reqAccess === permission
+    )
+  );
+  //fetch user
+  const fetchUsers = async (page) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(API_URL + `auth/users?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const jsonResponse = await response.json();
+    console.log(jsonResponse);
+    if (jsonResponse.extra) {
+      if (!jsonResponse.extra.nextPage) {
+        setIsNextPage(false);
+      } else {
+        setCurrPage(jsonResponse.extra.nextPage);
+      }
+    }
+    if(page===1){
+      setUsers([]);
+    }
+    setUsers((prevusers)=>[...prevusers,...jsonResponse.data]);
+    const logoutTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(logoutTimeout);
+  };
+
+  const fetchSearchUsers = async (search) => {
+    if (search) {
+      setIsSearched(true)
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + "auth/users", {
+      const response = await fetch(API_URL + `auth/users?search=${search}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -63,11 +93,19 @@ function ListUser() {
       setUsers(jsonResponse.data);
       const logoutTimeout = setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 500);
       return () => clearTimeout(logoutTimeout);
-    };
+    } else {
+      setIsSearched(false)
+      fetchUsers(1);
+    }
+  };
+  //fetch user 
+  useEffect(() => {
+    const userPermission = localStorage.getItem("userPermissions");
+    setUserPermissions(JSON.parse(userPermission).permissions);
 
-    fetchUsers();
+    fetchUsers(currPage);
   }, []);
   let add_button = userPermissions.some((permission) =>
     ["createUser", "allAccess", "allAccessToUser"].some(
@@ -76,20 +114,6 @@ function ListUser() {
   )
     ? "flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
     : "hidden";
-  const fetchSearchUsers = async (search) => {
-    const token = localStorage.getItem("token");
-    const response = await fetch(API_URL + "auth/users?search=" + search, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const jsonResponse = await response.json();
-    setUsers(jsonResponse.data);
-    const logoutTimeout = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(logoutTimeout);
-  };
 
   const handleAddUser = () => {
     setShowCreateModal(true);
@@ -132,7 +156,11 @@ function ListUser() {
   };
 
   return (
-    <div className="flex h-full md:p-4 w-full md:w-5/12 overflow-scroll no-scrollbar flex-col items-center">
+    <div
+      className="flex h-full md:p-4 w-full md:w-5/12 overflow-scroll no-scrollbar flex-col items-center"
+      onScroll={onScroll}
+      ref={listInnerRef}
+    >
       <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-12 border-2">
         <SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">USERS</p>
