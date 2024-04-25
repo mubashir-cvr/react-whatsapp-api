@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StockCard from "../components/StockCard";
 import StockEdit from "../components/StockEdit";
-import StockAdd from "../components/StockItemAdd";
+import StockAdd from "../components/StockAdd";
 import LoadingStockCard from "../components/LoadingStockCard";
 import { API_URL } from "../const/constants";
 

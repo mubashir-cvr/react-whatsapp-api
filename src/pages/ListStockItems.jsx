@@ -146,7 +146,7 @@ function ListStockItems() {
       onScroll={onScroll}
       ref={listInnerRef}
     >
-      <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-12 border-2">
+      <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-28 border-2">
        <div className="flex-row flex"><SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">Stock Items</p>
         </div> 
