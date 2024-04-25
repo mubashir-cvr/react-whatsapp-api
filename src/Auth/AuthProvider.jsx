@@ -43,6 +43,9 @@ export const AuthProvider = ({ children }) => {
         }
 
         const responseData = await response.json();
+        if (responseData.statusCode == 401) {
+          navigate("/login");
+        }
         setUser(responseData.data.user);
         setUserPermissions(responseData.data.permissions);
         setIsLoading(false);
@@ -55,7 +58,7 @@ export const AuthProvider = ({ children }) => {
         );
       } catch (error) {
         console.error("Authentication failed:" + error.message);
-        if (error.statusCode) {
+        if (error.statusCode == 401) {
           navigate("/login");
         } else {
           navigate("/error");

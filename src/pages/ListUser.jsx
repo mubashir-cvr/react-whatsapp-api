@@ -61,8 +61,10 @@ function ListUser() {
         Authorization: `Bearer ${token}`,
       },
     });
+    
+   
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
+    
     if (jsonResponse.extra) {
       if (!jsonResponse.extra.nextPage) {
         setIsNextPage(false);
@@ -89,6 +91,7 @@ function ListUser() {
           Authorization: `Bearer ${token}`,
         },
       });
+      
       const jsonResponse = await response.json();
       setUsers(jsonResponse.data);
       const logoutTimeout = setTimeout(() => {
