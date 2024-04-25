@@ -3,7 +3,7 @@ import StockCard from "../components/StockCard";
 import StockEdit from "../components/StockEdit";
 import StockAdd from "../components/StockAdd";
 import LoadingStockCard from "../components/LoadingStockCard";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 
 function ListStocks() {
   const [stocks, setStocks] = useState([]);

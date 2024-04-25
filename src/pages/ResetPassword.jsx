@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SiPrintables } from "react-icons/si";
 import { MdCancel } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import { useNavigate } from "react-router-dom";
 function ResetPassword() {
   const [oldPassword, setOldPassword] = useState("");

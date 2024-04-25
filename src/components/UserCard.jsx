@@ -3,7 +3,7 @@ import { MdOutlinePhoneIphone } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 
 function UserCard({ handleEdit, handleDelete, user,updatePermission,deletePermission }) {
   

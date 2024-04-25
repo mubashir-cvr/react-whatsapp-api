@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Select from "react-select";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import ModalHead from "./ModalHead";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import StockItemsEdit from "../components/StockItemsEdit";
 import LoadingStockCard from "../components/LoadingStockCard";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import StockItemCard from "../components/StockItemCard";
 import StockItemAdd from "../components/StockItemAdd";
 import { SiPrintables } from "react-icons/si";

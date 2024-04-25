@@ -8,7 +8,7 @@ import { VscBellDot } from "react-icons/vsc";
 import { RiWallet3Line } from "react-icons/ri";
 import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { Link, NavLink } from "react-router-dom";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 
 const itemClass = "flex gap-3 px-8 py-4 hover:bg-gray-100";
 const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";

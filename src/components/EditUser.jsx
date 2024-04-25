@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ModalHead from "./ModalHead";
 import Select from "react-select";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 function EditUser({

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SiPrintables } from "react-icons/si";
 import { FiEdit } from "react-icons/fi";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import { useAuth } from "../Auth/AuthProvider";
 import { MdCancel } from "react-icons/md";
 import { BiSave } from "react-icons/bi";

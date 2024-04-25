@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import ModalHead from "./ModalHead";
 
 function StockItemAdd({ handleModalClose, stockItems, setStockItems, setShowModal }) {

@@ -3,7 +3,7 @@ import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import ModalHead from "./ModalHead";
 import Select from "react-select";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 function UserAdd({ users, handleModalClose, setShowCreateModal, setUsers }) {
   const firstInputRef = useRef(null);
   const lastInputRef = useRef(null);

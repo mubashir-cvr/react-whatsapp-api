@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SiPrintables } from "react-icons/si";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 
 function Login() {
   const [formData, setFormData] = useState({

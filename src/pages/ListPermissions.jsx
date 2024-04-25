@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import PermissionCard from "../components/PermissionCard";
 import PermissionEdit from "../components/PermissionEdit";
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
-import { API_URL } from "../const/constants";
+import { API_URL } from "../const/env_constant";
 import ModalHead from "./ModalHead";
 
 function PermissionEdit({ setPermissions, handleModalClose }) {
