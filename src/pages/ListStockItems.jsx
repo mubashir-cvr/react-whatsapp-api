@@ -155,7 +155,7 @@ function ListStockItems() {
         </div>
       </div>
       <div className="flex w-full  flex-col">
-        <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-white shadow-md h-10">
+        <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  gap-4 items-center border bg-white shadow-md h-10">
           <p className="flex w-2/4 md:w-1/6 border-r-2 px-4 justify-center">Item Name</p>
           <p className="flex w-1/4 md:w-1/6 border-r-2 px-4 justify-center">Item type</p>
           <p className="flex w-1/4 md:w-1/6 border-r-2 px-4 justify-center">GSM</p>
