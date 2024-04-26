@@ -20,6 +20,9 @@ function ListStocks() {
         },
       });
       const jsonResponse = await response.json();
+      if(jsonResponse.statusCode===401){
+        window.location.href='/#login'
+      }
       console.log(jsonResponse);
       setStocks(jsonResponse.data);
       setLoading(false);
@@ -42,8 +45,8 @@ function ListStocks() {
   };
 
   return (
-    <div className="flex h-full p-4 w-full md:w-10/12 overflow-scroll no-scrollbar flex-col gap-2 items-center">
-      <div className="flex w-full gap-2 flex-col">
+    <div className="flex h-full  w-full md:w-10/12 overflow-scroll no-scrollbar flex-col gap-2 items-center">
+      <div className="flex w-full gap- flex-col shadow-md">
         <div className="flex w-full flex-row text-sm font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-white shadow-md h-10">
           <p className="flex w-1/3 border-r-2 px-4 justify-center">Item</p>
           <p className="flex w-1/3 border-r-2 px-4 justify-center">Quantity</p>

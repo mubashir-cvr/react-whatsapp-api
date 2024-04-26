@@ -10,26 +10,26 @@ function StockItemCard({
   deletePermission,
 }) {
   return (
-    <div className="flex p-2 w-full min-h-16  shadow-md max-h-32 flex-row text-sm justify-between text-pink-900 px-2 gap-4 items-center border-2 bg-white ">
-      <p className="flex w-1/4 border-r-2 h-full items-center px-4 justify-center">
+    <div className="flex text-xs  w-full min-h-14  shadow-md max-h-32 flex-row md:text-sm justify-between text-pink-900 px-2 gap-4 items-center border bg-white ">
+      <p className="flex w-2/4 md:w-1/6 border-r-2 h-full items-center px-4 justify-center">
         {stockItem.item}
       </p>
-      <p className="flex w-1/4 border-r-2 h-full items-center px-4 justify-center">
+      <p className="flex  w-1/4 md:w-1/6 border-r-2 h-full items-center px-4 justify-center">
         {stockItem.item_type}
       </p>
-      <p className="flex w-1/4 border-r-2 h-full items-center px-4 justify-center">
+      <p className="flex  w-1/4 md:w-1/6 border-r-2 h-full items-center px-4 justify-center">
         {stockItem.gsm}
       </p>
-      <p className="hidden md:flex w-1/4 border-r-2 h-full items-center px-4 justify-center">
+      <p className="hidden md:flex  md:w-1/6 border-r-2 h-full items-center px-4 justify-center">
         {stockItem.dimention_length}
         {" X "}
         {stockItem.dimention_breadth}
       </p>
-      <p className="hidden md:flex w-1/4 border-r-2 h-full items-center px-4 justify-center">
+      <p className="hidden md:flex  md:w-1/6 border-r-2 h-full items-center px-4 justify-center">
         {stockItem.unit_of_measurement}
       </p>
-      {/* <p className="flex w-1/4 px-4 justify-center">{stockItem.as_on_date}</p> */}
-      <div className="flex-col md:flex-row flex w-full md:w-1/4 items-center   gap-3 justify-center">
+      {/* <p className="flex  md:w-1/6 px-4 justify-center">{stockItem.as_on_date}</p> */}
+      <div className="w-1/4 flex-row flex md:w-1/6 items-center py-1 gap-1  md:gap-3 justify-center">
         <button
           disabled={!updatePermission}
           onClick={() => handleEdit(stockItem)}

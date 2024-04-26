@@ -37,7 +37,7 @@ function StockLayout({ pageName, contentComponent }) {
           </NavLink>
         </div>
       )}
-      <div className="flex h-full p-4 overflow-scroll no-scrollbar flex-col gap-2 items-center">
+      <div className="flex h-full  overflow-scroll no-scrollbar flex-col gap-2 items-center">
         {contentComponent}
       </div>
     </div>
