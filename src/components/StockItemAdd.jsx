@@ -124,7 +124,7 @@ function StockItemAdd({ handleModalClose, stockItems, setStockItems, setShowModa
           />
            <input
             type="text"
-            placeholder="Measurment unit 'KG', 'METER', 'NUMBER'"
+            placeholder="Measurment unit 'KG', 'LENGTH', 'COUNT'"
             className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="unit_of_measurement"
             value={newStock.unit_of_measurement}

@@ -18,7 +18,7 @@ function SideBar() {
         <SiPrintables fontSize={24} />
         <p className="quantico-regular  border-l-2 px-3">PRESS MASTER</p>
       </div>
-      <div className="overflow-scroll no-scrollbar  flex flex-col">
+      <div className="overflow-scroll no-scrollbar flex-1  flex flex-col">
         <div className="gap-2 pb-3">
           {DASHBOARD_SIDEBAR.filter(
             (item) =>
@@ -34,11 +34,12 @@ function SideBar() {
             <DashBoadrdLink key={index} item={item} />
           ))}
         </div>
-        <div className="flex justify-center py-2">
-          <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
-        </div>
+
         <div className=""></div>
-        <div className="gap-2 pb-3">
+        <div className="flex flex-col justify-end h-full gap-2 pb-3">
+          <div className="flex justify-center py-2">
+            <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
+          </div>
           {DASHBOARD_SIDEBAR_SEC.filter(
             (item) =>
               item.sidebar &&

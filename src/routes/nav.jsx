@@ -97,14 +97,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     object:'StockItem',
     element: <StockLayout pageName={"stockItems"} contentComponent={<ListStockItems/>}/>,
   },
-  {
-    title: "Log out",
-    to: "logout",
-    icon: <IoLogOutOutline color="rgb(80 7 36)" />,
-    sidebar: true,
-    object:'',
-    element: <LogOut />,
-  },
+ 
   {
     title: "Profile",
     to: "profile",
@@ -160,5 +153,13 @@ export const DASHBOARD_SIDEBAR_SEC = [
     sidebar: false,
     object:'',
     element: <ListPermissions />,
+  },
+  {
+    title: "Log out",
+    to: "logout",
+    icon: <IoLogOutOutline color="rgb(80 7 36)" />,
+    sidebar: true,
+    object:'',
+    element: <LogOut />,
   },
 ];

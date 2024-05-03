@@ -122,7 +122,7 @@ function Header() {
           </div>
         </div>
         <div className="overflow-auto no-scrollbar flex-1 flex flex-col">
-          <div className="gap-2 flex-1 pb-3">
+          <div className="gap-2 pb-3">
             {DASHBOARD_SIDEBAR.filter(
               (item) =>
                 item.sidebar &&
@@ -141,10 +141,11 @@ function Header() {
               />
             ))}
           </div>
+          
+          <div className="gap-2 flex flex-col h-full justify-end">
           <div className="flex justify-center py-2">
             <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
           </div>
-          <div className="gap-2 mb-10">
             {DASHBOARD_SIDEBAR_SEC.filter(
               (item) =>
                 item.sidebar &&
