@@ -45,7 +45,7 @@ function Header() {
         <div className="md:hidden flex flex-row items-center w-full  h-14 gap-2 px-3 py-4">
           <div className="justify-start">
             <button onClick={() => setSidebarOpen(!isOpen)}>
-              <GiHamburgerMenu />
+              <GiHamburgerMenu className="text-2xl text-pink-900" />
             </button>
           </div>
           <div className="flex flex-1 gap-2 justify-center text-pink-900">
@@ -117,7 +117,7 @@ function Header() {
               className="flex items-end"
               onClick={() => setSidebarOpen(!isOpen)}
             >
-              <GiHamburgerMenu />
+              <GiHamburgerMenu className="" />
             </button>
           </div>
         </div>
