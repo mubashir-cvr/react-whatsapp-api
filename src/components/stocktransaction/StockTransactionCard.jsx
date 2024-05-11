@@ -1,6 +1,9 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { Transition } from "react-transition-group";
+
+// Define a duration for the animation
 
 function StockTransactionCard({
   handleEdit,
@@ -9,8 +12,9 @@ function StockTransactionCard({
   updatePermission,
   deletePermission,
 }) {
+  
   return (
-    <div className="flex text-xs  w-full min-h-10  shadow-md max-h-32 flex-row md:text-sm justify-between text-black-900  items-center border bg-white ">
+    <div  className="flex text-xs animate-fade-in w-full min-h-10  shadow-md max-h-32 flex-row md:text-sm justify-between text-black-900  items-center border bg-white ">
       <p className="flex w-2/6 md:w-1/6 border-r-2 h-full items-center justify-center">
         {StockTransaction.item.item}
       </p>

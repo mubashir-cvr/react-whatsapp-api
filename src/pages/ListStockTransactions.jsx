@@ -7,82 +7,72 @@ import { getPermittedActionsOfUserForObject } from "../utils/getUserpersmissions
 import StockTransactionCard from "../components/stocktransaction/StockTransactionCard";
 import StockTransactionEdit from "../components/stocktransaction/StockTransactionEdit";
 import { useParams } from "react-router-dom";
+
 function ListStockTransactions() {
   const [StockTransactions, setStockTransactions] = useState([]);
   const [editStock, setEditStock] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isSearched, setIsSearched] = useState(false);
   const [isMoreLoading, setMoreLoading] = useState(false);
   const [isNextPage, setIsNextPage] = useState(true);
   const listInnerRef = useRef();
-  const { createPermission, updatePermission, deletePermission } = getPermittedActionsOfUserForObject("StockTransaction");
- 
+  const { createPermission, updatePermission, deletePermission } =
+    getPermittedActionsOfUserForObject("StockTransaction");
 
   useEffect(() => {
-
     fetchStockTransactions(1);
+    const targetDiv = document.getElementById("container");
+    if (targetDiv) {
+      targetDiv.scrollIntoView({ behavior: "smooth" });
+    }
   }, []);
-const {itemID} = useParams();
-const decodedItemID =atob(itemID);
+
+  const { itemID } = useParams();
+  const decodedItemID = atob(itemID);
+
   const fetchStockTransactions = async (page) => {
+    if (page === 1) {
+      setStockTransactions([]);
+    } else {
+      setMoreLoading(true);
+    }
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `stockshistory/${decodedItemID}?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        API_URL + `stockshistory/${decodedItemID}?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const jsonResponse = await response.json();
       if (jsonResponse.extra) {
         setIsNextPage(jsonResponse.extra.nextPage !== null);
         setCurrentPage(jsonResponse.extra.currentPage);
       }
-      if (page === 1) {
-        setStockTransactions([]);
-      }
-      setMoreLoading(false);
 
-      setStockTransactions((prevItems) => [...prevItems, ...jsonResponse.data]);
-      setLoading(false);
+      const logoutTimeout = setTimeout(() => {
+        setStockTransactions((prevItems) => [
+          ...jsonResponse.data,
+          ...prevItems,
+        ]);
+        setMoreLoading(false);
+        setLoading(false);
+      }, 1000);
+      return () => clearTimeout(logoutTimeout);
     } catch (error) {
       console.error("Error fetching stock history:", error);
-    }
-  };
-  const fetchSearchStockTransactions = async (search) => {
-    if (search) {
-      setIsSearched(true);
-      const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `stockshistory?search=${search}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const jsonResponse = await response.json();
-      setStockTransactions(jsonResponse.data);
-      const logoutTimeout = setTimeout(() => {
-        setLoading(false);
-      }, 500);
-      return () => clearTimeout(logoutTimeout);
-    } else {
-      setIsSearched(false);
-      fetchStockTransactions(1);
     }
   };
 
   const onScroll = () => {
     const listInnerElem = listInnerRef.current;
-    if (
-      listInnerElem.scrollTop + listInnerElem.clientHeight ===
-        listInnerElem.scrollHeight &&
-      isNextPage
-    ) {
+    if (listInnerElem.scrollTop === 0 && isNextPage) {
       setMoreLoading(true);
       fetchStockTransactions(currentPage + 1);
     }
   };
-
- 
 
   const handleModalClose = () => {
     setEditStock(null);
@@ -95,12 +85,15 @@ const decodedItemID =atob(itemID);
   const deleteStockTransaction = async (StockTransactionId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `/StockTransactions/${StockTransactionId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        API_URL + `/StockTransactions/${StockTransactionId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setStockTransactions((prevItems) =>
           prevItems.filter((item) => item._id !== StockTransactionId)
@@ -121,7 +114,8 @@ const decodedItemID =atob(itemID);
 
   return (
     <div
-      className="flex h-full w-full  overflow-scroll no-scrollbar flex-col items-center"
+      id="stockContainer"
+      className="flex h-full w-full overflow-y-auto no-scrollbar flex-col items-center"
       onScroll={onScroll}
       ref={listInnerRef}
     >
@@ -130,37 +124,32 @@ const decodedItemID =atob(itemID);
           <SiPrintables fontSize={24} />
           <p className="quantico-regular  px-3">Stock History</p>
         </div>
-        {/* <div className="relative w-full md:w-auto flex p-2">
-          <SearchItems fetcher={fetchSearchStockTransactions} />
-        </div> */}
       </div>
       <div className="flex w-full  flex-col">
-        <div className="flex w-full flex-row text-xs h-full md:text-sm font-medium justify-between text-pink-900   items-center border bg-white shadow-md">
+        <div className="flex w-full flex-row text-xs h-10 md:text-sm font-medium justify-between text-pink-900   items-center border bg-white shadow-md">
           <p className="flex w-2/6 md:w-1/6 border-r-2  justify-center">
             Item Name
           </p>
-          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Item type
           </p>
-          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Qty
           </p>
-          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Type
           </p>
-          {/* <p className="hidden w-1/6 md:w-1/6 md:flex border-r-2  justify-center">
-            Pack/Single
-          </p> */}
-          <p className="hidden md:flex w-1/6 md:w-1/6 border-r-2  justify-center">
-            Updated by
+          <p className="hidden md:flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
+            User
           </p>
-          <p className="hidden md:flex w-1/6 md:w-1/6 border-r-2  justify-center">
-            Updated at 
+          <p className="hidden md:flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
+            Updated at
           </p>
-          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Action
           </p>
         </div>
+        {isMoreLoading && <LoadingStockCard />}
         {!isLoading ? (
           StockTransactions.map((StockTransaction, index) => (
             <StockTransactionCard
@@ -185,15 +174,7 @@ const decodedItemID =atob(itemID);
             <LoadingStockCard />
           </>
         )}
-        {isMoreLoading && (
-          <>
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-          </>
-        )}
+        <div id="container"></div>
       </div>
 
       {editStock && (

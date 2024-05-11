@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import RoleEdit from "../components/role/RoleEdit";
 import RoleAdd from "../components/role/RoleAdd";
 import LoadingRoleCard from "../components/role/LoadingRoleCard";
-
+import { SiPrintables } from "react-icons/si";
 function ListRoles() {
   const [roles, setRoles] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -105,8 +105,12 @@ function ListRoles() {
   return (
     <div className="flex h-full w-full overflow-scroll no-scrollbar flex-col items-center">
       <div className="flex w-full flex-col">
-        <div className="flex w-full flex-row text-sm font-medium justify-center  text-pink-900 items-center bg-white shadow-md">
-          <p className="flex w-1/3 border-r-2 px-4 items-center h-full justify-center">Name</p>
+      <div className="flex border-b flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-12">
+        <SiPrintables fontSize={24} />
+        <p className="quantico-regular  px-3">Roles</p>
+      </div>
+        <div className="flex bg-slate-100 py-1 w-full flex-row text-sm font-medium justify-center  text-pink-900 items-cente shadow-md">
+          <p className="flex w-1/3 border-r-2 px-4 items-center h-full justify-center">Role</p>
           <p className="flex w-1/3 justify-center items-center h-full border-r-2">Permissions</p>
           <p className="flex w-1/3 justify-center items-center h-full">Actions</p>
         </div>
