@@ -10,8 +10,8 @@ import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { Link, NavLink } from "react-router-dom";
 import { API_URL } from "../const/env_constant";
 
-const itemClass = "flex gap-3 px-8 py-4 hover:bg-gray-100";
-const itemActiveClass = "flex gap-3 px-8 py-4 bg-gray-100";
+const itemClass = "flex gap-2 px-4 py-3 text-sm  border-b rounded-sm  hover:bg-gray-100";
+const itemActiveClass = "flex gap-2 px-4 text-sm border-b rounded-sm py-3 bg-gray-100";
 function Header() {
   const [isOpen, setSidebarOpen] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
@@ -179,8 +179,8 @@ function DashBoadrdLink({ item, closeSidebar }) {
       className={({ isActive }) => (isActive ? itemActiveClass : itemClass)}
       onClick={closeSidebar}
     >
-      <span className="text-xl">{item.icon}</span>
-      <p className="text-s">{item.title}</p>
+      <span className="text-lg">{item.icon}</span>
+      <p className="text-sm text-black">{item.title}</p>
     </NavLink>
   );
 }
