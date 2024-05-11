@@ -4,12 +4,12 @@ import { BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import { API_URL } from "../../const/env_constant";
 import ModalHead from "../common/ModalHead";
-function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) {
+function RoleAdd({handleModalClose,roles,setRoles,setShowModal }) {
   const [newRole, setNewRole] = useState({
     name: "",
     permissions: [],
   });
-
+  const [permissions, setPermissions] = useState([]);
   const firstInputRef = useRef(null);
   const lastInputRef = useRef(null);
 
@@ -22,11 +22,23 @@ function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) 
     const { name, value } = event.target;
     setNewRole({ ...newRole, [name]: value });
   };
-
+  const fetchPermissions = async (search) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(API_URL + `auth/permissions?search=${search}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const jsonResponse = await response.json();
+    setPermissions(jsonResponse.data);
+  };
   useEffect(() => {
-    // Focus on the first input field when the component mounts
+    fetchPermissions("")
     firstInputRef.current.focus();
   }, []);
+  const searchItems = (value) => {
+    fetchPermissions(value);
+  };
 
   const handleSubmit = async () => {
     const token = localStorage.getItem("token");
@@ -77,7 +89,7 @@ function RoleAdd({ permissions, handleModalClose,roles,setRoles,setShowModal }) 
             getOptionValue={(option) => option._id}
             onChange={handlePermissionSelect}
             onKeyDown={handleKeyDown}
-            
+            onInputChange={searchItems}
             ref={firstInputRef}
 
           />

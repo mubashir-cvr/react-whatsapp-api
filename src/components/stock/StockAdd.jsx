@@ -75,7 +75,7 @@ function StockItemAdd({ handleModalClose, stocks, setStocks, setShowModal }) {
       // Hide the message after 1 second
       setTimeout(() => {
         setStockUpdated(false);
-      }, 1000);
+      }, 1500);
 
       firstInputRef.current.focus();
     } else {

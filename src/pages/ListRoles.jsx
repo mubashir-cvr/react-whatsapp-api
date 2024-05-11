@@ -10,7 +10,7 @@ function ListRoles() {
   const [showModal, setShowModal] = useState(false);
   const [deletedRole, setDeletedRole] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [permissions, setPermissions] = useState([]);
+ 
   const [isLoading, setLoading] = useState(true);
   const [editRole, setEditRole] = useState(null);
 
@@ -50,27 +50,12 @@ function ListRoles() {
       const jsonResponse = await response.json();
       console.log(jsonResponse);
       setRoles(jsonResponse.data);
+      setLoading(false);
     };
 
     fetchRoles();
 
-    const fetchPermissions = async () => {
-      const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + "auth/permissions", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const jsonResponse = await response.json();
-      console.log(jsonResponse);
-      setPermissions(jsonResponse.data);
-      const logoutTimeout = setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-      return () => clearTimeout(logoutTimeout);
-    };
-
-    fetchPermissions();
+  
   }, []);
 
   const handleAddRole = async () => {
@@ -158,7 +143,7 @@ function ListRoles() {
 
       {showModal && (
         <RoleAdd
-          permissions={permissions}
+          // permissions={permissions}
           handleModalClose={handleModalClose}
           roles={roles}
           setRoles={setRoles}
@@ -175,7 +160,7 @@ function ListRoles() {
           handleModalClose={handleModalClose}
           setRoles={setRoles}
           roles={roles}
-          permissions={permissions}
+          // permissions={permissions}
         />
       )}
     </div>

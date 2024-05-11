@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef,useState } from "react";
 import Select from "react-select";
 import { API_URL } from "../../const/env_constant";
 import { BiSave } from "react-icons/bi";
@@ -9,11 +9,11 @@ function RoleEdit({
   editRole,
   handleModalClose,
   setRoles,
-  roles,
-  permissions,
+  roles
 }) {
   const firstInputRef = useRef(null);
   const lastInputRef = useRef(null);
+  const [permissions, setPermissions] = useState([]);
   const handleEditSubmit = async () => {
     const token = localStorage.getItem("token");
 
@@ -39,10 +39,23 @@ function RoleEdit({
       console.error("Failed to edit role");
     }
   };
+  const fetchPermissions = async (search) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(API_URL + `auth/permissions?search=${search}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const jsonResponse = await response.json();
+    setPermissions(jsonResponse.data);
+  };
   useEffect(() => {
-    // Focus on the first input field when the component mounts
+    fetchPermissions("");
     firstInputRef.current.focus();
   }, []);
+  const searchItems = (value) => {
+    fetchPermissions(value);
+  };
   const handleChange = (selectedOption) => {
     setEditRole((prevEditRole) => ({
       ...prevEditRole,
@@ -80,7 +93,7 @@ function RoleEdit({
             value={editRole.permissions}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            
+            onInputChange={searchItems}
           />
           <input
             type="text"
