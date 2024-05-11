@@ -126,7 +126,7 @@ function ListStockItems() {
 
   return (
     <div
-      className="flex h-full w-full md:w-10/12 overflow-scroll no-scrollbar flex-col items-center"
+      className="flex h-full w-full overflow-scroll no-scrollbar flex-col items-center"
       onScroll={onScroll}
       ref={listInnerRef}
     >
@@ -140,23 +140,23 @@ function ListStockItems() {
         </div>
       </div>
       <div className="flex w-full  flex-col">
-        <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  gap-4 items-center border bg-white shadow-md h-10">
-          <p className="flex w-2/4 md:w-1/6 border-r-2 px-4 justify-center">
+        <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  items-center border bg-white shadow-md h-full">
+          <p className="flex w-2/4 md:w-1/6 border-r-2  h-full justify-center">
             Item Name
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2 px-4 justify-center">
+          <p className="flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
             Item type
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2 px-4 justify-center">
+          <p className="flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
             GSM
           </p>
-          <p className="hidden w-1/4 md:w-1/6 md:flex border-r-2 px-4 justify-center">
+          <p className="hidden w-1/4 md:w-1/6 md:flex border-r-2  h-full justify-center">
             Dimension
           </p>
-          <p className="hidden md:flex w-1/4 md:w-1/6 border-r-2 px-4 justify-center">
+          <p className="hidden md:flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
             Unit
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2 px-4 justify-center">
+          <p className="flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
             Action
           </p>
         </div>

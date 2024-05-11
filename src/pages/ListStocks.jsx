@@ -102,10 +102,10 @@ function ListStocks() {
     <div
       onScroll={onScroll}
       ref={listInnerRef}
-      className="flex h-full  w-full md:w-10/12 overflow-scroll no-scrollbar flex-col gap-2 items-center"
+      className="flex h-full  w-full overflow-scroll no-scrollbar flex-col items-center"
     >
       <div className="flex w-full flex-col shadow-md">
-        <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-28 border-2">
+        <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full  border-2">
           <div className="flex-row flex">
             <SiPrintables fontSize={24} />
             <p className="quantico-regular  px-3">Stocks</p>
@@ -114,10 +114,10 @@ function ListStocks() {
             <SearchItems fetcher={handleSearch} />
           </div>
         </div>
-        <div className="flex w-full flex-row text-sm font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-white shadow-md h-10">
-          <p className="flex w-1/3 border-r-2 px-4 justify-center">Item</p>
-          <p className="flex w-1/3 border-r-2 px-4 justify-center">Quantity</p>
-          <p className="flex w-1/3 px-4 justify-center">Action</p>
+        <div className="flex w-full flex-row text-sm font-medium justify-between text-pink-900  items-center border-2 bg-white shadow-md h-10">
+          <p className="flex h-full items-center w-1/3 border-r-2  justify-center">Item</p>
+          <p className="flex h-full items-center w-1/3 border-r-2  justify-center">Quantity</p>
+          <p className="flex h-full items-center w-1/3  justify-center">Action</p>
         </div>
         {!isLoading ? (
           stocks.map((stock, index) => (

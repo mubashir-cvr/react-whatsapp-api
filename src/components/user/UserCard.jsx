@@ -8,7 +8,7 @@ import { API_URL } from "../../const/env_constant";
 function UserCard({ handleEdit, handleDelete, user,updatePermission,deletePermission }) {
   
   return (
-    <div className="flex-col border-2 p-4 bg-white h-32 shadow-md items-center justify-center">
+    <div className="flex-col border p-4 bg-white h-32 shadow-sm  items-center justify-center">
       <div className="flex h-2">
         <p className="flex h-full w-full quantico-regular text-pink-900 justify-center text-xs font-medium items-center">
           {user.email}

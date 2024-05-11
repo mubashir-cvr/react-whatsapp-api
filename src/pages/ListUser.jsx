@@ -173,12 +173,12 @@ function ListUser() {
         <SiPrintables fontSize={24} />
         <p className="quantico-regular  px-3">USERS</p>
       </div>
-      <div className="flex w-full min-h-14 items-center justify-center border-2 mb-2">
+      <div className="flex w-full min-h-14 items-center justify-center border-2">
         <div className="relative w-10/12 flex">
           <SearchItems fetcher={fetchSearchUsers} />
         </div>
       </div>
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex w-full flex-col">
         {loading ? (
           <div className="flex w-full flex-col gap-2">
             <LoadingUserCard />

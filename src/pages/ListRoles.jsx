@@ -118,12 +118,12 @@ function ListRoles() {
   };
 
   return (
-    <div className="flex h-full p-4 w-full md:w-10/12 overflow-scroll no-scrollbar flex-col gap-2 items-center">
-      <div className="flex w-full gap-2 flex-col">
-        <div className="flex w-full flex-row text-sm font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-white shadow-md h-10">
-          <p className="flex w-full border-r-2 px-4 justify-center">Name</p>
-          <p className="flex w-full justify-center">Permissions</p>
-          <p className="flex w-full justify-center">Actions</p>
+    <div className="flex h-full w-full overflow-scroll no-scrollbar flex-col items-center">
+      <div className="flex w-full flex-col">
+        <div className="flex w-full flex-row text-sm font-medium justify-center  text-pink-900 items-center bg-white shadow-md">
+          <p className="flex w-1/3 border-r-2 px-4 items-center h-full justify-center">Name</p>
+          <p className="flex w-1/3 justify-center items-center h-full border-r-2">Permissions</p>
+          <p className="flex w-1/3 justify-center items-center h-full">Actions</p>
         </div>
         {isLoading ? (
           <>

@@ -125,7 +125,7 @@ const decodedItemID =atob(itemID);
       onScroll={onScroll}
       ref={listInnerRef}
     >
-      <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-28 border-2">
+      <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-14 md:min-h-20 border-2">
         <div className="flex-row flex">
           <SiPrintables fontSize={24} />
           <p className="quantico-regular  px-3">Stock History</p>
@@ -135,29 +135,29 @@ const decodedItemID =atob(itemID);
         </div> */}
       </div>
       <div className="flex w-full  flex-col">
-        <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  gap-4 items-center border bg-white shadow-md h-10">
-          <p className="flex w-2/4 md:w-1/6 border-r-2  justify-center">
+        <div className="flex w-full flex-row text-xs h-full md:text-sm font-medium justify-between text-pink-900   items-center border bg-white shadow-md">
+          <p className="flex w-2/6 md:w-1/6 border-r-2  justify-center">
             Item Name
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
             Item type
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
             Qty
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
             Type
           </p>
-          {/* <p className="hidden w-1/4 md:w-1/6 md:flex border-r-2  justify-center">
+          {/* <p className="hidden w-1/6 md:w-1/6 md:flex border-r-2  justify-center">
             Pack/Single
           </p> */}
-          <p className="hidden md:flex w-1/4 md:w-1/6 border-r-2  justify-center">
+          <p className="hidden md:flex w-1/6 md:w-1/6 border-r-2  justify-center">
             Updated by
           </p>
-          <p className="hidden md:flex w-1/4 md:w-1/6 border-r-2  justify-center">
+          <p className="hidden md:flex w-1/6 md:w-1/6 border-r-2  justify-center">
             Updated at 
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-1/6 md:w-1/6 border-r-2  justify-center">
             Action
           </p>
         </div>
