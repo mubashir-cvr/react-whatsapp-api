@@ -1,9 +1,9 @@
 import { API_URL } from "../const/env_constant";
-import RoleCard from "../components/RoleCard";
+import RoleCard from "../components/role/RoleCard";
 import React, { useState, useEffect } from "react";
-import RoleEdit from "../components/RoleEdit";
-import RoleAdd from "../components/RoleAdd";
-import LoadingRoleCard from "../components/LoadingRoleCard";
+import RoleEdit from "../components/role/RoleEdit";
+import RoleAdd from "../components/role/RoleAdd";
+import LoadingRoleCard from "../components/role/LoadingRoleCard";
 
 function ListRoles() {
   const [roles, setRoles] = useState([]);

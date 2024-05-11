@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import UserCard from "../components/UserCard";
+import UserCard from "../components/user/UserCard";
 import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/env_constant";
-import LoadingUserCard from "../components/LoadingUserCard";
-import UserAdd from "../components/UserAdd";
-import EditUser from "../components/EditUser";
-import SearchItems from "../components/SearchItems";
+import LoadingUserCard from "../components/user/LoadingUserCard";
+import UserAdd from "../components/user/UserAdd";
+import EditUser from "../components/user/EditUser";
+import SearchItems from "../components/common/SearchItems";
 
 function ListUser() {
   const [users, setUsers] = useState([]);
@@ -64,7 +64,9 @@ function ListUser() {
     
    
     const jsonResponse = await response.json();
-    
+    if(jsonResponse.statusCode===401){
+      window.location.href='/#login'
+    }
     if (jsonResponse.extra) {
       if (!jsonResponse.extra.nextPage) {
         setIsNextPage(false);
@@ -93,6 +95,9 @@ function ListUser() {
       });
       
       const jsonResponse = await response.json();
+      if(jsonResponse.statusCode===401){
+        window.location.href='/#login'
+      }
       setUsers(jsonResponse.data);
       const logoutTimeout = setTimeout(() => {
         setLoading(false);

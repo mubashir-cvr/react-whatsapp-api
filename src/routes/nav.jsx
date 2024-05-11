@@ -19,6 +19,7 @@ import { GrDocumentUser } from "react-icons/gr";
 import ListStocks from "../pages/ListStocks";
 import StockLayout from "../layouts/StockLayout";
 import ListStockItems from "../pages/ListStockItems";
+import ListStockTransactions from "../pages/ListStockTransactions";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -153,6 +154,14 @@ export const DASHBOARD_SIDEBAR_SEC = [
     sidebar: false,
     object:'',
     element: <ListPermissions />,
+  },
+  {
+    title: "stockhistory",
+    to: "stockhistory/:itemID",
+    icon: <BiSupport color="rgb(80 7 36)" />,
+    sidebar: false,
+    object:'',
+    element: <ListStockTransactions />,
   },
   {
     title: "Log out",

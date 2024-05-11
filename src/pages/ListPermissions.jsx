@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { API_URL } from "../const/env_constant";
-import PermissionCard from "../components/PermissionCard";
-import PermissionEdit from "../components/PermissionEdit";
+import PermissionCard from "../components/permission/PermissionCard";
+import PermissionEdit from "../components/permission/PermissionEdit";
 
 function ListPermissions() {
   const [permissions, setPermissions] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [currPage, setCurrPage] = useState(1); 
-  const [isNextPage,setIsNextPage] = useState(true); 
-  const [wasLastList, setWasLastList] = useState(false);
+  const [currPage, setCurrPage] = useState(1);
+  const [isNextPage, setIsNextPage] = useState(true);
+  const [loading, setLoading] = useState(false); // Add loading state
   const listInnerRef = useRef();
+
   const fetchPermissions = async (page) => {
+    setLoading(true); // Set loading state to true
     const token = localStorage.getItem("token");
     const response = await fetch(API_URL + `auth/permissions?page=${page}`, {
       headers: {
@@ -18,36 +20,39 @@ function ListPermissions() {
       },
     });
     const jsonResponse = await response.json();
-    console.log(jsonResponse)
-    if(jsonResponse.extra){
-      if(!jsonResponse.extra.nextPage){
-        setIsNextPage(false)
-      }
-      else{
-        setCurrPage(jsonResponse.extra.nextPage)
+    console.log(jsonResponse);
+    if (jsonResponse.extra) {
+      if (!jsonResponse.extra.nextPage) {
+        setIsNextPage(false);
+      } else {
+        setCurrPage(jsonResponse.extra.nextPage);
       }
     }
-    setPermissions((prevPermissions) => [...prevPermissions, ...jsonResponse.data]);
-    
+    setPermissions((prevPermissions) => [
+      ...prevPermissions,
+      ...jsonResponse.data,
+    ]);
+    setLoading(false); // Set loading state to false after fetching data
   };
+
   useEffect(() => {
     fetchPermissions(currPage);
   }, []);
 
-  const handleAddPermission = async () => {
+  const handleAddPermission = () => {
     setShowModal(true);
   };
 
   const handleModalClose = () => {
     setShowModal(false);
   };
+
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight === scrollHeight) {
-        if(isNextPage){
-          fetchPermissions(currPage)
-        }
+      if (scrollTop + clientHeight === scrollHeight && !loading && isNextPage) {
+        // Check if not loading and there's more data to load
+        fetchPermissions(currPage);
       }
     }
   };
@@ -78,7 +83,9 @@ function ListPermissions() {
       );
 
       setDeletedPermission(deletedData);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDelete = (permissionId) => {
@@ -91,7 +98,7 @@ function ListPermissions() {
       onScroll={onScroll}
       ref={listInnerRef}
     >
-      <div className="flex w-full gap-2 flex-col">
+       <div className="flex w-full gap-2 flex-col">
         <div className="flex w-full flex-row text-sm quantico-regular font-medium justify-between text-pink-900 p-2 gap-4 items-center border-2 bg-white shadow-md h-10">
           <p className="flex w-full border-r-2 px-4 justify-center">Name</p>
           <p className="flex w-full border-r-2 px-4 justify-center">Desc</p>

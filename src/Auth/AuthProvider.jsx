@@ -19,12 +19,23 @@ export const AuthProvider = ({ children }) => {
         // Check if user data exists in local storage
         const cachedUser = localStorage.getItem("user");
         const cachedUserPermission = localStorage.getItem("userPermissions");
+
         if (cachedUser && cachedUserPermission) {
           setUser(JSON.parse(cachedUser));
           setUserPermissions(JSON.parse(cachedUserPermission));
 
           setIsLoading(false);
-          return;
+
+          // Check if there is a stored date
+          const cachedAt = localStorage.getItem("cachedAt");
+
+          if (cachedAt) {
+            const currentDate = new Date();
+            const storedDate = new Date(cachedAt);
+            if (storedDate <= currentDate) {
+              return;
+            }
+          }
         }
 
         const response = await fetch(API_URL + "auth/checkauth/", {
@@ -33,19 +44,19 @@ export const AuthProvider = ({ children }) => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        const responseData = await response.json();
+
+        if (response.status === 401) {
+          navigate("/login");
+        }
 
         if (!response.ok) {
-          const responseData = await response.json();
           const errorMessage = responseData.message || "Not authenticated";
           let error = new Error(errorMessage);
           error.statusCode = responseData.statusCode;
           throw error;
         }
 
-        const responseData = await response.json();
-        if (responseData.statusCode == 401) {
-          navigate("/login");
-        }
         setUser(responseData.data.user);
         setUserPermissions(responseData.data.permissions);
         setIsLoading(false);
@@ -56,11 +67,16 @@ export const AuthProvider = ({ children }) => {
           "userPermissions",
           JSON.stringify(responseData.data.permissions)
         );
+        
+        const currentDate = new Date();
+        const dateString = currentDate.toISOString();
+        localStorage.setItem("cachedAt", dateString);
       } catch (error) {
         console.error("Authentication failed:" + error.message);
-        if (error.statusCode == 401) {
+        if (error.statusCode === 401) {
           navigate("/login");
         } else {
+          alert(error.message);
           navigate("/error");
         }
       }
