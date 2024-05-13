@@ -141,22 +141,22 @@ function ListPrinters() {
       </div>
       <div className="flex w-full  flex-col">
         <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  items-center border bg-white shadow-md h-full">
-          <p className="flex w-1/6  border-r-2  h-full justify-center">
+          <p className="flex w-1/4 md:w-1/6  border-r-2  h-full justify-center">
             Name
           </p>
-          <p className="hidden w-1/6  md:flex border-r-2  h-full justify-center">
+          <p className="w-1/4 md:w-1/6  hidden md:flex border-r-2  h-full justify-center">
             Dimension
           </p>
-          <p className="flex w-1/6  border-r-2  h-full justify-center">
-            Minimum Charge
+          <p className="flex w-1/4 md:w-1/6  border-r-2  h-full justify-center">
+            Min Charge
           </p>
-          <p className="flex w-1/6  border-r-2  h-full justify-center">
+          <p className="flex w-1/4 md:w-1/6  border-r-2  h-full justify-center">
             Extra Charge
           </p>
-          <p className="flex w-1/6  border-r-2  h-full justify-center">
-            Minimum cut off count
+          <p className="hidden md:flex w-1/4 md:w-1/6  border-r-2  h-full justify-center">
+            Bulk Print Count
           </p>
-          <p className="flex w-1/6  border-r-2  h-full justify-center">
+          <p className="flex w-1/4 md:w-1/6  border-r-2  h-full justify-center">
             Action
           </p>
         </div>
