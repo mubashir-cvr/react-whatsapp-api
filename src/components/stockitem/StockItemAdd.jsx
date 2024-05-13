@@ -12,7 +12,8 @@ function StockItemAdd({ handleModalClose, stockItems, setStockItems, setShowModa
     gsm: "",
     dimention_length: "",
     dimention_breadth: "",
-    unit_of_measurement: ""
+    unit_of_measurement: "",
+    unitPrice:"",
   });
 
   const firstInputRef = useRef(null);
@@ -49,7 +50,8 @@ function StockItemAdd({ handleModalClose, stockItems, setStockItems, setShowModa
         gsm: "",
         dimention_length: "",
         dimention_breadth: "",
-        unit_of_measurement: ""
+        unit_of_measurement: "",
+        unitPrice:""
       });
     } else {
       console.error("Failed to add stock");
@@ -128,6 +130,15 @@ function StockItemAdd({ handleModalClose, stockItems, setStockItems, setShowModa
             className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
             name="unit_of_measurement"
             value={newStock.unit_of_measurement}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <input
+            type="text"
+            placeholder="Unit Price"
+            className="border border-gray-300 rounded-md px-3 py-2 mb-2 w-full"
+            name="unitPrice"
+            value={newStock.unitPrice}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             ref={lastInputRef}

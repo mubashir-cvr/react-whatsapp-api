@@ -1,0 +1,44 @@
+import React from "react";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+
+function StockCard({
+  handleEdit,
+  handleDelete,
+  pageSize,
+  deletePermission,
+  updatePermission,
+}) {
+  return (
+    <div className="flex w-full flex-row text-sm justify-between text-black-900 items-center h-full border bg-white ">
+      <p className="flex w-1/3 border-r-2 h-full items-center  justify-center">
+        {pageSize.name}
+      </p>
+      <p className="flex w-1/3 border-r-2 h-full items-center  justify-center">
+        {pageSize.dimention_length} {" X "}
+        {pageSize.dimention_breadth}{" "}
+      </p>
+      <div className="flex py-1 w-1/3 h-full gap-3 justify-center">
+        {updatePermission && (
+          <button
+            onClick={() => handleEdit(pageSize)}
+            className="text-pink-900 border-2 p-2 text-xs rounded-lg"
+          >
+            <FaEdit />
+          </button>
+        )}
+
+        {deletePermission && (
+          <button
+            onClick={() => handleDelete(pageSize._id)}
+            className="text-pink-900 border-2 p-2 text-xs rounded-lg"
+          >
+            <MdDeleteForever />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default StockCard;

@@ -7,7 +7,7 @@ import { getPermittedActionsOfUserForObject } from "../utils/getUserpersmissions
 import StockTransactionCard from "../components/stocktransaction/StockTransactionCard";
 import StockTransactionEdit from "../components/stocktransaction/StockTransactionEdit";
 import { useParams } from "react-router-dom";
-
+import { IoArrowBackSharp } from "react-icons/io5";
 function ListStockTransactions() {
   const [StockTransactions, setStockTransactions] = useState([]);
   const [editStock, setEditStock] = useState(null);
@@ -120,32 +120,41 @@ function ListStockTransactions() {
       ref={listInnerRef}
     >
       <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-14 md:min-h-20 border-2">
-        <div className="flex-row flex">
+        <div className="flex-row flex gap-3">
+          <div
+            className="flex justify-start animate-pulse text-pink-900"
+            onClick={() => {
+              window.history.back();
+            }}
+          >
+            <IoArrowBackSharp />
+          </div>
           <SiPrintables fontSize={24} />
           <p className="quantico-regular  px-3">Stock History</p>
         </div>
       </div>
       <div className="flex w-full  flex-col">
-        <div className="flex w-full flex-row text-xs h-10 md:text-sm font-medium justify-between text-pink-900   items-center border bg-white shadow-md">
+        <div className="flex w-full font-bold flex-row text-xs h-10 md:text-sm justify-between text-pink-900   items-center border bg-white shadow-md">
+          <p className="flex w-2/6  md:w-1/6 h-full items-center border-r-2  justify-center">
+            Date
+          </p>
           <p className="flex w-2/6 md:w-1/6 border-r-2  justify-center">
             Item Name
           </p>
-          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
+          <p className="hidden md:flex w-2/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Item type
           </p>
           <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Qty
           </p>
-          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
+          <p className="flex w-2/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Type
           </p>
           <p className="hidden md:flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             User
           </p>
-          <p className="hidden md:flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
-            Updated at
-          </p>
-          <p className="flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
+
+          <p className="hidden  md:flex w-1/6 h-full items-center md:w-1/6 border-r-2  justify-center">
             Action
           </p>
         </div>

@@ -1,36 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
-import StockItemsEdit from "../components/stockitem/StockItemsEdit";
-import LoadingStockCard from "../components/stock/LoadingStockCard";
+import PrinterEdit from "../components/printer/PrinterEdit";
+import LoadingPrinterCard from "../components/printer/LoadingPrinterCard";
 import { API_URL } from "../const/env_constant";
-import StockItemCard from "../components/stockitem/StockItemCard";
-import StockItemAdd from "../components/stockitem/StockItemAdd";
+import PrinterCard from "../components/printer/PrinterCard";
+import PrinterAdd from "../components/printer/PrinterAdd";
 import { SiPrintables } from "react-icons/si";
 import SearchItems from "../components/common/SearchItems";
 import { getPermittedActionsOfUserForObject } from "../utils/getUserpersmissions";
-function ListStockItems() {
-  const [stockItems, setStockItems] = useState([]);
+function ListPrinters() {
+  const [printers, setPrinters] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [editStock, setEditStock] = useState(null);
+  const [editPrinter, setEditPrinter] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSearched, setIsSearched] = useState(false);
   const [isMoreLoading, setMoreLoading] = useState(false);
   const [isNextPage, setIsNextPage] = useState(true);
   const listInnerRef = useRef();
-  const { createPermission, updatePermission, deletePermission } = getPermittedActionsOfUserForObject("StockItem");
+  const { createPermission, updatePermission, deletePermission } = getPermittedActionsOfUserForObject("Printer");
   let add_button = createPermission
     ? "flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
     : "hidden";
 
   useEffect(() => {
 
-    fetchStockItems(1);
+    fetchPrinters(1);
   }, []);
 
-  const fetchStockItems = async (page) => {
+  const fetchPrinters = async (page) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `stockitems?page=${page}`, {
+      const response = await fetch(API_URL + `printers?page=${page}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,34 +41,34 @@ function ListStockItems() {
         setCurrentPage(jsonResponse.extra.currentPage);
       }
       if (page === 1) {
-        setStockItems([]);
+        setPrinters([]);
       }
       setMoreLoading(false);
-
-      setStockItems((prevItems) => [...prevItems, ...jsonResponse.data]);
+      console.log(jsonResponse)
+      setPrinters((prevItems) => [...prevItems, ...jsonResponse.data]);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching stock items:", error);
     }
   };
-  const fetchSearchStockItems = async (search) => {
+  const fetchSearchPrinters = async (search) => {
     if (search) {
       setIsSearched(true);
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `stockitems?search=${search}`, {
+      const response = await fetch(API_URL + `printers?search=${search}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const jsonResponse = await response.json();
-      setStockItems(jsonResponse.data);
+      setPrinters(jsonResponse.data);
       const logoutTimeout = setTimeout(() => {
         setLoading(false);
       }, 500);
       return () => clearTimeout(logoutTimeout);
     } else {
       setIsSearched(false);
-      fetchStockItems(1);
+      fetchPrinters(1);
     }
   };
 
@@ -80,35 +80,35 @@ function ListStockItems() {
       isNextPage
     ) {
       setMoreLoading(true);
-      fetchStockItems(currentPage + 1);
+      fetchPrinters(currentPage + 1);
     }
   };
 
-  const handleAddStock = () => {
+  const handleAddPrinter = () => {
     setShowModal(true);
   };
 
   const handleModalClose = () => {
     setShowModal(false);
-    setEditStock(null);
+    setEditPrinter(null);
   };
 
   const handleEdit = (stock) => {
-    setEditStock(stock);
+    setEditPrinter(stock);
   };
 
-  const deleteStockItem = async (stockItemId) => {
+  const deletePrinter = async (printerId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `/stockitems/${stockItemId}`, {
+      const response = await fetch(API_URL + `/printers/${printerId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.ok) {
-        setStockItems((prevItems) =>
-          prevItems.filter((item) => item._id !== stockItemId)
+        setPrinters((prevItems) =>
+          prevItems.filter((item) => item._id !== printerId)
         );
       } else {
         console.error("Failed to delete item");
@@ -118,9 +118,9 @@ function ListStockItems() {
     }
   };
 
-  const handleDelete = (stockItemId) => {
+  const handleDelete = (printerId) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
-      deleteStockItem(stockItemId);
+      deletePrinter(printerId);
     }
   };
 
@@ -133,41 +133,38 @@ function ListStockItems() {
       <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-28 border-2">
         <div className="flex-row flex">
           <SiPrintables fontSize={24} />
-          <p className="quantico-regular  px-3">Stock Items</p>
+          <p className="quantico-regular  px-3">Printers</p>
         </div>
         <div className="relative w-full md:w-auto flex p-2">
-          <SearchItems fetcher={fetchSearchStockItems} />
+          <SearchItems fetcher={fetchSearchPrinters} />
         </div>
       </div>
       <div className="flex w-full  flex-col">
         <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  items-center border bg-white shadow-md h-full">
-          <p className="flex w-2/4 md:w-1/6 border-r-2  h-full justify-center">
-            Item Name
+          <p className="flex w-1/6  border-r-2  h-full justify-center">
+            Name
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
-            Item type
-          </p>
-          <p className="hidden md:flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
-            GSM
-          </p>
-          <p className="hidden w-1/4 md:w-1/6 md:flex border-r-2  h-full justify-center">
+          <p className="hidden w-1/6  md:flex border-r-2  h-full justify-center">
             Dimension
           </p>
-          <p className="hidden md:flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
-            Unit
+          <p className="flex w-1/6  border-r-2  h-full justify-center">
+            Minimum Charge
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
-            Price/Unit
+          <p className="flex w-1/6  border-r-2  h-full justify-center">
+            Extra Charge
           </p>
-          <p className="flex w-1/4 md:w-1/6 border-r-2  h-full justify-center">
+          <p className="flex w-1/6  border-r-2  h-full justify-center">
+            Minimum cut off count
+          </p>
+          <p className="flex w-1/6  border-r-2  h-full justify-center">
             Action
           </p>
         </div>
         {!isLoading ? (
-          stockItems.map((stockItem, index) => (
-            <StockItemCard
+          printers.map((printer, index) => (
+            <PrinterCard
               key={index}
-              stockItem={stockItem}
+              printer={printer}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
               deletePermission={deletePermission}
@@ -176,53 +173,55 @@ function ListStockItems() {
           ))
         ) : (
           <>
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
           </>
         )}
         {isMoreLoading && (
           <>
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
-            <LoadingStockCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
+            <LoadingPrinterCard />
           </>
         )}
         <div className="flex justify-end">
-          <button onClick={handleAddStock} className={add_button}>
+          <button onClick={handleAddPrinter} className={add_button}>
             <p className="text-zinc-50">+</p>
           </button>
         </div>
       </div>
 
       {showModal && (
-        <StockItemAdd
+        <PrinterAdd
           handleModalClose={handleModalClose}
-          stockItems={stockItems}
-          setStockItems={setStockItems}
+          setPrinters={setPrinters}
           setShowModal={setShowModal}
         />
       )}
 
-      {editStock && (
-        <StockItemsEdit
-          setEditStock={setEditStock}
-          editStock={editStock}
+      {editPrinter && (
+        <PrinterEdit
+          setEditPrinter={setEditPrinter}
+          editPrinter={editPrinter}
           handleModalClose={handleModalClose}
-          setStockItems={setStockItems}
-          stockItems={stockItems}
+          setPrinters={setPrinters}
+          printers={printers}
         />
       )}
     </div>
   );
 }
 
-export default ListStockItems;
+export default ListPrinters;

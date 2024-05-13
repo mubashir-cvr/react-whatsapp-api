@@ -20,6 +20,10 @@ import ListStocks from "../pages/ListStocks";
 import StockLayout from "../layouts/StockLayout";
 import ListStockItems from "../pages/ListStockItems";
 import ListStockTransactions from "../pages/ListStockTransactions";
+import ListPageSizes from "../pages/ListPageSizes";
+import { GiResize } from "react-icons/gi";
+import ListPrinters from "../pages/ListPrinters";
+import { BiPrinter } from "react-icons/bi";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -99,14 +103,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     element: <StockLayout pageName={"stockItems"} contentComponent={<ListStockItems/>}/>,
   },
  
-  {
-    title: "Profile",
-    to: "profile",
-    icon: <GrDocumentUser color="rgb(80 7 36)" />,
-    sidebar: true,
-    object:'',
-    element: <Profile />,
-  },
+  
   {
     title: "Form",
     to: "forms",
@@ -162,6 +159,30 @@ export const DASHBOARD_SIDEBAR_SEC = [
     sidebar: false,
     object:'',
     element: <ListStockTransactions />,
+  },
+  {
+    title: "Size Chart",
+    to: "sizechart",
+    icon: <GiResize color="rgb(80 7 36)" />,
+    sidebar: true,
+    object:'PageSize',
+    element: <ListPageSizes />,
+  },
+  {
+    title: "Printers",
+    to: "printers",
+    icon: <BiPrinter color="rgb(80 7 36)" />,
+    sidebar: true,
+    object:'Printer',
+    element:<ListPrinters/>
+  },
+  {
+    title: "Profile",
+    to: "profile",
+    icon: <GrDocumentUser color="rgb(80 7 36)" />,
+    sidebar: true,
+    object:'',
+    element: <Profile />,
   },
   {
     title: "Log out",
