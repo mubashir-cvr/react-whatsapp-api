@@ -156,7 +156,7 @@ function PrinterEdit({
           <div className="flex mb-2  relative w-full min-w-[200px]">
             <input
               type="number"
-              placeholder=" Bulk Print Count"
+              placeholder="Bulk Print Count"
               className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-2 bg-transparent px-3 py-2.5 font-sans text-md font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-2 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:border-t-2 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
               name="maxCountPrintPerMinCharge"
               value={editPrinter.maxCountPrintPerMinCharge}

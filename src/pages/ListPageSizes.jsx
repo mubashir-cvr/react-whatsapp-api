@@ -144,7 +144,7 @@ function ListPageSizes() {
           <p className="flex w-1/3  border-r-2  h-full justify-center">
             Name
           </p>
-          <p className="hidden w-1/3  md:flex border-r-2  h-full justify-center">
+          <p className="w-1/3  md:flex border-r-2  h-full justify-center">
             Dimension
           </p>
           <p className="flex w-1/3  border-r-2  h-full justify-center">
