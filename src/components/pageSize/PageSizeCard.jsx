@@ -2,7 +2,7 @@ import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
-function StockCard({
+function PageSizeCard({
   handleEdit,
   handleDelete,
   pageSize,
@@ -41,4 +41,4 @@ function StockCard({
   );
 }
 
-export default StockCard;
+export default PageSizeCard;

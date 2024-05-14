@@ -1,35 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
-import PageSizeEdit from "../components/pageSize/PageSizeEdit";
-import LoadingPageSizeCard from "../components/pageSize/LoadingPageSizeCard";
+import CustomerEdit from "../components/customer/CustomerEdit";
+import LoadingCustomerCard from "../components/customer/LoadingCustomerCard";
 import { API_URL } from "../const/env_constant";
-import PageSizeCard from "../components/pageSize/PageSizeCard";
-import PageSizeAdd from "../components/pageSize/PageSizeAdd";
+import CustomerCard from "../components/customer/CustomerCard";
+import CustomerAdd from "../components/customer/CustomerAdd";
 import { SiPrintables } from "react-icons/si";
 import SearchItems from "../components/common/SearchItems";
 import { getPermittedActionsOfUserForObject } from "../utils/getUserpersmissions";
-function ListPageSizes() {
-  const [pageSizes, setPageSizes] = useState([]);
+function ListCustomers() {
+  const [customers, setCustomers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [editPageSize, setEditPageSize] = useState(null);
+  const [editCustomer, setEditCustomer] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [isMoreLoading, setMoreLoading] = useState(false);
   const [isNextPage, setIsNextPage] = useState(true);
   const listInnerRef = useRef();
-  const { createPermission, updatePermission, deletePermission } = getPermittedActionsOfUserForObject("PageSize");
+  const { createPermission, updatePermission, deletePermission } = getPermittedActionsOfUserForObject("Customer");
   let add_button = createPermission
     ? "flex fixed right-6 bottom-16 md:right-24 md:bottom-24 rounded-full font-thin bg-pink-800 w-12 h-12 md:w-16 md:h-16 items-center justify-center text-xl shadow-xl hover:bg-pink-900 hover:text-3xl"
     : "hidden";
 
   useEffect(() => {
 
-    fetchPageSizes(1);
+    fetchCustomers(1);
   }, []);
 
-  const fetchPageSizes = async (page) => {
+  const fetchCustomers = async (page) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `pagesizes?page=${page}`, {
+      const response = await fetch(API_URL + `customers?page=${page}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,34 +40,32 @@ function ListPageSizes() {
         setCurrentPage(jsonResponse.extra.currentPage);
       }
       if (page === 1) {
-        setPageSizes([]);
+        setCustomers([]);
       }
       setMoreLoading(false);
 
-      setPageSizes((prevItems) => [...prevItems, ...jsonResponse.data]);
+      setCustomers((prevItems) => [...prevItems, ...jsonResponse.data]);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching stock items:", error);
+      console.error("Error fetching customer items:", error);
     }
   };
-  const fetchSearchPageSizes = async (search) => {
+  const fetchSearchCustomers = async (search) => {
     if (search) {
-      setIsSearched(true);
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `pagesizes?search=${search}`, {
+      const response = await fetch(API_URL + `customers?search=${search}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const jsonResponse = await response.json();
-      setPageSizes(jsonResponse.data);
+      setCustomers(jsonResponse.data);
       const logoutTimeout = setTimeout(() => {
         setLoading(false);
       }, 500);
       return () => clearTimeout(logoutTimeout);
     } else {
-      setIsSearched(false);
-      fetchPageSizes(1);
+      fetchCustomers(1);
     }
   };
 
@@ -79,47 +77,47 @@ function ListPageSizes() {
       isNextPage
     ) {
       setMoreLoading(true);
-      fetchPageSizes(currentPage + 1);
+      fetchCustomers(currentPage + 1);
     }
   };
 
-  const handleAddPageSize = () => {
+  const handleAddCustomer = () => {
     setShowModal(true);
   };
 
   const handleModalClose = () => {
     setShowModal(false);
-    setEditPageSize(null);
+    setEditCustomer(null);
   };
 
-  const handleEdit = (stock) => {
-    setEditPageSize(stock);
+  const handleEdit = (customer) => {
+    setEditCustomer(customer);
   };
 
-  const deletePageSize = async (pageSizeId) => {
+  const deleteCustomer = async (customerId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(API_URL + `/pagesizes/${pageSizeId}`, {
+      const response = await fetch(API_URL + `/customers/${customerId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.ok) {
-        setPageSizes((prevItems) =>
-          prevItems.filter((item) => item._id !== pageSizeId)
+        setCustomers((prevItems) =>
+          prevItems.filter((item) => item._id !== customerId)
         );
       } else {
         console.error("Failed to delete item");
       }
     } catch (error) {
-      console.error("Error deleting stock item:", error);
+      console.error("Error deleting customer item:", error);
     }
   };
 
-  const handleDelete = (pageSizeId) => {
+  const handleDelete = (customerId) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
-      deletePageSize(pageSizeId);
+      deleteCustomer(customerId);
     }
   };
 
@@ -132,29 +130,19 @@ function ListPageSizes() {
       <div className="flex flex-col pt-2 md:flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-28 border-2">
         <div className="flex-row flex">
           <SiPrintables fontSize={24} />
-          <p className="quantico-regular  px-3">Page Size</p>
+          <p className="quantico-regular  px-3">Customers</p>
         </div>
         <div className="relative w-full md:w-auto flex p-2">
-          <SearchItems fetcher={fetchSearchPageSizes} />
+          <SearchItems fetcher={fetchSearchCustomers} />
         </div>
       </div>
-      <div className="flex w-full  flex-col">
-        <div className="flex w-full flex-row text-xs md:text-sm font-medium justify-between text-pink-900  items-center border bg-white shadow-md h-full">
-          <p className="flex w-1/3  border-r-2  h-full justify-center">
-            Name
-          </p>
-          <p className="w-1/3  md:flex border-r-2  h-full justify-center">
-            Dimension
-          </p>
-          <p className="flex w-1/3  border-r-2  h-full justify-center">
-            Action
-          </p>
-        </div>
+      <div className="flex w-full md:w-4/6 flex-col gap-1 pt-1">
+        
         {!isLoading ? (
-          pageSizes.map((pageSize, index) => (
-            <PageSizeCard
+          customers.map((customer, index) => (
+            <CustomerCard
               key={index}
-              pageSize={pageSize}
+              customer={customer}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
               deletePermission={deletePermission}
@@ -163,55 +151,55 @@ function ListPageSizes() {
           ))
         ) : (
           <>
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
           </>
         )}
         {isMoreLoading && (
           <>
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
-            <LoadingPageSizeCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
+            <LoadingCustomerCard />
           </>
         )}
         <div className="flex justify-end">
-          <button onClick={handleAddPageSize} className={add_button}>
+          <button onClick={handleAddCustomer} className={add_button}>
             <p className="text-zinc-50">+</p>
           </button>
         </div>
       </div>
 
       {showModal && (
-        <PageSizeAdd
+        <CustomerAdd
           handleModalClose={handleModalClose}
-          setPageSizes={setPageSizes}
+          setCustomers={setCustomers}
           setShowModal={setShowModal}
         />
       )}
 
-      {editPageSize && (
-        <PageSizeEdit
-          setEditPageSize={setEditPageSize}
-          editPageSize={editPageSize}
+      {editCustomer && (
+        <CustomerEdit
+          setEditCustomer={setEditCustomer}
+          editCustomer={editCustomer}
           handleModalClose={handleModalClose}
-          setPageSizes={setPageSizes}
-          pageSizes={pageSizes}
+          setCustomers={setCustomers}
+          customers={customers}
         />
       )}
     </div>
   );
 }
 
-export default ListPageSizes;
+export default ListCustomers;

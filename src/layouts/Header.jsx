@@ -10,8 +10,8 @@ import { DASHBOARD_SIDEBAR, DASHBOARD_SIDEBAR_SEC } from "../routes/nav";
 import { Link, NavLink } from "react-router-dom";
 import { API_URL } from "../const/env_constant";
 
-const itemClass = "flex gap-2 px-4 py-3 text-sm  border-b rounded-sm  hover:bg-gray-100";
-const itemActiveClass = "flex gap-2 px-4 text-sm border-b rounded-sm py-3 bg-gray-100";
+const itemClass = "flex gap-2 px-4 py-3 text-sm    hover:bg-gray-100";
+const itemActiveClass = "flex gap-2 px-4 text-sm  py-3 bg-gray-100";
 function Header() {
   const [isOpen, setSidebarOpen] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
@@ -22,7 +22,6 @@ function Header() {
   useEffect(() => {
     const userPermission = localStorage.getItem("userPermissions");
     setUserObjectPermission(JSON.parse(userPermission).objects);
-
     const user = localStorage.getItem("user");
     setUser(JSON.parse(user));
     const handleClickOutside = (event) => {
@@ -141,11 +140,11 @@ function Header() {
               />
             ))}
           </div>
-          
-          <div className="gap-2 flex flex-col h-full justify-end">
-          <div className="flex justify-center py-2">
-            <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
-          </div>
+
+          <div className="flex flex-col h-full">
+            <div className="flex justify-center py-2">
+              <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
+            </div>
             {DASHBOARD_SIDEBAR_SEC.filter(
               (item) =>
                 item.sidebar &&
@@ -164,6 +163,16 @@ function Header() {
               />
             ))}
           </div>
+          <div>
+            <DashBoadrdLink
+              item={DASHBOARD_SIDEBAR_SEC.find((item) => item.to === "profile")}
+              closeSidebar={closeSidebar}
+            />
+            <DashBoadrdLink
+              item={DASHBOARD_SIDEBAR_SEC.find((item) => item.to === "logout")}
+              closeSidebar={closeSidebar}
+            />
+          </div>
         </div>
       </div>
     </>
@@ -179,7 +188,7 @@ function DashBoadrdLink({ item, closeSidebar }) {
       className={({ isActive }) => (isActive ? itemActiveClass : itemClass)}
       onClick={closeSidebar}
     >
-      <span className="text-lg">{item.icon}</span>
+      <span className="text-lg text-pink-950">{item.icon}</span>
       <p className="text-sm text-black">{item.title}</p>
     </NavLink>
   );

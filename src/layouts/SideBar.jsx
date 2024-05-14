@@ -36,7 +36,7 @@ function SideBar() {
         </div>
 
         <div className=""></div>
-        <div className="flex flex-col justify-end h-full gap-2 pb-3">
+        <div className="flex flex-col  pb-3">
           <div className="flex justify-center py-2">
             <div className="size-px w-2/3 bg-pink-950 rounded-full opacity-50"></div>
           </div>
@@ -54,6 +54,14 @@ function SideBar() {
             <DashBoadrdLink key={index} item={item} />
           ))}
         </div>
+        <div>
+            <DashBoadrdLink
+              item={DASHBOARD_SIDEBAR_SEC.find((item) => item.to === "profile")}
+            />
+            <DashBoadrdLink
+              item={DASHBOARD_SIDEBAR_SEC.find((item) => item.to === "logout")}
+            />
+          </div>
       </div>
     </div>
   );

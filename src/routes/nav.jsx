@@ -24,6 +24,8 @@ import ListPageSizes from "../pages/ListPageSizes";
 import { GiResize } from "react-icons/gi";
 import ListPrinters from "../pages/ListPrinters";
 import { BiPrinter } from "react-icons/bi";
+import { FaUser } from "react-icons/fa";
+import ListCustomers from "../pages/ListCustomers";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -50,12 +52,12 @@ export const DASHBOARD_SIDEBAR = [
     element: <h3>Qutation</h3>,
   },
   {
-    title: "Needs",
-    to: "needs",
-    icon: <CgNotes color="rgb(80 7 36)" />,
+    title: "Customer",
+    to: "customer",
+    icon: <FaUser color="rgb(80 7 36)" />,
     sidebar: true,
-    object:'',
-    element: <h3>Needs</h3>,
+    object:'Customer',
+    element: <ListCustomers/>,
   },
   {
     title: "Classes",
@@ -69,7 +71,7 @@ export const DASHBOARD_SIDEBAR = [
 
 export const DASHBOARD_SIDEBAR_SEC = [
   {
-    title: "Users",
+    title: "Staffs",
     to: "users",
     icon: <FaUserCog color="rgb(80 7 36)" />,
     sidebar: true,
@@ -180,7 +182,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     title: "Profile",
     to: "profile",
     icon: <GrDocumentUser color="rgb(80 7 36)" />,
-    sidebar: true,
+    sidebar: false,
     object:'',
     element: <Profile />,
   },
@@ -188,7 +190,7 @@ export const DASHBOARD_SIDEBAR_SEC = [
     title: "Log out",
     to: "logout",
     icon: <IoLogOutOutline color="rgb(80 7 36)" />,
-    sidebar: true,
+    sidebar: false,
     object:'',
     element: <LogOut />,
   },

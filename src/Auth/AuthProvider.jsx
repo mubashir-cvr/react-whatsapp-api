@@ -28,11 +28,11 @@ export const AuthProvider = ({ children }) => {
 
           // Check if there is a stored date
           const cachedAt = localStorage.getItem("cachedAt");
-
           if (cachedAt) {
             const currentDate = new Date();
             const storedDate = new Date(cachedAt);
-            if (storedDate <= currentDate) {
+              console.log(currentDate)
+            if (storedDate == currentDate) {
               return;
             }
           }

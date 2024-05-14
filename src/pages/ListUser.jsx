@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import UserCard from "../components/user/UserCard";
 import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/env_constant";
@@ -171,7 +171,7 @@ function ListUser() {
     >
       <div className="flex flex-row gap-2 items-center justify-center text-pink-900 w-full min-h-12 border-2">
         <SiPrintables fontSize={24} />
-        <p className="quantico-regular  px-3">USERS</p>
+        <p className="quantico-regular  px-3">STAFFS</p>
       </div>
       <div className="flex w-full min-h-14 items-center justify-center border-2">
         <div className="relative w-10/12 flex">
