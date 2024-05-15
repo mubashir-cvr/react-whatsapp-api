@@ -16,8 +16,8 @@ function QuotationCard({
       </p>
       <div className="flex w-1/3 md:w-1/4 border-r-2 h-full items-center  justify-center">
         <div className="flex flex-col h-full w-full justify-center items-center">
-          <p> {quotation.customer.name}</p>
-          <p> {quotation.customer.phoneNumber}</p>
+          <p> {quotation.customer && quotation.customer.name}</p>
+          <p> {quotation.customer && quotation.customer.phoneNumber}</p>
         </div>
       </div>
       <p className="hidden md:flex w-1/3 md:w-1/4 border-r-2 h-full items-center  justify-center">
