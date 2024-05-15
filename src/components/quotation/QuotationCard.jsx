@@ -1,6 +1,7 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function QuotationCard({
   handleEdit,
@@ -10,6 +11,7 @@ function QuotationCard({
   updatePermission,
 }) {
   return (
+    <Link to={`/quotation/${quotation._id}`}>
     <div className="flex text-xs rounded-full w-full flex-row md:text-sm justify-between text-black-900 items-center h-full border bg-white hover:bg-slate-50">
       <p className="flex w-1/3 md:w-1/4 border-r-2 h-full items-center  justify-center">
         {quotation.qoutationNumber}
@@ -52,6 +54,7 @@ function QuotationCard({
         )}
       </div>
     </div>
+    </Link>
   );
 }
 

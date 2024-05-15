@@ -20,6 +20,7 @@ import ListStocks from "../pages/ListStocks";
 import StockLayout from "../layouts/StockLayout";
 import ListStockItems from "../pages/ListStockItems";
 import ListStockTransactions from "../pages/ListStockTransactions";
+import ListQuotationItems from "../pages/ListQuotationItems";
 import ListPageSizes from "../pages/ListPageSizes";
 import { GiResize } from "react-icons/gi";
 import ListPrinters from "../pages/ListPrinters";
@@ -46,11 +47,19 @@ export const DASHBOARD_SIDEBAR = [
   },
   {
     title: "Quotation",
-    to: "quotation",
+    to: "quotations",
     icon: <LiaFileInvoiceSolid color="rgb(80 7 36)" />,
     sidebar: true,
     object:'Quotation',
     element:<ListQuotations/>,
+  },
+  {
+    title: "Quotation",
+    to: "quotation/:quotationID",
+    icon: <LiaFileInvoiceSolid color="rgb(80 7 36)" />,
+    sidebar: false,
+    object:'Quotation',
+    element:<ListQuotationItems/>,
   },
   {
     title: "Customer",
