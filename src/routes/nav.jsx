@@ -26,6 +26,7 @@ import ListPrinters from "../pages/ListPrinters";
 import { BiPrinter } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import ListCustomers from "../pages/ListCustomers";
+import ListQuotations from "../pages/ListQuotations";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -49,7 +50,7 @@ export const DASHBOARD_SIDEBAR = [
     icon: <LiaFileInvoiceSolid color="rgb(80 7 36)" />,
     sidebar: true,
     object:'Quotation',
-    element: <h3>Qutation</h3>,
+    element:<ListQuotations/>,
   },
   {
     title: "Customer",

@@ -52,7 +52,7 @@ function CustomerCard({ handleEdit, handleDelete, customer,updatePermission,dele
             <FaEdit />
           </button>
           <button
-            onClick={() => handleDelete(customer)}
+            onClick={() => handleDelete(customer._id)}
             disabled={!deletePermission}
             className="text-pink-900 text-md rounded-lg"
           >

@@ -18,7 +18,7 @@ function CustomerEdit({
   const handleEditSubmit = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(API_URL + `customers/${editCustomer._id}`, {
+    const response = await fetch(API_URL + `customers/edit/${editCustomer._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,8 +73,8 @@ function CustomerEdit({
   };
 
   return (
-    <div className="fixed md:right-0 bottom-14 top-14 overflow-scroll h-full border-2 shadow-md  bg-white flex items-center justify-center">
-      <div className="p-4  w-96">
+    <div className="fixed md:right-0 md:bottom-14 md:top-14 overflow-scroll h-full border-2 shadow-md  bg-white flex items-center justify-center">
+      <div className="p-4 border-2 md:border-0 w-96">
         <ModalHead heading={"Edit Customer"} />
         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center h-full">
         <div className="flex mb-2  relative w-full min-w-[200px]">

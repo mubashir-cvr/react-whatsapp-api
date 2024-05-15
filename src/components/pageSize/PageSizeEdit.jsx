@@ -18,7 +18,7 @@ function PageSizeEdit({
   const handleEditSubmit = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(API_URL + `pageSizes/${editPageSize._id}`, {
+    const response = await fetch(API_URL + `pageSizes/edit/${editPageSize._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

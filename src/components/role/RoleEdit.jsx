@@ -17,7 +17,7 @@ function RoleEdit({
   const handleEditSubmit = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(API_URL + `auth/roles/${editRole._id}`, {
+    const response = await fetch(API_URL + `auth/roles/edit/${editRole._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

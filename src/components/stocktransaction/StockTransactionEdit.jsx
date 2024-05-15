@@ -18,7 +18,7 @@ function StockTransactionEdit({
   const handleEditSubmit = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(API_URL + `stockitems/${editStock._id}`, {
+    const response = await fetch(API_URL + `stockitems/edit/${editStock._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
