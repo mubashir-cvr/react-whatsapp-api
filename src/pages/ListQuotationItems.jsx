@@ -134,25 +134,29 @@ function ListQuotationItems() {
       deleteQuotationItem(quotationItemId);
     }
   };
-  return <div className="flex flex-row h-full w-full">
-<div className="flex flex-1 h-full  border-2">
-  <div className="flex flex-col h-full w-full">
-    <div className="flex h-14 border-2 items-center justify-center">
-      Quotation heading
+  return (
+    <div className="flex flex-row h-full w-full">
+      <div className="flex flex-1 h-full  border-2">
+        <div className="flex flex-col h-full w-full">
+          <div className="flex h-14 border-2 items-center justify-center">
+            Quotation heading
+          </div>
+          <div className="flex h-32 border-2 items-center justify-center">
+            Quotation Form
+          </div>
+          <div className="flex h-full overflow-scroll border-2 items-center justify-center">
+            Quotation Items
+          </div>
+          <div className=" md:hidden flex items-center justify-center  border-2 w-full">
+            Extra
+          </div>
+        </div>
+      </div>
+      <div className="hidden md:flex h-full items-center justify-center  border-2 w-64">
+        Extra
+      </div>
     </div>
-    <div className="flex h-32 border-2 items-center justify-center">
-      Quotation Form
-    </div>
-    <div className="flex h-full overflow-scroll border-2 items-center justify-center">
-      Quotation Items
-    </div>
-  </div>
-</div>
-<div className="flex h-full items-center justify-center  border-2 w-64">
- Extra
-</div>
-
-  </div>;
+  );
   // return (
   //   <div
   //     className="flex h-full w-full overflow-scroll no-scrollbar flex-col items-center"
