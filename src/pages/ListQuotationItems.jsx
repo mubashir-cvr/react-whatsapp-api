@@ -136,18 +136,49 @@ function ListQuotationItems() {
   };
   return (
     <div className="flex flex-row h-full w-full">
-      <div className="flex flex-1 h-full  border-2">
-        <div className="flex flex-col h-full w-full">
-          <div className="flex h-14 border-2 items-center justify-center">
-            Quotation heading
+      <div className="flex flex-1 h-full">
+        <div className="flex  flex-col h-full w-full">
+          <div className="flex border-2 bg-slate-100  items-center justify-center">
+            <div className="flex px-4 py-1 flex-row items-center h-full w-full">
+              <div className="flex min-w-36 h-8 text-pink-900 rounded-lg border justify-center text-sm font-medium items-center bg-white">
+                QN101
+              </div>
+              <div className="hidden md:flex p-2 font-medium w-full justify-end items-center h-full">
+                <div className="flex flex-col w-64 py-2 rounded-lg border bg-white gap-1 items-center h-full">
+                  <div className="flex w-full flex-row gap-1">
+                    <div className="flex w-1/2 text-xs justify-end">Date :</div>
+                    <div className="flex w-1/2 text-xs">12/10/1998</div>
+                  </div>
+                  <div className="flex  w-full flex-row gap-1">
+                    <div className="flex w-1/2  text-xs justify-end">
+                      Cusomer:
+                    </div>
+                    <div className="flex w-1/2 text-xs">Mubashir</div>
+                  </div>
+                  <div className="flex  w-full flex-row gap-1">
+                    <div className="flex w-1/2  text-xs justify-end">
+                      Phone :
+                    </div>
+                    <div className="flex w-1/2 text-xs">9656248731</div>
+                  </div>
+                  <div className="flex  w-full flex-row gap-1">
+                    <div className="flex w-1/2  text-xs justify-end">
+                      Address :
+                    </div>
+                    <div className="flex w-1/2 text-xs">Vazhakkad</div>
+                  </div>
+                </div>
+              </div>
+              <div className="md:hidden flex p-2 text-xs text-pink-900 font-medium w-full justify-end items-center h-full">Mubashir V 9656248731</div>
+            </div>
           </div>
-          <div className="flex h-32 border-2 items-center justify-center">
-            Quotation Form
+          <div className="flex w-full h-32 border-2 items-center justify-center">
+          Quotation Form
           </div>
-          <div className="flex h-full overflow-scroll border-2 items-center justify-center">
+          <div className="flex w-full h-full overflow-scroll border-2 items-center justify-center">
             Quotation Items
           </div>
-          <div className=" md:hidden flex items-center justify-center  border-2 w-full">
+          <div className="md:hidden flex items-center justify-center  border-2 w-full">
             Extra
           </div>
         </div>
