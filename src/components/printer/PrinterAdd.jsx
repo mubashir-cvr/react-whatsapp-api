@@ -120,8 +120,10 @@ function PrinterAdd({ handleModalClose, setPrinters }) {
               Printing Material
             </label>
           </div>
-
-          <div className="flex mb-2  relative w-full min-w-[200px]">
+          <p className="text-gray-400 text-xs w-full">Max plate/printing size</p>
+          <div className="flex border flex-row gap-2 p-1 w-full mb-2 rounded-[7px]">
+          
+          <div className="flex relative w-full min-w-[200px]">
             <input
               type="number"
               placeholder="Length"
@@ -136,7 +138,7 @@ function PrinterAdd({ handleModalClose, setPrinters }) {
             </label>
           </div>
 
-          <div className="flex mb-2  relative w-full min-w-[200px]">
+          <div className="flex   relative w-full min-w-[200px]">
             <input
               type="number"
               placeholder="Breadth"
@@ -149,6 +151,7 @@ function PrinterAdd({ handleModalClose, setPrinters }) {
             <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-400 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-400 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
               Breadth
             </label>
+          </div>
           </div>
 
 
