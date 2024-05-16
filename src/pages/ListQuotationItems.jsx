@@ -199,7 +199,7 @@ function ListQuotationItems() {
                   </div>
                 </div>
               </div>
-              <div className="md:hidden flex text-xs text-pink-900 font-medium w-full justify-end items-center h-full">
+              <div className="md:hidden flex text-xs text-pink-900 font-medium  items-center h-full">
                 {quotation && quotation.customer && quotation.customer.name}
                 {" - "}
                 {quotation &&
