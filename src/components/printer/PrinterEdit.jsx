@@ -73,7 +73,7 @@ function PrinterEdit({
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-slate-50 bg-opacity-50 flex items-center px-1 justify-center">
       <div className="bg-white p-4 border-2 shadow-md ">
         <ModalHead heading={"Edit Size"} />
         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center h-full">
@@ -110,7 +110,7 @@ function PrinterEdit({
           <p className="text-gray-400 text-xs w-full">Max plate/printing size</p>
           <div className="flex border flex-row gap-2 p-1 w-full mb-2 rounded-[7px]">
           
-          <div className="flex relative w-full min-w-[200px]">
+          <div className="flex relative w-1/2 min-w-[100px]">
             <input
               type="number"
               placeholder="Length"
@@ -125,7 +125,7 @@ function PrinterEdit({
             </label>
           </div>
 
-          <div className="flex   relative w-full min-w-[200px]">
+          <div className="flex   relative w-1/2 min-w-[100px]">
             <input
               type="number"
               placeholder="Breadth"

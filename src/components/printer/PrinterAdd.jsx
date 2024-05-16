@@ -123,7 +123,7 @@ function PrinterAdd({ handleModalClose, setPrinters }) {
           <p className="text-gray-400 text-xs w-full">Max plate/printing size</p>
           <div className="flex border flex-row gap-2 p-1 w-full mb-2 rounded-[7px]">
           
-          <div className="flex relative w-full min-w-[200px]">
+          <div className="flex relative w-1/2 min-w-[100px]">
             <input
               type="number"
               placeholder="Length"
@@ -138,7 +138,7 @@ function PrinterAdd({ handleModalClose, setPrinters }) {
             </label>
           </div>
 
-          <div className="flex   relative w-full min-w-[200px]">
+          <div className="flex   relative w-1/2 min-w-[100px]">
             <input
               type="number"
               placeholder="Breadth"
