@@ -11,6 +11,7 @@ import { getPermittedActionsOfUserForObject } from "../utils/getUserpersmissions
 function ListQuotationItems() {
   const { quotationID } = useParams();
   const [quotationItem, setQuotationItems] = useState([]);
+  const [quotation, setQuotation] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editQuotationItem, setEditQuotationItem] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -49,7 +50,8 @@ function ListQuotationItems() {
         setQuotationItems([]);
       }
       setMoreLoading(false);
-
+      console.log(jsonResponse.data.quotation);
+      setQuotation(jsonResponse.data.quotation);
       // setQuotationItems((prevItems) => [...prevItems, ...jsonResponse.data]);
       // setLoading(false);
     } catch (error) {
@@ -140,40 +142,74 @@ function ListQuotationItems() {
         <div className="flex  flex-col h-full w-full">
           <div className="flex border-2 bg-slate-100  items-center justify-center">
             <div className="flex px-4 py-1 flex-row items-center h-full w-full">
-              <div className="flex min-w-36 h-8 text-pink-900 rounded-lg border justify-center text-sm font-medium items-center bg-white">
-                QN101
+              <div className="flex min-w-20 md:min-w-36 h-8 text-pink-900 rounded-lg border justify-center text-sm font-medium items-center bg-white">
+                {quotation && quotation.qoutationNumber}
+              </div>
+              <div className="flex w-full justify-center">
+                <div className="flex flex-row items-center justify-center text-pink-900 w-full min-h-12">
+                  <SiPrintables fontSize={24} />
+                  <p className="quantico-regular  px-3">Quotation</p>
+                </div>
               </div>
               <div className="hidden md:flex p-2 font-medium w-full justify-end items-center h-full">
-                <div className="flex flex-col w-64 py-2 rounded-lg border bg-white gap-1 items-center h-full">
-                  <div className="flex w-full flex-row gap-1">
-                    <div className="flex w-1/2 text-xs justify-end">Date :</div>
-                    <div className="flex w-1/2 text-xs">12/10/1998</div>
+                <div className="flex flex-col justify-center  py-2 px-2 w-56 rounded-lg border text-pink-900 bg-white gap-1 items-center h-full">
+                  <div className="flex w-full items-center flex-row gap-1">
+                    <div className="flex w-full items-center justify-center text-xs">
+                      {quotation &&
+                        new Date(quotation.updated_at).toLocaleDateString([], {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        }) +
+                          "-" +
+                          new Date(quotation.updated_at).toLocaleTimeString(
+                            [],
+                            {
+                              hour: "numeric",
+                              minute: "numeric",
+                              hour12: true,
+                            }
+                          )}
+                    </div>
                   </div>
                   <div className="flex  w-full flex-row gap-1">
-                    <div className="flex w-1/2  text-xs justify-end">
-                      Cusomer:
+                    <div className="flex w-1/3 text-xs ">Customer </div>
+                    <div className="flex  text-xs justify-center">: </div>
+                    <div className="flex w-1/3 text-xs">
+                      {quotation &&
+                        quotation.customer &&
+                        quotation.customer.name}
                     </div>
-                    <div className="flex w-1/2 text-xs">Mubashir</div>
                   </div>
                   <div className="flex  w-full flex-row gap-1">
-                    <div className="flex w-1/2  text-xs justify-end">
-                      Phone :
+                    <div className="flex w-1/3 text-xs ">Phone </div>
+                    <div className="flex  text-xs justify-center">: </div>
+                    <div className="flex w-1/3 text-xs">
+                      {quotation &&
+                        quotation.customer &&
+                        quotation.customer.phoneNumber}
                     </div>
-                    <div className="flex w-1/2 text-xs">9656248731</div>
                   </div>
                   <div className="flex  w-full flex-row gap-1">
-                    <div className="flex w-1/2  text-xs justify-end">
-                      Address :
+                    <div className="flex w-1/3 text-xs ">Address </div>
+                    <div className="flex text-xs justify-center">: </div>
+                    <div className="flex w-1/3 text-xs">
+                      {quotation && quotation.customer && quotation.address}
                     </div>
-                    <div className="flex w-1/2 text-xs">Vazhakkad</div>
                   </div>
                 </div>
               </div>
-              <div className="md:hidden flex p-2 text-xs text-pink-900 font-medium w-full justify-end items-center h-full">Mubashir V 9656248731</div>
+              <div className="md:hidden flex text-xs text-pink-900 font-medium w-full justify-end items-center h-full">
+                {quotation && quotation.customer && quotation.customer.name}
+                {" - "}
+                {quotation &&
+                  quotation.customer &&
+                  quotation.customer.phoneNumber}
+              </div>
             </div>
           </div>
           <div className="flex w-full h-32 border-2 items-center justify-center">
-          Quotation Form
+            Quotation Form
           </div>
           <div className="flex w-full h-full overflow-scroll border-2 items-center justify-center">
             Quotation Items
