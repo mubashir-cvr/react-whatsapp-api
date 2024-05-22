@@ -14,7 +14,6 @@ function QuotationAdd({ handleModalClose, setQuotations }) {
   const firstInputRef = useRef(null);
   const lastInputRef = useRef(null);
   const handleInputChange = (selectedOption) => {
-    console.log(selectedOption)
     setNewQuotation({customer: selectedOption });
 
     console.log(newQuotation)

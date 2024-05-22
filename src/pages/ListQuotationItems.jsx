@@ -137,7 +137,7 @@ function ListQuotationItems() {
     }
   };
   return (
-    <div className="flex flex-row h-full w-full">
+    <div className="flex flex-row h-full w-full ">
       <div className="flex flex-1 h-full">
         <div className="flex  flex-col h-full w-full">
           <div className="flex border-2 bg-slate-100  items-center justify-center">
@@ -208,11 +208,11 @@ function ListQuotationItems() {
               </div>
             </div>
           </div>
-          <div className="flex w-full h-32 border-2 items-center justify-center">
-            Quotation Form
+          <div className="flex w-full md:min-h-32 border-2 items-center justify-center p-2">
+            <QuotationItemAdd/>
           </div>
-          <div className="flex w-full h-full overflow-scroll border-2 items-center justify-center">
-            Quotation Items
+          <div className="flex w-full flex-col h-full overflow-y-scroll  border-2 items-center justify-center">
+         
           </div>
           <div className="md:hidden flex items-center justify-center  border-2 w-full">
             Extra
