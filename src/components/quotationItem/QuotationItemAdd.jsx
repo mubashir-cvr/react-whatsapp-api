@@ -4,7 +4,11 @@ import { API_URL } from "../../const/env_constant";
 import { IoMdAdd } from "react-icons/io";
 import { RxReset } from "react-icons/rx";
 API_URL;
-function QuotationItemAdd() {
+function QuotationItemAdd({
+  quotationID,
+  setSelectedPrinters,
+  selPrinters
+}) {
   const items = [{ name: "Printing" }, { name: "Design" }, { name: "Other" }];
 
   const [pageSizes, setPageSizes] = useState([]);
@@ -17,7 +21,9 @@ function QuotationItemAdd() {
   const [newQuotationItem, setNewQuotationItem] = useState({
     item: "",
     size: "",
+    gsm: "",
     count: "",
+    testcount: "",
     printer: "",
     amount: "",
   });
@@ -30,7 +36,22 @@ function QuotationItemAdd() {
         },
       });
       const jsonResponse = await response.json();
-      setPageSizes(jsonResponse.data);
+      if (jsonResponse.data.length >= 1) {
+        setPageSizes(jsonResponse.data);
+      } else {
+        const lengthAndBreadth = search.split(/x|X/);
+        if (lengthAndBreadth.length == 2) {
+          setNewQuotationItem({
+            ...newQuotationItem,
+            ["size"]: {
+              _id: "custom",
+              name: lengthAndBreadth[0] + "X" + lengthAndBreadth[1],
+              dimention_length: lengthAndBreadth[0],
+              dimention_breadth: lengthAndBreadth[1],
+            },
+          });
+        }
+      }
     }
   };
   const searchSize = (value) => {
@@ -58,15 +79,21 @@ function QuotationItemAdd() {
     firstInputRef.current.focus();
   }, []);
   const handleItemChange = (selectedOption) => {
+    console.log(selectedOption);
     setNewQuotationItem({ ...newQuotationItem, ["item"]: selectedOption });
+  };
+  const handlePrinterChange = (selectedOption) => {
+    setNewQuotationItem({ ...newQuotationItem, ["printer"]: selectedOption });
   };
   const handleSizeChange = (selectedOption) => {
     setNewQuotationItem({ ...newQuotationItem, ["size"]: selectedOption });
   };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewQuotationItem({ ...newQuotationItem, [name]: value });
+  };
   const handleKeyDownselect = (event) => {
     if (event.key === "Enter") {
-   
-    
       if (event.target === lastInputRef.current) {
         handleSubmit();
       } else {
@@ -91,6 +118,82 @@ function QuotationItemAdd() {
         }
       }
     }
+  };
+  const handlePartialSubmit = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(API_URL + `quotations/add/${quotationID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newQuotationItem),
+    });
+    if (response.ok) {
+      const responseQuotationItem = await response.json();
+      const slectedPrinters = responseQuotationItem;
+      console.log("response :", responseQuotationItem);
+      setSelectedPrinters([])
+      storeSelectedPrinters(slectedPrinters);
+    } else {
+      console.error("Failed to add stock");
+    }
+  };
+
+  const storeSelectedPrinters = (selectedPrinters) => {
+    selectedPrinters.forEach((selectedPrinter) => {
+      let pLength = 0;
+      let pBreadth = 0;
+      let vLength = 0;
+      let vLengthP = 0;
+      let vWaste = 0;
+      let vWasteP = 0;
+      let vCount = 0;
+      let hLength = 0;
+      let hLengthP = 0;
+      let hWaste = 0;
+      let hWasteP = 0;
+      let hCount = 0;
+    
+      vWaste = selectedPrinter.printLayout.dawnWaste;
+      vWasteP = Math.ceil((vWaste * 100) / selectedPrinter.printer.maxBreadth);
+      vLength = selectedPrinter.printLayout.dawnLength;
+      vLengthP = 100 - vWasteP;
+    
+      vCount = selectedPrinter.printLayout.dawnCount;
+      hWaste = selectedPrinter.printLayout.rightWaste;
+      hWasteP = Math.ceil((hWaste * 100) / selectedPrinter.printer.maxBreadth);
+      hLength = selectedPrinter.printLayout.rightLength;
+      hLengthP = 100 - hWasteP;
+      hCount = selectedPrinter.printLayout.rightCount;
+      let printerAndDetails = {
+        printer: selectedPrinter.printer,
+        pageLayout: {
+          vLength,
+          vLengthP,
+          vWaste,
+          vWasteP,
+          vCount,
+          hLength,
+          hLengthP,
+          hWaste,
+          hWasteP,
+          hCount,
+          
+        },
+        amount: selectedPrinter.amount,
+      };
+      setSelectedPrinters([printerAndDetails, ...selPrinters]);
+    });
+    
+    
+    
   };
   return (
     <div className="w-full">
@@ -146,19 +249,49 @@ function QuotationItemAdd() {
             Size
           </label>
         </div>
+
+        <div className="flex mb-2  relative w-full  md:max-w-[100px]">
+          <input
+            type="number"
+            placeholder="GSM"
+            className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-2 bg-transparent px-3 py-2.5 font-sans text-md font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-2 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:border-t-2 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
+            name="gsm"
+            value={newQuotationItem.gsm}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-400 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-400 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+            GSM
+          </label>
+        </div>
+
         <div className="flex mb-2  relative w-full  md:max-w-[100px]">
           <input
             type="number"
             placeholder="Count"
             className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-2 bg-transparent px-3 py-2.5 font-sans text-md font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-2 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:border-t-2 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
             name="count"
-            // value={newPageSize.name}
-            // ref={firstInputRef}
-            // onChange={handleInputChange}
+            value={newQuotationItem.count}
+            onChange={handleInputChange}
             onKeyDown={handleKeyDown}
           />
           <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-400 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-400 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
             No of print
+          </label>
+        </div>
+
+        <div className="flex mb-2  relative w-full  md:max-w-[100px]">
+          <input
+            type="number"
+            placeholder="Count"
+            className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-2 bg-transparent px-3 py-2.5 font-sans text-md font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-2 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:border-t-2 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
+            name="testcount"
+            value={newQuotationItem.testcount}
+            onChange={handleInputChange}
+            onKeyDown={handlePartialSubmit}
+          />
+          <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-400 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-400 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+            Test count
           </label>
         </div>
 
@@ -174,11 +307,11 @@ function QuotationItemAdd() {
               IndicatorSeparator: () => null,
             }}
             className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-2 bg-transparent  font-sans text-md font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-2 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:border-t-2 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
-            // value={newQuotation.customer}
-            // onChange={handleInputChange}
+            value={newQuotationItem.testcount}
+            onChange={handlePrinterChange}
             onKeyDown={handleKeyDownselect}
-            onInputChange={searchSize}
-            // ref={lastInputRef}
+            onInputChange={searchPrinter}
+            //
           />
 
           <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-400 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-400 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -192,10 +325,10 @@ function QuotationItemAdd() {
             placeholder="Amount"
             className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-2 bg-transparent px-3 py-2.5 font-sans text-md font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-2 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:border-t-2 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
             name="amount"
-            // value={newPageSize.name}
-            // ref={firstInputRef}
-            // onChange={handleInputChange}
-            // onKeyDown={handleKeyDown}
+            value={newQuotationItem.amount}
+            onChange={handleInputChange}
+            ref={lastInputRef}
+            onKeyDown={handleKeyDown}
           />
           <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-400 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-400 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
             Amount

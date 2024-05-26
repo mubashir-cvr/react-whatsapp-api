@@ -57,6 +57,8 @@ function QuotationAdd({ handleModalClose, setQuotations }) {
       const createdQuotation = await response.json();
 
       console.log(createdQuotation)
+
+      window.location.href=`/#/quotation/${createdQuotation.data._id}`
       setQuotations((previosQuotations) => [
         ...previosQuotations,
         createdQuotation.data,

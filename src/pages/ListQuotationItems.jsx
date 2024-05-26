@@ -8,6 +8,7 @@ import { SiPrintables } from "react-icons/si";
 import SearchItems from "../components/common/SearchItems";
 import { useParams } from "react-router-dom";
 import { getPermittedActionsOfUserForObject } from "../utils/getUserpersmissions";
+import PageLayout from "../components/quotationItem/PageLayout";
 function ListQuotationItems() {
   const { quotationID } = useParams();
   const [quotationItem, setQuotationItems] = useState([]);
@@ -19,7 +20,11 @@ function ListQuotationItems() {
   const [isMoreLoading, setMoreLoading] = useState(false);
   const [isNextPage, setIsNextPage] = useState(true);
   const listInnerRef = useRef();
-
+  const [isVerticalWaste, setIsVerticalWaste] = useState(false);
+  const [isHorizontalWaste, setIsHorizontalWaste] = useState(false);
+  const [selectedPrinters, setSelectedPrinters] = useState([]);
+  const [isPrintLayout, setIsPrintLayout] = useState(false);
+  const [printLayout, setPrintLayout] = useState(null);
   const { createPermission, updatePermission, deletePermission } =
     getPermittedActionsOfUserForObject("QuotationItem");
   let add_button = createPermission
@@ -29,6 +34,11 @@ function ListQuotationItems() {
   useEffect(() => {
     fetchQuotationItems(1);
   }, []);
+
+  useEffect(() => {
+    setPrintLayout(selectedPrinters[0]);
+    console.log("PrintLayout", printLayout);
+  }, [selectedPrinters]);
 
   const fetchQuotationItems = async (page) => {
     try {
@@ -136,6 +146,7 @@ function ListQuotationItems() {
       deleteQuotationItem(quotationItemId);
     }
   };
+
   return (
     <div className="flex flex-row h-full w-full ">
       <div className="flex flex-1 h-full">
@@ -209,18 +220,89 @@ function ListQuotationItems() {
             </div>
           </div>
           <div className="flex w-full md:min-h-32 border-2 items-center justify-center p-2">
-            <QuotationItemAdd/>
+            <QuotationItemAdd
+              quotationID={quotationID}
+              setSelectedPrinters={setSelectedPrinters}
+              selPrinters={selectedPrinters}
+              setPrintLayout={setPrintLayout}
+              setIsPrintLayout={setIsPrintLayout}
+            />
           </div>
-          <div className="flex w-full flex-col h-full overflow-y-scroll  border-2 items-center justify-center">
-         
-          </div>
+          <div className="flex w-full flex-col h-full overflow-y-scroll  border-2 items-center justify-center"></div>
           <div className="md:hidden flex items-center justify-center  border-2 w-full">
             Extra
           </div>
         </div>
       </div>
-      <div className="hidden md:flex h-full items-center justify-center  border-2 w-64">
-        Extra
+      <div className="hidden p-2 md:flex h-full items-center justify-center border-2 w-64">
+        {printLayout && (
+          <div className="flex flex-col w-full h-full justify-start">
+            <div className="flex w-full flex-row h-6 text-xs items-center justify-start">
+              <div className="flex w-1/12 h-full"></div>
+              {printLayout.pageLayout.hWaste > 0 ? (
+                <>
+                  <div
+                    className={`flex items-center justify-center border-b border-green-500 font-medium text-green-500 flex-1`}
+                  >
+                    {printLayout.pageLayout.hLength}
+                  </div>
+                  <div
+                    className={`flex w-[${printLayout.pageLayout.hWasteP}%] border-b border-red-500 text-red-500 font-medium text-xs items-center justify-center`}
+                  >
+                    {printLayout.pageLayout.hWaste}
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center justify-center border-b border-green-500 font-medium text-green-500 flex-1">
+                  {printLayout.pageLayout.hLength}
+                </div>
+              )}
+            </div>
+            <div className="flex flex-row h-[40%]  w-full justify-center">
+              <div className="flex  w-1/12 h-92 pr-1 text-xs font-medium items-center justify-center">
+                {printLayout.pageLayout.vWaste > 0 ? (
+                  <>
+                    <div className="flex h-full w-full flex-col items-center justify-center">
+                      <div className="flex w-full flex-1 border-r border-green-500 items-center justify-center">
+                        {printLayout.pageLayout.vLength}
+                      </div>
+                      <div
+                        className={`flex items-center justify-center border-r font-medium border-red-500 text-red-500 h-[${printLayout.pageLayout.vWasteP}%] w-full`}
+                      >
+                        {printLayout.pageLayout.vWaste}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex w-full h-full border-r border-green-500 font-medium text-green-500 items-center justify-center">
+                    {printLayout.pageLayout.vLength}
+                  </div>
+                )}
+              </div>
+              <div className="flex  w-11/12 h-full text-xs items-start justify-start">
+                <div className="flex flex-col h-full w-full">
+                  <div className="flex flex-1 w-full justify-center items-center">
+                    <div className="flex h-full w-full flex-row">
+                      <div className="flex flex-col border flex-1 justify-between items-start">
+                        <PageLayout vCount={printLayout.pageLayout.vCount} hCount={printLayout.pageLayout.hCount} />
+                      </div>
+                      {printLayout.pageLayout.hWaste > 0 && (
+                        <div className={`flex w-[${printLayout.pageLayout.hWasteP}%] bg-red-100 font-medium text-xs items-center justify-center`}>{printLayout.pageLayout.hWaste}</div>
+                      )}
+                    </div>
+                  </div>
+                  {printLayout.pageLayout.vWaste > 0 && (
+                    <div
+                      className={`flex w-full h-[${printLayout.pageLayout.vWasteP}%] bg-red-100 justify-center items-center`}
+                    >
+                      {printLayout.pageLayout.vWaste}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
