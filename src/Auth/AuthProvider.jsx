@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
           if (cachedAt) {
             const currentDate = new Date();
             const storedDate = new Date(cachedAt);
-              console.log(currentDate)
             if (storedDate == currentDate) {
               return;
             }

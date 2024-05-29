@@ -28,6 +28,7 @@ import { BiPrinter } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import ListCustomers from "../pages/ListCustomers";
 import ListQuotations from "../pages/ListQuotations";
+import PageLayout from "../components/quotationItem/PageLayout";
 export const DASHBOARD_SIDEBAR = [
   {
     title: "Home",
@@ -75,7 +76,7 @@ export const DASHBOARD_SIDEBAR = [
     icon: <RiRadioLine color="rgb(80 7 36)" />,
     sidebar: true,
     object:'',
-    element: <h3>Classes</h3>,
+    element: <PageLayout/>
   },
 ];
 

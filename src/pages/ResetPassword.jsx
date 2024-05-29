@@ -45,7 +45,6 @@ function ResetPassword() {
                 }));
               });
             }
-            console.log(errorResponse);
           });
         } else {
           response.json().then((errorResponse) => {

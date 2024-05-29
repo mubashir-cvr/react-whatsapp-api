@@ -28,8 +28,7 @@ function CustomerEdit({
     });
     if (response.ok) {
       const updatedCustomer = await response.json();
-      console.log("response");
-      console.log(updatedCustomer);
+    
       setCustomers(
         customers.map((customer) =>
           customer._id === updatedCustomer.data._id
