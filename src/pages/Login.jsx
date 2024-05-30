@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { SiPrintables } from "react-icons/si";
 import { API_URL } from "../const/env_constant";
-
+import { useNavigate, useLocation } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,7 +31,7 @@ function Login() {
         const data = await response.json();
         localStorage.setItem("token", data.data[0].token);
         localStorage.removeItem('user');
-        window.location.href = "/";
+        navigate(from, { replace: true });
       } else {
         let error;
         try {

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import Loading from "../utils/Loading";
 import { API_URL } from "../const/env_constant";
 
@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -46,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         const responseData = await response.json();
 
         if (response.status === 401) {
-          navigate("/login");
+          navigate("/login", { state: { from: location.pathname } });
         }
 
         if (!response.ok) {
@@ -73,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Authentication failed:" + error.message);
         if (error.statusCode === 401) {
-          navigate("/login");
+          navigate("/login", { state: { from: location.pathname } });
         } else {
           alert(error.message);
           navigate("/error");
