@@ -86,6 +86,7 @@ function QuotationItemAdd({
     setNewQuotationItem({ ...newQuotationItem, ["item"]: selectedOption });
   };
   const handlePrinterChange = (selectedOption) => {
+    console.log(selectedOption)
     setNewQuotationItem({ ...newQuotationItem, ["printer"]: selectedOption });
   };
   const handleSizeChange = (selectedOption) => {
@@ -145,15 +146,14 @@ function QuotationItemAdd({
       const responseData = await response.json();
       setPrintLayout(responseData.data.layout);
       setSelectedPrinter(responseData.data.selectedPrinter);
-      console.log(responseData.data);
+      console.log("Selected Printer",responseData.data.selectedPrinter);
       setNewQuotationItem({
         ...newQuotationItem,
-        ["printer"]: responseData.data.selectedPrinter,
+        printer: responseData.data.selectedPrinter,
+        amount: responseData.data.layout.printingCost,
       });
-      setNewQuotationItem({
-        ...newQuotationItem,
-        ["amount"]: responseData.data.layout.printingCost,
-      });
+
+      console.log(newQuotationItem)
       const logoutTimeout = setTimeout(() => {
         setIsInfoLoading(false);
         setIsInfoVisible(true);
