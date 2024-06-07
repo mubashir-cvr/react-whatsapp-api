@@ -4,7 +4,7 @@ import { MdCancel } from "react-icons/md";
 import { API_URL } from "../../const/env_constant";
 import ModalHead from "../common/ModalHead";
 
-function CustomerAdd({ handleModalClose, setCustomers }) {
+function CustomerAdd({ handleModalClose, setCustomers,getCreatedCustomer }) {
   const [newCustomer, setNewCustomer] = useState({
     name: "",
     phoneNumber: "",
@@ -36,6 +36,9 @@ function CustomerAdd({ handleModalClose, setCustomers }) {
     });
     if (response.ok) {
       const createdCustomer = await response.json();
+      if(getCreatedCustomer){
+        getCreatedCustomer(createdCustomer.data)
+      }
       setCustomers((previosCustomers) => [
         ...previosCustomers,
         createdCustomer.data,

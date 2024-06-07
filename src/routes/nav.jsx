@@ -70,14 +70,6 @@ export const DASHBOARD_SIDEBAR = [
     object:'Customer',
     element: <ListCustomers/>,
   },
-  {
-    title: "Classes",
-    to: "classes",
-    icon: <RiRadioLine color="rgb(80 7 36)" />,
-    sidebar: true,
-    object:'',
-    element: <PageLayout/>
-  },
 ];
 
 export const DASHBOARD_SIDEBAR_SEC = [

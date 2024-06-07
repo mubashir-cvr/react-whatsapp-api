@@ -44,7 +44,7 @@ function ListStockItems() {
         setStockItems([]);
       }
       setMoreLoading(false);
-
+      console.log(jsonResponse.data)
       setStockItems((prevItems) => [...prevItems, ...jsonResponse.data]);
       setLoading(false);
     } catch (error) {

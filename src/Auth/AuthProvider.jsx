@@ -22,20 +22,22 @@ export const AuthProvider = ({ children }) => {
         const cachedUserPermission = localStorage.getItem("userPermissions");
 
         if (cachedUser && cachedUserPermission) {
-          setUser(JSON.parse(cachedUser));
-          setUserPermissions(JSON.parse(cachedUserPermission));
-
-          setIsLoading(false);
-
           // Check if there is a stored date
           const cachedAt = localStorage.getItem("cachedAt");
           if (cachedAt) {
             const currentDate = new Date();
             const storedDate = new Date(cachedAt);
             if (storedDate == currentDate) {
+              setUser(JSON.parse(cachedUser));
+              setUserPermissions(JSON.parse(cachedUserPermission));
+    
+              setIsLoading(false);
+    
               return;
             }
           }
+         
+          
         }
 
         const response = await fetch(API_URL + "auth/checkauth/", {
